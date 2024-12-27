@@ -61,6 +61,9 @@ export class AppComponent {
   title = 'Vendricom';
   layoutStyle: string = "default";
   deviceInfo: any = null
+  isChatOpen: boolean = false;
+
+ 
   constructor(
     private deviceService: DeviceDetectorService,
     public script: ScriptService,
@@ -204,6 +207,9 @@ export class AppComponent {
           console.error(error); // Manejo de errores si la solicitud falla
         }
       );
+    }
+    toggleChat() {
+      this.isChatOpen = !this.isChatOpen;
     }
     setSelectedTema(tema:any){
       this.global.selectedTema=tema;

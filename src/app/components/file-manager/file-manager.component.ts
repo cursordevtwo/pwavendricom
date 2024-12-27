@@ -18,6 +18,7 @@ import {
 import { CommonModule } from '@angular/common';
 import { DataApiService } from '@app/services/data-api-service';
 import Swal from 'sweetalert2';
+import { FilterByRepositorioPipe } from '@app/pipes/filter-by-repositorio.pipe';
 
 interface DocumentInterface {
   id?: string;
@@ -42,6 +43,7 @@ interface DocumentInterface {
     FormsModule,
     NgMultiSelectDropDownModule,
   ],
+  providers: [FilterByRepositorioPipe],
   templateUrl: './file-manager.component.html',
   styleUrl: './file-manager.component.css',
 })
@@ -80,6 +82,7 @@ docummentSelected: DocumentInterface = {
 };
   dropdownSettings: IDropdownSettings = {};
   formData: any = {};
+  showDocuments: boolean = false;
   public filteredTemas: any[] = []; // para almacenar los temas filtrados
 
   public captions: UploaderCaptions = {
@@ -120,10 +123,10 @@ docummentSelected: DocumentInterface = {
       singleSelection: false,
       idField: 'id',
       textField: 'name',
-      selectAllText: 'Seleccionar todo',
-      unSelectAllText: 'Deseleccionar todo',
+      selectAllText: 'Seleccionar Todo',
+      unSelectAllText: 'Deseleccionar Todo',
       itemsShowLimit: 3,
-      allowSearchFilter: true,
+      allowSearchFilter: true
     };
   }
   
@@ -140,12 +143,21 @@ docummentSelected: DocumentInterface = {
     
     this.docummentSelected=selected;
   }
-
+  viewAllDocuments(){
+    this.showDocuments = false;
+    this.global.filteredDocuments = this.global.documents;
+  }
   ngOnInit(): void {
     const currentYear = new Date().getFullYear();
     for (let i = 0; i < 40; i++) {
       this.years.push(currentYear - i);
     }
+    
+    // Asegúrate que global.filteredTemas tenga datos
+    console.log('Temas:', this.global.filteredTemas);
+    
+    // Verifica si temaSelected está establecido
+    console.log('Tema seleccionado:', this.global.temaSelected);
   }
   onCategoryChange(selectedCategory: any): void {
     if (selectedCategory && selectedCategory.length > 0) {
@@ -175,7 +187,27 @@ docummentSelected: DocumentInterface = {
     }
   }
   
-  
+  viewRepositorio(repositorio: any) {
+    this.showDocuments = true;
+    if (repositorio && repositorio.id) {
+      // Filter documents that belong to the selected repository
+      this.global.filteredDocuments = this.global.documents.filter(doc => 
+        doc.repositorios.some((repo: any) => repo.id === repositorio.id)
+      );
+      
+      if (this.global.filteredDocuments.length === 0) {
+        Swal.fire({
+          title: 'Info',
+          text: 'No se encontraron documentos en este repositorio',
+          icon: 'info',
+          confirmButtonText: 'OK'
+        });
+      }
+    } else {
+      // If no repository is selected, show all documents
+      this.global.filteredDocuments = this.global.documents;
+    }
+  }
   filterRepositoriosByCategory() {
     if (this.selectedCategory) {
       this.global.filteredRepositorios = this.global.repositorios.filter(repo => 

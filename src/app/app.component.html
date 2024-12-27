@@ -22,53 +22,18 @@
   <app-login [hidden]="virtualRouter.routerActive!=='login'"></app-login>
   <app-register [hidden]="virtualRouter.routerActive!=='register'"></app-register>
 </div>
-<div class="modal fade" id="add_fav_board" tabindex="-1" role="dialog">
-  <div class="modal-dialog modal-dialog-centered mw-400p" role="document">
-    <div class="modal-content">
-      <div class="modal-header header-wth-bg-inv">
-        <h5 class="modal-title">Agregar {{global.modaltitle}}</h5>
-        <button type="button" class="btn-close text-white" data-bs-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">×</span>
-        </button>
-      </div>
-      <div class="modal-body p-0">
-        <div>
-          <div data-simplebar class="nicescroll-bar h-350p">
-            
-            <div style="display: flex; align-items: center;">
-              <input type="text" [hidden]="global.modaltitle!='categoria'"  style=" max-width: 50%; height: 50px;" [(ngModel)]="global.newCategory" class="form-control" placeholder="Nombre de la categoría">
-              <input type="text"  [hidden]="global.modaltitle!='tema'" style=" max-width: 50%; height: 50px;" [(ngModel)]="global.newTema" class="form-control" placeholder="Nombre del tema">
-              <input type="text"  [hidden]="global.modaltitle!='repositorio'" style=" max-width: 50%; height: 50px;" [(ngModel)]="global.newRepositorio" class="form-control" placeholder="Nombre del repositorio">
 
-              <!-- <span class="btn btn-default btn-lg" style="margin-left: 10px;" (click)="global.saveCategory()">Guardar</span> -->
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="modal-footer justify-content-center">
-        <button type="button" class="btn flex-fill btn-light flex-1" data-bs-dismiss="modal">Cancelar</button>
-        <button type="button" [hidden]="global.modaltitle!='categoria'" class="btn flex-fill btn-primary flex-1" data-bs-dismiss="modal" (click)="global.saveCategory()">Guardar</button>
-        <button type="button" [hidden]="global.modaltitle!='tema'" class="btn flex-fill btn-primary flex-1" data-bs-dismiss="modal" (click)="global.saveTema()">Guardar</button>
-        <button type="button" [hidden]="global.modaltitle!='repositorio'" class="btn flex-fill btn-primary flex-1" data-bs-dismiss="modal" (click)="global.saveRepositorio()">Guardar</button>
-      </div>
-    </div>
-  </div>
-</div>
 
-<div class="hk-chatbot-popup d-md-block d-flex">
+<div class="hk-chatbot-popup d-md-block d-flex" 
+     [hidden]="global.chatbot==='false' || !isChatOpen"
+     [ngClass]="{'d-none': !isChatOpen}">
   <header>
       <div class="chatbot-head-top">
           <a class="btn btn-sm btn-icon btn-dark btn-rounded" href="javascript:void(0);" data-bs-toggle="dropdown"
               aria-haspopup="true" aria-expanded="false">
               <span class="icon"><span class="feather-icon"><i data-feather="more-horizontal"></i></span></span>
           </a>
-          <!-- <div class="dropdown-menu">
-              <a class="dropdown-item" href="#"><i
-                      class="dropdown-icon zmdi zmdi-notifications-active"></i><span>Send push
-                      notifications</span></a>
-              <a class="dropdown-item" href="#"><i class="dropdown-icon zmdi zmdi-volume-off"></i><span>Mute
-                      Chat</span></a>
-          </div> -->
+          
           <span class="text-white">Chatea con nosotros</span>
           <a id="minimize_chatbot" href="javascript:void(0);" class="btn btn-sm btn-icon btn-dark btn-rounded">
               <span class="icon"><span class="feather-icon"><i data-feather="minus"></i></span></span>
@@ -216,10 +181,11 @@
                   src="assets/jampack/dist/img/logo-light.png" alt="logo-brand"></a></div>
   </footer>
 </div>
-<a href="#" class="btn btn-icon btn-floating btn-primary btn-lg btn-rounded btn-popup-open">
-  <span class="icon">
-      <span class="feather-icon"><i data-feather="message-circle"></i></span>
-  </span>
+<a class="btn btn-icon btn-floating btn-primary btn-lg btn-rounded btn-popup-open" 
+   (click)="toggleChat()">
+   <span class="icon">
+       <span class="feather-icon"><i data-feather="message-circle"></i></span>
+   </span>
 </a>
 <div class="chat-popover shadow-xl">
   <p>Chatea con nosotros y recibe asesoramiento en cualquier tema de tu interés!</p>

@@ -11,7 +11,7 @@
                             <div class="dropdown">
                                 <a class="contactapp-title dropdown-toggle link-dark" data-bs-toggle="dropdown" href="#"
                                     role="button" aria-haspopup="true" aria-expanded="false">
-                                    <h1>Clientes</h1>
+                                    <h1>Clientes de vendricom</h1>
                                 </a>
 
                             </div>
@@ -197,14 +197,16 @@
                                 </div>
 
                                 <!-- Lista de clientes operadores -->
+                                <h1 style="font-size: 20px; font-weight: bold;">Clientes de la empresa</h1>
+
                                 <div
                                     class="row gx-3 row-cols-xxl-5 row-cols-xl-4 row-cols-lg-3 row-cols-md-2 row-cols-1 mb-5">
                                     <div class="col" *ngFor="let clienteOperador of globalService.clientesOperadores">
                                         <div class="card card-border contact-card"
                                             style="border-radius: 10px 30px; background: #d8d8d8;">
                                             <div class="card-body text-center">
-                                                <div class="user-name" style="background:#582e6d; color: #fff;">
-                                                    {{clienteOperador.NombreOperador}}</div>
+                                                <div class="user-name" style="background:#582e6d; color: #fff; border-radius: 10px;">
+                                                    {{clienteOperador.NombreOperador | slice:0:10}}{{clienteOperador.NombreOperador.length > 15 ? '...' : ''}}</div>
                                                 <div class="user-email">{{clienteOperador.Email}}</div>
                                                 <div class="user-contact">{{clienteOperador.Telefono}}</div>
 

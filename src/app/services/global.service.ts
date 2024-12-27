@@ -11,6 +11,8 @@ import { Apollo, gql } from 'apollo-angular';
 import { PocketAuthService } from '@services/pocket-auth.service';
 import { ImageUploadService } from '@services/image-upload.service';
 import { Butler } from './butler.service';
+import Swal from 'sweetalert2';
+
 interface Tema {
   id: string;
   name: string;
@@ -99,7 +101,6 @@ export class GlobalService {
   private apirestUrl = 'https://db.buckapi.com:8090/api/';
   private apirestUrlClientes = 'https://db.vendricom.com:8091/api/';
   clientes: any[] = [];
-
   documents: any[] = [];
   filteredDocuments: any[] = [];
   normativas: any[] = [];
@@ -115,25 +116,17 @@ export class GlobalService {
   categorySelected: any = false;
   repositorioSelected: any = false;
   temaSelected: any = false;
-
   configs: any[] = [];
-  // selectedTema="";
   status:string="";
   info: any[] = [];
-
   selectedTema: any = "";
   selectedYear: number | null = null;
-  
-  
-  // selectedTema: any = null;
-  // selectedYear: any = null;
   searchQuery: string = '';
   selectedCategory: string = '';
   selectedRepositorio: any = "";
-  selectedCategoryId: any = "";// Para guardar el id de la categoría seleccionada
-  // selectedTema: string = '';
+  selectedCategoryId: any = "";
+  seelectedTema:any = "";
   searchText: string = '';
-  
   categories: any[] = [];
   temas: any[] = [];
   repositorios: any[] = [];
@@ -141,7 +134,6 @@ export class GlobalService {
   filteredRepositorios: any[] = [];
   filteredCategories: any[] = [];
   filteredTemas: any[] = [];
-
   currentPage: number = 1;
   clients: any;
   device: string = '';
@@ -149,18 +141,23 @@ export class GlobalService {
   ordersSize = 0;
   indentity:any={name:"name",email:"email"};
   selectedFile: File | null = null;
-  modaltitle="Modal";
+  modaltitle:string = "Modal";
   docummentSelected={};
   newCategory:any;
-  newTema:any;
   newRepositorio:any;
+  newTemaGeneral:any;
   clientDetail: { clrepresentante: any }[] = [];
-  /* clientesOperadores: any[] = [];
-  filteredClientesOperadores: any[] = []; */
+  newTema: string = '';
+  selectedRepositorioId: any = null;
   clientesOperadores: ClienteOperador[] = [];
   clienteOperador: ClienteOperador | null = null; // Para manejar un cliente individual
-
-  
+  chatbot: string = 'false';
+  selectedCategoryForRepo: any = null; // Agregar esta propiedad
+  data = {
+    categories: [] as any[],
+    repositorios: [] as any[],
+    temas: [] as any[]
+  };
   constructor(
     private apollo: Apollo,
     public catalogo: Catalogo,
@@ -173,14 +170,82 @@ export class GlobalService {
     public _butler:Butler,
     private imageUploadService: ImageUploadService
   ) {}
+  dropdownSettingsCategories = {
+    singleSelection: true,
+    idField: 'id',
+    textField: 'name',
+    allowSearchFilter: true
+  };
   
-
-  //################## INICIO FUNCIONES NUEVAS ########################################################################
-  onCategorySelect(item: any) {
-    // Aquí `item` debería ser el objeto de la categoría seleccionada
-    this.selectedCategoryId = item.id;
+  dropdownSettingsRepositorios = {
+    singleSelection: true,
+    idField: 'id',
+    textField: 'name',
+    allowSearchFilter: true
+  };
+  
+  dropdownSettingsTemas = {
+    singleSelection: true,
+    idField: 'id',
+    textField: 'name',
+    allowSearchFilter: true
+  };
+  saveTemaGeneral(){
+    console.log("Tema general guardado correctamente:", JSON.stringify(this.newTemaGeneral));
+  }
+  // Funciones de selección
+  onCategorySelect(category: any) {
+    // Filtrar repositorios basados en la categoría seleccionada
+    this.filteredRepositorios = this.repositorios.filter(
+      repo => repo.idFather === category.id
+    );
+    
+    // Limpiar selecciones dependientes
+    this.repositorios = [];
+    this.temas = [];
+    this.filteredTemas = [];
   }
   
+  onCategoryDeselect() {
+    // Limpiar selecciones y filtros
+    this.filteredRepositorios = [];
+    this.filteredTemas = [];
+    this.getRepositorios().subscribe(
+      (response) => {
+        this.repositorios = response;
+      }
+    );
+  }
+  
+  onRepositorioSelect(repositorio: any) {
+    // Filtrar temas basados en el repositorio seleccionado
+    this.filteredTemas = this.temas.filter(
+      tema => tema.idFather === repositorio.id
+    );
+    // Limpiar selecciones dependientes
+    this.repositorios = [];
+    this.temas = [];
+    this.filteredTemas = [];
+    // Limpiar tema seleccionado
+    /* this.getTemas().subscribe(
+      (response) => {
+        this.temas = response;
+      }
+    ); */
+  }
+  
+  onRepositorioDeselect() {
+    // Limpiar temas
+    this.filteredTemas = [];
+    this.temas = [];
+    this.getTemas().subscribe(
+      (response) => {
+        this.temas = response;
+      }
+    );
+  }
+
+
   getConfig(): Observable<any | boolean> {
     return this.http.get<any>(this.apirestUrl + 'configs').pipe(
       map(response => {
@@ -238,25 +303,65 @@ export class GlobalService {
   }
 
   saveCategory() {
-    let category = { name: this.newCategory };
+    if (!this.newCategory) {
+      Swal.fire({
+        icon: 'warning',
+        title: 'Nombre requerido',
+        text: 'Por favor ingrese un nombre para la categoría'
+      });
+      return;
+    }
 
-    this.dataApiService.saveCategory(category).subscribe(
-      (response) => {
-        console.log("categoria guardada correctamente:", JSON.stringify(response));
-        // Agregar la categoria de la respuesta al array de categorias
+    const category = {
+      name: this.newCategory
+    };
+
+    this.dataApiService.saveCategory(category).subscribe({
+      next: (response) => {
         this.categories.push(response);
-        this.categories = [...this.categories];
-
-        // console.log(JSON.stringify(this.yeoman.categorys))
-        // Limpiar los valores para futuros usos
-        this.newCategory = "";
-        // this.activeModal.close();
+        this.newCategory = '';
+        Swal.fire({
+          icon: 'success',
+          title: 'Categoría guardada'
+        });
       },
-      (error) => {
-        console.error("Error al guardar la categoria:", error);
+      error: (error) => {
+        console.error('Error:', error);
+        Swal.fire({
+          icon: 'error',
+          title: 'Error al guardar'
+        });
       }
-    );
+    });
   }
+
+  saveRepositorio() {
+    if (!this.selectedCategoryId || !this.newRepositorio) {
+      Swal.fire({
+        icon: 'warning',
+        title: 'Campos requeridos',
+        text: 'Seleccione una categoría e ingrese nombre del repositorio'
+      });
+      return;
+    }
+
+    const repositorio = {
+      name: this.newRepositorio,
+      idFather: this.selectedCategoryId
+    };
+
+    this.dataApiService.saveRepositorio(repositorio).subscribe({
+      next: (response) => {
+        this.repositorios.push(response);
+        this.newRepositorio = '';
+        Swal.fire({
+          icon: 'success',
+          title: 'Repositorio guardado'
+        });
+      }
+    });
+  }
+
   saveTema() {
     let tema = { name: this.newTema };
 
@@ -277,33 +382,7 @@ export class GlobalService {
       }
     );
   }
-  saveRepositorio() {
-    const idFather = this.selectedCategoryId; // Asegúrate de que esto es el id de la categoría
-    console.log("idFather:", idFather); // Verifica que idFather tiene el valor esperado
   
-    let repositorio = { 
-      name: this.newRepositorio, 
-      idFather: idFather // Asigna el idFather al nuevo repositorio
-    };
-  
-    console.log("Repositorio a guardar:", repositorio); // Verifica el objeto que estás enviando
-  
-    this.dataApiService.saveRepositorio(repositorio).subscribe(
-      (response) => {
-        console.log("Repositorio guardado correctamente:", JSON.stringify(response));
-  
-        // Agregar el repositorio guardado al array de repositorios
-        this.repositorios.push(response);
-        this.repositorios = [...this.repositorios];
-  
-        // Limpiar los valores para futuros usos
-        this.newRepositorio = "";
-      },
-      (error) => {
-        console.error("Error al guardar el repositorio:", error);
-      }
-    );
-  }
   
   
   viewPerfil(clienteOperador: any) {
@@ -523,5 +602,12 @@ export class GlobalService {
     this.pocketAuthService.logoutUser();
     this.yeoman.reset();
     this.virtuallRouter.routerActive = 'login';
+  }
+
+  onCategoryChange(event: any) {
+    this.selectedCategoryForRepo = event[0]; // Asumiendo que es single selection
+    this.filteredRepositorios = this.repositorios.filter(
+      repo => repo.idFather === this.selectedCategoryForRepo.id
+    );
   }
 }

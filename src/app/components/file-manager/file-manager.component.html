@@ -46,6 +46,11 @@
                                     [(ngModel)]="formData.nombreReceptor" required>
                             </div>
                             <div class="form-group">
+                                <label for="serial">Serial:</label>
+                                <input type="text" class="form-control" id="serial" name="serial"
+                                    [(ngModel)]="formData.serial" required>
+                            </div>
+                            <div class="form-group">
                                 <div class="d-flex align-items-center justify-content-between mb-2">
                                     <label for="nombreReceptor">Categoría:</label>
                                     <a (click)="open('categoria')" style="cursor: pointer;"
@@ -115,7 +120,8 @@
                                                 <line x1="5" y1="12" x2="19" y2="12"></line>
                                             </svg></span></span></a>
                                 </div>
-                                <ng-multiselect-dropdown
+                                
+                                <ng-multiselect-dropdown 
                                 [ngModelOptions]="{standalone: true}"
                                 name="temas"
                                 [placeholder]="'Seleccione un tema'" 
@@ -126,15 +132,7 @@
                                 </ng-multiselect-dropdown>
 
                             </div>
-
-                            <div class="d-flex align-items-center justify-content-between mb-2">
-
-                            </div>
-                            <div class="form-group">
-                                <label for="serial">Serial:</label>
-                                <input type="text" class="form-control" id="serial" name="serial"
-                                    [(ngModel)]="formData.serial" required>
-                            </div>
+                            
                         </form>
                    
                         <div class="separator separator-light"></div>
@@ -155,7 +153,8 @@
                 <div class="fmapp-detail-wrap">
 
 
-                    <header class="fm-header">
+                    <header class="fm-header"> 
+                       
                         <div class="d-flex align-items-center flex-grow-1">
                             <a class="fmapp-title dropdown-toggle link-dark" data-bs-toggle="dropdown" href="#"
                                 role="button" aria-haspopup="true" aria-expanded="false">
@@ -203,10 +202,16 @@
                     
                     <div class="fm-body">
                         <div data-simplebar class="nicescroll-bar">
-                          
-                            <div class="row gx-3 row-cols-xxl-4 row-cols-xl-4 row-cols-lg-3 row-cols-md-2 row-cols-1 mb-5">
-                                <div class="col" *ngFor="let repositorio of global.repositorios">
-                                    <div class="card card-border contact-card" style="  border-radius: 10px 30px; background: #d8d8d8;">
+                            <div class="mb-3" [hidden]="!showDocuments">
+                                <button class="btn btn-secondary" (click)="showDocuments = false">
+                                    <span class="feather-icon me-2"><i data-feather="arrow-left"></i></span>
+                                    Volver a Repositorios
+                                </button>
+                            </div>
+                            
+                            <div class="row gx-3 row-cols-xxl-4 row-cols-xl-4 row-cols-lg-3 row-cols-md-2 row-cols-1 mb-5" [hidden]="showDocuments">
+                                <div class="col" *ngFor="let repositorio of global.repositorios idRepo">
+                                    <div class="card card-border contact-card" style="  border-radius: 10px 30px; background: #d8d8d8;" (click)="viewRepositorio(repositorio)">
                                         <div class="card-body text-center">
                                            
                                             <div class="avatar avatar-xl avatar-rounded">
@@ -214,88 +219,73 @@
  -->                                                <!-- <img src="{{cliente.images[0]}}" alt="user" class="avatar-img"> -->
                                             </div>
                                             <div class="user-name"><span class="contact-star"><span class="feather-icon"><i data-feather="star"></i></span></span></div>
-                                            <div class="user-email">{{repositorio.name}}</div>
+                                            <div class="user-email" (click)="viewRepositorio(repositorio)" style="cursor: pointer;">{{repositorio.name}}</div>
                                         </div>
                                       
                                     </div>
                                 </div>
                             </div>
-                            <div class="file-card-view">
-                               <!--  <div class="alert alert-warning alert-wth-icon alert-dismissible fade show"
-                                    role="alert">
-                                    <span class="alert-icon-wrap"><i class="ri-alert-line"></i></span>
-                                    <div class="d-flex align-items-center flex-wrap flex-sm-nowrap">
-                                        Bienvenido, aqui un mensaje de actualización de perfil
-                                        <a href="#"
-                                            class="btn btn-sm btn-warning ms-sm-auto mt-sm-0 mt-2 flex-shrink-0">Actualizar
-                                            información</a>
+                            <div class="collapse-simple mt-4" [hidden]="!showDocuments">
+                                <div class="card">
+                                    <div class="card-header">
+                                        <a role="button" data-bs-toggle="collapse" href="#fm_collapse_1"
+                                            aria-expanded="true">
+                                            <h5 class="mb-0" style="color: white;">Documentos recientes</h5>
+                                        </a>
                                     </div>
-                                    <button type="button" class="btn-close" data-bs-dismiss="alert"
-                                        aria-label="Close"></button>
-                                </div> -->
-                                
-                                <div class="collapse-simple mt-4">
-                                    <div class="card">
-                                        <div class="card-header">
-                                            <a role="button" data-bs-toggle="collapse" href="#fm_collapse_1"
-                                                aria-expanded="true">
-                                                <h5 class="mb-0" style="color: white;">Documentos recientes</h5>
-                                            </a>
-                                        </div>
-                                        <div id="fm_collapse_1" class="collapse show">
-                                            <div class="row gx-3 row-cols-xxl-4 row-cols-xl-4 row-cols-lg-4 row-cols-md-2 row-cols-1 mt-3">
-                                                <div class="col" *ngFor="let document of global.filteredDocuments"
-                                                    (click)="setPreview(document)">
-                                                    <div class="card file-card card-border fmapp-info-toggle">
-                                                       
-                                                        <div class="card-footer">
-                                                            <div
-                                                                class="d-flex justify-content-between align-items-start">
-                                                                <div>
-                                                                    <div class="file-name" style="font-size: 20px; font-weight: bold;">{{document.subject}}</div>
-                                                                    <div class="text-truncate fs-8 mb-2">
-                                                                        {{document.receiver}}</div>
-                                                                </div>
-                                                                <div class="d-flex">
+                                    <div id="fm_collapse_1" class="collapse show">
+                                        <div class="row gx-3 row-cols-xxl-4 row-cols-xl-4 row-cols-lg-4 row-cols-md-2 row-cols-1 mt-3">
+                                            <div class="col" *ngFor="let document of global.filteredDocuments"
+                                                (click)="setPreview(document)">
+                                                <div class="card file-card card-border fmapp-info-toggle">
+                                                   
+                                                    <div class="card-footer">
+                                                        <div
+                                                            class="d-flex justify-content-between align-items-start">
+                                                            <div>
+                                                                <div class="file-name" style="font-size: 20px; font-weight: bold;">{{document.subject}}</div>
+                                                                <div class="text-truncate fs-8 mb-2">
+                                                                    {{document.receiver}}</div>
+                                                            </div>
+                                                            <div class="d-flex">
 
-                                                                    <a class="btn btn-xs btn-icon btn-flush-dark btn-rounded flush-soft-hover flex-shrink-0"
-                                                                        href="#" data-bs-toggle="dropdown" role="button"
-                                                                        aria-haspopup="true" aria-expanded="false"><span
-                                                                            class="icon"><span class="feather-icon"><i
-                                                                                    data-feather="more-horizontal"></i></span></span></a>
-                                                                    <div class="dropdown-menu">
+                                                                <a class="btn btn-xs btn-icon btn-flush-dark btn-rounded flush-soft-hover flex-shrink-0"
+                                                                    href="#" data-bs-toggle="dropdown" role="button"
+                                                                    aria-haspopup="true" aria-expanded="false"><span
+                                                                        class="icon"><span class="feather-icon"><i
+                                                                                data-feather="more-horizontal"></i></span></span></a>
+                                                                <div class="dropdown-menu">
 
-                                                                        <a class="dropdown-item" href="#"><span
-                                                                                class="feather-icon dropdown-icon"><i
-                                                                                    data-feather="link-2"></i></span><span>Compartir
-                                                                                Link</span></a>
-                                                                        <div class="dropdown-divider"></div>
-                                                                       
-                                                                            <a class="dropdown-item" (click)="updateDocument(document)">
-                                                                                <span class="feather-icon dropdown-icon">
-                                                                                  <i data-feather="edit"></i>
-                                                                                </span>
-                                                                                <span>Editar</span>
-                                                                              </a>
-                                                                              
-                                                                        <a class="dropdown-item" (click)="deleteDocuments(document)"><span
+                                                                    <a class="dropdown-item" href="#"><span
+                                                                            class="feather-icon dropdown-icon"><i
+                                                                                data-feather="link-2"></i></span><span>Compartir
+                                                                            Link</span></a>
+                                                                            <div class="dropdown-divider"></div>
+                                                                           
+                                                                                <a class="dropdown-item" (click)="updateDocument(document)">
+                                                                                    <span class="feather-icon dropdown-icon">
+                                                                                      <i data-feather="edit"></i>
+                                                                                    </span>
+                                                                                    <span>Editar</span>
+                                                                                  </a>
+                                                                                  
+                                                                                <a class="dropdown-item" (click)="deleteDocuments(document)"><span
                                                                                 class="feather-icon dropdown-icon"><i
                                                                                     data-feather="trash-2"></i></span><span>Borrar</span></a>
-                                                                    </div>
                                                                 </div>
                                                             </div>
-                                                            <p class="text-truncate p-xs">Fecha de expedición:
-                                                                {{document.issue}}</p>
                                                         </div>
+                                                        <p class="text-truncate p-xs">Fecha de expedición:
+                                                            {{document.issue}}</p>
                                                     </div>
                                                 </div>
-
                                             </div>
+
                                         </div>
                                     </div>
                                 </div>
-
                             </div>
+
                         </div>
                     </div>
                     <div class="file-info">
