@@ -289,9 +289,11 @@ export class GlobalService {
     const params = `?page=${page}&perPage=${perPage}&sort=NombreOperador`;
     return this.http.get<any>(`${this.apirestUrlClientes}collections/clientes/records${params}`);
   }
-    setClienteOperador(cliente: ClienteOperador) {
-      this.clienteOperador = cliente;
-    }
+
+  
+  setClienteOperador(cliente: ClienteOperador) {
+  this.clienteOperador = cliente;
+  }
  uploadDocument(){
   
  }

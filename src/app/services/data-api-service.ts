@@ -421,12 +421,19 @@ export class DataApiService {
 	// 	  .pipe(map(data => data));
 	//   }
 	
-	  updateDocument(data: any, id: string): Observable<any> {
+	 /*  updateDocument(data: any, id: string): Observable<any> {
 		const url = `https://db.buckapi.com:8090/api/collections/vendricomDocuments/records/${id}`;
 			return this.http.patch(url, document).pipe(
 		  map(response => response)
 		);
+	  } */
+	  updateDocument(data: any, id: string): Observable<any> {
+		const url = `https://db.buckapi.com:8090/api/collections/vendricomDocuments/records/${id}`;
+		return this.http.patch(url, data).pipe(
+		  map(response => response)
+		);
 	  }
+	  
 	  
 	  orderUpdate(order : OrderInterface , id: string){
 		// let token = this.authService.getToken();

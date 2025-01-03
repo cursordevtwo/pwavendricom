@@ -50,8 +50,8 @@ interface DocumentInterface {
 export class FileManagerComponent implements OnInit{
   @ViewChild('infoDiv', { static: true }) infoDiv!: ElementRef;
   years: number[] = [];
-  isEditMode = false;
-  data = {
+  isEditMode: boolean = false;
+    data = {
     id:'',
     categories: [] as any[],
     temas: [] as any[],
@@ -82,6 +82,7 @@ docummentSelected: DocumentInterface = {
 };
   dropdownSettings: IDropdownSettings = {};
   formData: any = {};
+  editingDocumentId: string | null = null; // Almacena el ID del documento que se está editando
   showDocuments: boolean = false;
   public filteredTemas: any[] = []; // para almacenar los temas filtrados
 
@@ -142,6 +143,7 @@ docummentSelected: DocumentInterface = {
   setPreview(selected:any){
     
     this.docummentSelected=selected;
+    
   }
   viewAllDocuments(){
     this.showDocuments = false;
@@ -329,43 +331,60 @@ docummentSelected: DocumentInterface = {
     this.global.applyFilterRepositorios(); // Actualiza los repositorios filtrados según la categoría seleccionada
   } */
   
-  updateDocument (document: any)
-  {
-    const documentId = document.id;
-  this.dataApi.updateDocument(this.data, this.data.id).subscribe(
-    (response) => {
-      Swal.fire({
-        title: 'Éxito',
-        text: 'El documento ha sido actualizado con éxito.',
-        icon: 'success',
-        confirmButtonText: 'OK'
-      });
+  // Manejar el inicio del modo de edición
+  editDocument(document: any): void {
+    this.isEditMode = true;
+    this.editingDocumentId = document.id;
+    this.formData = { ...document }; // Rellena el formulario con los datos del documento
+  }
+
+  // Actualizar un documento existente
+  updateDocument(): void {
+    if (!this.editingDocumentId) return;
   
-      // Actualizar la lista de documentos local
-      const index = this.global.documents.findIndex(doc => doc.id === this.data.id);
-      if (index !== -1) {
-        this.global.documents[index] = response;
-        this.global.documents = [...this.global.documents];
-        this.global.filteredDocuments = this.global.documents;
-        this.global.filteredDocuments = [...this.global.filteredDocuments];
-        this.global.filteredRepositorios = [...this.global.filteredRepositorios];
-
-
+    console.log('Actualizando documento:', this.formData);
+  
+    // Llama al servicio para actualizar el documento
+    this.dataApi.updateDocument(this.formData, this.editingDocumentId).subscribe(
+      (response) => {
+        // Actualizar el documento en la lista global
+        const index = this.global.documents.findIndex(doc => doc.id === this.editingDocumentId);
+        if (index !== -1) {
+          this.global.documents[index] = response;
+          this.global.filteredDocuments = [...this.global.documents];
+        }
+  
+        Swal.fire({
+          title: 'Éxito',
+          text: 'El documento ha sido actualizado con éxito.',
+          icon: 'success',
+          confirmButtonText: 'OK'
+        });
+  
+        // Reiniciar el formulario
+        this.resetForm();
+      },
+      (error) => {
+        console.error('Error al actualizar el documento:', error);
+        Swal.fire({
+          title: 'Error',
+          text: 'Ocurrió un error al actualizar el documento. Por favor, inténtelo de nuevo.',
+          icon: 'error',
+          confirmButtonText: 'OK'
+        });
       }
+    );
+  }
   
-     /*  this.resetForm(); */
-    },
-    (error) => {
-      Swal.fire({
-        title: 'Error',
-        text: 'Ocurrió un error al actualizar el documento. Por favor, inténtelo de nuevo.',
-        icon: 'error',
-        confirmButtonText: 'OK'
-      });
-      console.error('Error al actualizar el documento:', error);
-    }
-  );
-}
+
+  // Reiniciar el formulario
+  resetForm(): void {
+    this.isEditMode = false;
+    this.editingDocumentId = null;
+    this.formData = {};
+    this._butler.uploaderImages = [];
+  }
+
   
   deleteDocuments(document: any) {
     const documentId = document.id;

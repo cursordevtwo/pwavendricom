@@ -15,16 +15,34 @@
                                 </li>
                             </ul>
                         </div>
-                        <!-- <div class="menu-group" *ngIf="isEditMode">
-                            <ul class="nav nav-light navbar-nav flex-column">
-                                <li class="nav-item">
-                                    <a class="nav-link" href="javascript:void(0);">                                    
-                                        <span class="nav-link-text">Agregar documento a VENDRICOM</span>
-                                    </a>
-                                </li>
-                            </ul>
-                        </div> -->
-                        <form (ngSubmit)="submitForm()" *ngIf="!isEditMode">
+                        <form (ngSubmit)="!isEditMode ? submitForm() : updateDocument()">
+                            <h4 *ngIf="isEditMode">Editar Documento</h4>
+                            <h4 *ngIf="!isEditMode">Agregar Documento a VENDRICOM</h4>
+                          
+                            <div class="form-group">
+                              <label for="asunto">Asunto:</label>
+                              <input type="text" class="form-control" id="asunto" name="asunto" [(ngModel)]="formData.subject" required>
+                            </div>
+                          
+                            <div class="form-group">
+                              <label for="fechaEmision">Fecha de Emisión:</label>
+                              <input type="date" class="form-control" id="fechaEmision" name="fechaEmision" [(ngModel)]="formData.issue" required>
+                            </div>
+                          
+                            <div class="form-group">
+                              <label for="entidadRegulatoria">Entidad Regulatoria:</label>
+                              <input type="text" class="form-control" id="entidadRegulatoria" name="entidadRegulatoria" [(ngModel)]="formData.entity" required>
+                            </div>
+                          
+                            <button type="submit" class="btn btn-primary">
+                              {{ isEditMode ? 'Actualizar' : 'Guardar' }}
+                            </button>
+                          
+                            <button type="button" class="btn btn-secondary" (click)="resetForm()" *ngIf="isEditMode">Cancelar</button>
+                          </form>
+                          
+                          
+                         <form (ngSubmit)="submitForm()" *ngIf="!isEditMode">
                             <div class="form-group">
                                 <label for="asunto">Asunto:</label>
                                 <input type="text" class="form-control" id="asunto" name="asunto"
@@ -65,24 +83,20 @@
                                                     <line x1="5" y1="12" x2="19" y2="12"></line>
                                                 </svg></span></span></a>
                                 </div>
-                                <ng-multiselect-dropdown 
-                                    [ngModelOptions]="{standalone: true}"
-                                    name="categories"
-                                    [(ngModel)]="data.categories"
-                                    [placeholder]="'Selecciona una'" 
-                                    [data]="global.categories"
-                                    [disabled]="false"
+                                <ng-multiselect-dropdown [ngModelOptions]="{standalone: true}" name="categories"
+                                    [(ngModel)]="data.categories" [placeholder]="'Selecciona una'"
+                                    [data]="global.categories" [disabled]="false"
                                     [ngClass]="{'border-class': true, 'background-class': true}"
-                                    [settings]="dropdownSettings"                                    
-                                    (ngModelChange)="onCategoryChange($event)">
-                                    
-                                </ng-multiselect-dropdown>                               
+                                    [settings]="dropdownSettings" (ngModelChange)="onCategoryChange($event)">
+
+                                </ng-multiselect-dropdown>
 
                             </div>
                             <div class="form-group">
-                                <div class="d-flex align-items-center justify-content-between mb-2" [hidden]="!global.repositorioSelected">
+                                <div class="d-flex align-items-center justify-content-between mb-2"
+                                    [hidden]="!global.repositorioSelected">
                                     <label for="nombreReceptor">Repositorio:</label>
-                                    
+
                                     <a (click)="open('repositorio')" style="cursor: pointer;"
                                         class="btn btn-xs btn-icon btn-rounded btn-light" data-bs-toggle="modal"
                                         data-bs-target="#add_fav_board"><span class="icon" data-bs-toggle="tooltip"
@@ -95,46 +109,37 @@
                                                     <line x1="5" y1="12" x2="19" y2="12"></line>
                                                 </svg></span></span></a>
                                 </div>
-                                <ng-multiselect-dropdown 
-                                [ngModelOptions]="{standalone: true}"
-                                name="repositorios"
-                                [placeholder]="'Seleccione un repositorio'" 
-                                [data]="global.filteredRepositorios"
-                                [(ngModel)]="data.repositorios"
-                                [disabled]="false"
-                                [settings]="dropdownSettings">
+                                <ng-multiselect-dropdown [ngModelOptions]="{standalone: true}" name="repositorios"
+                                    [placeholder]="'Seleccione un repositorio'" [data]="global.filteredRepositorios"
+                                    [(ngModel)]="data.repositorios" [disabled]="false" [settings]="dropdownSettings">
                                 </ng-multiselect-dropdown>
                             </div>
                             <div class="form-group">
-                                <div class="d-flex align-items-center justify-content-between mb-2" [hidden]="!global.temaSelected">
+                                <div class="d-flex align-items-center justify-content-between mb-2"
+                                    [hidden]="!global.temaSelected">
                                     <label for="nombreReceptor">Tema:</label>
                                     <a (click)="open('tema')" style="cursor: pointer;"
-                                    class="btn btn-xs btn-icon btn-rounded btn-light" data-bs-toggle="modal"
-                                    data-bs-target="#add_fav_board"><span class="icon" data-bs-toggle="tooltip"
-                                        data-bs-placement="top" title="" data-bs-original-title="Add Board"><span
-                                            class="feather-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24"
-                                                height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                                stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                                                class="feather feather-plus">
-                                                <line x1="12" y1="5" x2="12" y2="19"></line>
-                                                <line x1="5" y1="12" x2="19" y2="12"></line>
-                                            </svg></span></span></a>
+                                        class="btn btn-xs btn-icon btn-rounded btn-light" data-bs-toggle="modal"
+                                        data-bs-target="#add_fav_board"><span class="icon" data-bs-toggle="tooltip"
+                                            data-bs-placement="top" title="" data-bs-original-title="Add Board"><span
+                                                class="feather-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24"
+                                                    height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                                                    class="feather feather-plus">
+                                                    <line x1="12" y1="5" x2="12" y2="19"></line>
+                                                    <line x1="5" y1="12" x2="19" y2="12"></line>
+                                                </svg></span></span></a>
                                 </div>
-                                
-                                <ng-multiselect-dropdown 
-                                [ngModelOptions]="{standalone: true}"
-                                name="temas"
-                                [placeholder]="'Seleccione un tema'" 
-                                [data]="global.filteredTemas"
-                                [(ngModel)]="data.temas"
-                                [disabled]="false"
-                                [settings]="dropdownSettings">
+
+                                <ng-multiselect-dropdown [ngModelOptions]="{standalone: true}" name="temas"
+                                    [placeholder]="'Seleccione un tema'" [data]="global.filteredTemas"
+                                    [(ngModel)]="data.temas" [disabled]="false" [settings]="dropdownSettings">
                                 </ng-multiselect-dropdown>
 
                             </div>
-                            
-                        </form>
-                   
+
+                        </form> 
+
                         <div class="separator separator-light"></div>
                         <div class="menu-group">
 
@@ -144,8 +149,9 @@
                             <input type="file" (change)="global.onFileChanged($event)">
                         </div>
                         <button class="btn btn-primary btn-rounded btn-block btn-file mb-4"
-                            [hidden]="_butler.uploaderImages.length==0" (click)="submitForm()">  <span class="nav-icon-wrap"><span class="feather-icon"><i
-                                data-feather="upload"></i></span></span> Guardar</button>
+                            [hidden]="_butler.uploaderImages.length==0" (click)="submitForm()"> <span
+                                class="nav-icon-wrap"><span class="feather-icon"><i
+                                        data-feather="upload"></i></span></span> Guardar</button>
                     </div>
                 </div>
             </nav>
@@ -153,9 +159,9 @@
                 <div class="fmapp-detail-wrap">
 
 
-                    <header class="fm-header"> 
-                       
-                        <div class="d-flex align-items-center flex-grow-1">
+                    <header class="fm-header">
+
+                        <!-- <div class="d-flex align-items-center flex-grow-1">
                             <a class="fmapp-title dropdown-toggle link-dark" data-bs-toggle="dropdown" href="#"
                                 role="button" aria-haspopup="true" aria-expanded="false">
                                 <h1>{{ global.selectedTema ? global.selectedTema.name : 'Todos los temas' }}</h1>
@@ -169,7 +175,7 @@
                             <form class="mx-3 flex-grow-1 mw-400p" role="search" (submit)="global.searchDocuments($event)">
                                 <input type="text" class="form-control" placeholder="Buscar entre los documentos" [(ngModel)]="global.searchQuery" (ngModelChange)="global.applyFilters()" name="searchQuery">
 
-                                <!-- <input type="text" class="form-control" placeholder="Buscar entre los documentos" [(ngModel)]="global.searchQuery"> -->
+                                 <input type="text" class="form-control" placeholder="Buscar entre los documentos" [(ngModel)]="global.searchQuery"> 
                             </form>
                         </div>
                         <div class="d-flex align-items-center flex-grow-1">
@@ -195,11 +201,11 @@
                                     <span class="feather-icon d-none"><i data-feather="chevron-down"></i></span>
                                 </span>
                             </a>
-                        </div>
+                        </div> -->
                         <div class="hk-sidebar-togglable"></div>
                     </header>
-                    
-                    
+
+
                     <div class="fm-body">
                         <div data-simplebar class="nicescroll-bar">
                             <div class="mb-3" [hidden]="!showDocuments">
@@ -208,20 +214,29 @@
                                     Volver a Repositorios
                                 </button>
                             </div>
-                            
-                            <div class="row gx-3 row-cols-xxl-4 row-cols-xl-4 row-cols-lg-3 row-cols-md-2 row-cols-1 mb-5" [hidden]="showDocuments">
+
+                            <div class="row gx-3 row-cols-xxl-4 row-cols-xl-4 row-cols-lg-3 row-cols-md-2 row-cols-1 mb-5"
+                                [hidden]="showDocuments">
                                 <div class="col" *ngFor="let repositorio of global.repositorios idRepo">
-                                    <div class="card card-border contact-card" style="  border-radius: 10px 30px; background: #d8d8d8;" (click)="viewRepositorio(repositorio)">
+                                    <div class="card card-border contact-card"
+                                        style="  border-radius: 10px 30px; background: #d8d8d8;"
+                                        (click)="viewRepositorio(repositorio)">
                                         <div class="card-body text-center">
-                                           
+
                                             <div class="avatar avatar-xl avatar-rounded">
-<!--                                                 <img src="assets/jampack/dist/img/avataer10.jpg" class="avatar-img">
- -->                                                <!-- <img src="{{cliente.images[0]}}" alt="user" class="avatar-img"> -->
                                             </div>
-                                            <div class="user-name"><span class="contact-star"><span class="feather-icon"><i data-feather="star"></i></span></span></div>
-                                            <div class="user-email" (click)="viewRepositorio(repositorio)" style="cursor: pointer;">{{repositorio.name}}</div>
+                                            <div class="user-name"><span class="contact-star"><span
+                                                        class="feather-icon"><i data-feather="file"></i></span></span>
+                                            </div>
+                                            <div class="user-email" (click)="viewRepositorio(repositorio)"
+                                                style="cursor: pointer;">{{repositorio.name}}
+                                            </div>
+                                            <span class="fs-7 lh-1"
+                                            (click)="viewRepositorio(repositorio)" style="cursor: pointer;">
+                                            Ver Documentos
+                                        </span>
                                         </div>
-                                      
+
                                     </div>
                                 </div>
                             </div>
@@ -230,57 +245,76 @@
                                     <div class="card-header">
                                         <a role="button" data-bs-toggle="collapse" href="#fm_collapse_1"
                                             aria-expanded="true">
-                                            <h5 class="mb-0" style="color: white;">Documentos recientes</h5>
+                                            <h5 class="mb-0" style="color: white;">Documentos repsoitorio seleccionado</h5>
                                         </a>
                                     </div>
                                     <div id="fm_collapse_1" class="collapse show">
-                                        <div class="row gx-3 row-cols-xxl-4 row-cols-xl-4 row-cols-lg-4 row-cols-md-2 row-cols-1 mt-3">
-                                            <div class="col" *ngFor="let document of global.filteredDocuments"
+                                        <div class="row row-cols-xxl-4 row-cols-xl-4 row-cols-lg-4 row-cols-md-2 row-cols-1 mt-4">
+                                            <div class="col-4" *ngFor="let document of global.filteredDocuments"
                                                 (click)="setPreview(document)">
-                                                <div class="card file-card card-border fmapp-info-toggle">
-                                                   
-                                                    <div class="card-footer">
-                                                        <div
-                                                            class="d-flex justify-content-between align-items-start">
+                                                <div class="card  card-border fmapp-info-toggle" style="border-radius: 10px; background: #582e6d;">
+                                                    <div class="card-body ">
+                                                        <div class="d-flex justify-content-between align-items-start">
                                                             <div>
-                                                                <div class="file-name" style="font-size: 20px; font-weight: bold;">{{document.subject}}</div>
+                                                                <div class="file-name" style="font-size: 20px; font-weight: bold; color: #d8d8d8;">
+                                                                    Asunto: {{ document.subject | slice:0:15 }}{{ document.subject.length > 15 ? '...' : '' }}
+                                                                </div>
                                                                 <div class="text-truncate fs-8 mb-2">
-                                                                    {{document.receiver}}</div>
+                                                                   Receptor: {{document.receiver | slice:0:20 }}{{ document.receiver.length > 20 ? '...' : '' }}</div>
+                                                                <div class="text-truncate fs-8 mb-2">
+                                                                  Entidad:  {{document.entity }}</div>
+                                                                 <p class="text-truncate p-xs">F.E:
+                                                            {{document.issue}}</p>
                                                             </div>
                                                             <div class="d-flex">
-
-                                                                <a class="btn btn-xs btn-icon btn-flush-dark btn-rounded flush-soft-hover flex-shrink-0"
-                                                                    href="#" data-bs-toggle="dropdown" role="button"
-                                                                    aria-haspopup="true" aria-expanded="false"><span
-                                                                        class="icon"><span class="feather-icon"><i
-                                                                                data-feather="more-horizontal"></i></span></span></a>
+                                                                <a class="menu-btn-gradient btn btn-xs btn-icon btn-rounded flex-shrink-0"
+                                                                 data-bs-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                                                                    <span class="icon">
+                                                                        <span class="feather-icon"><i data-feather="more-horizontal"></i></span>
+                                                                    </span>
+                                                                </a>
                                                                 <div class="dropdown-menu">
+                                                                    <a class="dropdown-item" href="#">
+                                                                      <span class="feather-icon dropdown-icon"><i data-feather="link-2"></i></span>
+                                                                      Compartir Link
+                                                                    </a>
+                                                                    <div class="dropdown-divider"></div>
+                                                                    <a class="dropdown-item" (click)="editDocument(document)">
+                                                                      <span class="feather-icon dropdown-icon"><i data-feather="edit"></i></span>
+                                                                      Editar
+                                                                    </a>
+                                                                    <a class="dropdown-item" (click)="deleteDocuments(document)">
+                                                                      <span class="feather-icon dropdown-icon"><i data-feather="trash-2"></i></span>
+                                                                      Borrar
+                                                                    </a>
+                                                                  </div>
+                                                                  
+                                                                <!-- <div class="dropdown-menu">
 
                                                                     <a class="dropdown-item" href="#"><span
                                                                             class="feather-icon dropdown-icon"><i
                                                                                 data-feather="link-2"></i></span><span>Compartir
                                                                             Link</span></a>
-                                                                            <div class="dropdown-divider"></div>
-                                                                           
-                                                                                <a class="dropdown-item" (click)="updateDocument(document)">
-                                                                                    <span class="feather-icon dropdown-icon">
-                                                                                      <i data-feather="edit"></i>
-                                                                                    </span>
-                                                                                    <span>Editar</span>
-                                                                                  </a>
-                                                                                  
-                                                                                <a class="dropdown-item" (click)="deleteDocuments(document)"><span
-                                                                                class="feather-icon dropdown-icon"><i
-                                                                                    data-feather="trash-2"></i></span><span>Borrar</span></a>
-                                                                </div>
+                                                                    <div class="dropdown-divider"></div>
+
+                                                                    <a class="dropdown-item"
+                                                                        (click)="updateDocument(document)">
+                                                                        <span class="feather-icon dropdown-icon">
+                                                                            <i data-feather="edit"></i>
+                                                                        </span>
+                                                                        <span>Editar</span>
+                                                                    </a>
+
+                                                                    <a class="dropdown-item"
+                                                                        (click)="deleteDocuments(document)"><span
+                                                                            class="feather-icon dropdown-icon"><i
+                                                                                data-feather="trash-2"></i></span><span>Borrar</span></a>
+                                                                </div> -->
                                                             </div>
                                                         </div>
-                                                        <p class="text-truncate p-xs">Fecha de expedición:
-                                                            {{document.issue}}</p>
                                                     </div>
                                                 </div>
                                             </div>
-
                                         </div>
                                     </div>
                                 </div>
@@ -308,38 +342,33 @@
                                         <span class="nav-link-text">Detalles</span>
                                     </a>
                                 </li>
-                                <li class="nav-item">
+                                <!-- <li class="nav-item">
                                     <a class="nav-link" data-bs-toggle="tab" href="#tab_activity">
                                         <span class="nav-link-text">Actividad</span>
                                     </a>
-                                </li>
+                                </li> -->
                             </ul>
                             <div class="tab-content mt-5">
                                 <div class="tab-pane fade show active" id="tab_info">
                                     <div class="collapse-simple">
                                         <div class="card">
-                                            <div class="card-header">
+                                            <!-- <div class="card-header">
                                                 <a role="button" data-bs-toggle="collapse" href="#fl_info"
                                                     aria-expanded="true">Detalles</a>
-                                            </div>
+                                            </div> -->
                                             <div id="fl_info" class="collapse show">
                                                 <div class="card-body">
                                                     <ul class="fm-info">
                                                         <li>
-                                                            <span>Enlace</span>
-                                                            <span>
-                                                                <a href="{{docummentSelected.files[0]}}" target="_blank"
-                                                                    style="color: blue; cursor: pointer;"> abrir</a>
-                                                            </span>
+                                                            <span>Asunto</span>
+                                                            <span>{{docummentSelected.subject}}</span>
                                                         </li>
+                                                        
                                                         <li>
                                                             <span>Serial</span>
                                                             <span>{{docummentSelected.serial}}</span>
                                                         </li>
-                                                        <li>
-                                                            <span>Asunto</span>
-                                                            <span>{{docummentSelected.subject}}</span>
-                                                        </li>
+                                                       
                                                         <li>
                                                             <span>Entidad Emisora</span>
                                                             <span>{{docummentSelected.entity}}</span>
@@ -352,11 +381,18 @@
                                                             <span>Persona receptora</span>
                                                             <span>{{docummentSelected.receiver}}</span>
                                                         </li>
+                                                        <li>
+                                                            <span>Enlace</span>
+                                                            <span>
+                                                                <a href="{{docummentSelected.files[0]}}" target="_blank"
+                                                                    style="color: blue; cursor: pointer;"> abrir</a>
+                                                            </span>
+                                                        </li>
                                                     </ul>
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="card">
+                                        <!-- <div class="card">
                                             <div class="card-header">
                                                 <a role="button" data-bs-toggle="collapse" href="#shared_with"
                                                     aria-expanded="true">Compartir con </a>
@@ -403,11 +439,11 @@
                                                     </ul>
                                                 </div>
                                             </div>
-                                        </div>
-                                       
+                                        </div> -->
+
                                     </div>
                                 </div>
-                               
+
                             </div>
                         </div>
                     </div>
