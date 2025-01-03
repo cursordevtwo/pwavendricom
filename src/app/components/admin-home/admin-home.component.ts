@@ -36,9 +36,19 @@ export class AdminHomeComponent implements OnInit {
     public globalService: GlobalService,
     public imageUpload: ImageUploadService
   ) {
-    this.globalService.getClientesOperadores().subscribe((data: any) => {
+   /*  this.globalService.getClientesOperadores().subscribe((data: any) => {
       this.globalService.clientesOperadores = data;
-    });
+    }); */
+    this.globalService.getClientesOperadores().subscribe(
+      (data: any) => {
+        this.globalService.clientesOperadores = data.items; // Si la API devuelve un objeto con 'items'
+        console.log('Clientes Operadores:', this.globalService.clientesOperadores);
+      },
+      (error) => {
+        console.error('Error al obtener clientes operadores:', error);
+      }
+    );
+    
   }
 
   ngOnInit() {

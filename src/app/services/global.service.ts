@@ -97,7 +97,7 @@ export class GlobalService {
 
   private apiUrl = 'http://localhost:8090/api/collections/images/records';
 
-  isInfoActive=false;
+  isInfoActive = false;
   private apirestUrl = 'https://db.buckapi.com:8090/api/';
   private apirestUrlClientes = 'https://db.vendricom.com:8091/api/';
   clientes: any[] = [];
@@ -117,7 +117,7 @@ export class GlobalService {
   repositorioSelected: any = false;
   temaSelected: any = false;
   configs: any[] = [];
-  status:string="";
+  status: string = "";
   info: any[] = [];
   selectedTema: any = "";
   selectedYear: number | null = null;
@@ -125,7 +125,7 @@ export class GlobalService {
   selectedCategory: string = '';
   selectedRepositorio: any = "";
   selectedCategoryId: any = "";
-  seelectedTema:any = "";
+  seelectedTema: any = "";
   searchText: string = '';
   categories: any[] = [];
   temas: any[] = [];
@@ -139,13 +139,13 @@ export class GlobalService {
   device: string = '';
   currentUser: any;
   ordersSize = 0;
-  indentity:any={name:"name",email:"email"};
+  indentity: any = { name: "name", email: "email" };
   selectedFile: File | null = null;
-  modaltitle:string = "Modal";
-  docummentSelected={};
-  newCategory:any;
-  newRepositorio:any;
-  newTemaGeneral:any;
+  modaltitle: string = "Modal";
+  docummentSelected = {};
+  newCategory: any;
+  newRepositorio: any;
+  newTemaGeneral: any;
   clientDetail: { clrepresentante: any }[] = [];
   newTema: string = '';
   selectedRepositorioId: any = null;
@@ -167,30 +167,30 @@ export class GlobalService {
     public virtuallRouter: virtualRouter,
     public yeoman: Yeoman,
     public dataApiService: DataApiService,
-    public _butler:Butler,
+    public _butler: Butler,
     private imageUploadService: ImageUploadService
-  ) {}
+  ) { }
   dropdownSettingsCategories = {
     singleSelection: true,
     idField: 'id',
     textField: 'name',
     allowSearchFilter: true
   };
-  
+
   dropdownSettingsRepositorios = {
     singleSelection: true,
     idField: 'id',
     textField: 'name',
     allowSearchFilter: true
   };
-  
+
   dropdownSettingsTemas = {
     singleSelection: true,
     idField: 'id',
     textField: 'name',
     allowSearchFilter: true
   };
-  saveTemaGeneral(){
+  saveTemaGeneral() {
     console.log("Tema general guardado correctamente:", JSON.stringify(this.newTemaGeneral));
   }
   // Funciones de selección
@@ -199,13 +199,13 @@ export class GlobalService {
     this.filteredRepositorios = this.repositorios.filter(
       repo => repo.idFather === category.id
     );
-    
+
     // Limpiar selecciones dependientes
     this.repositorios = [];
     this.temas = [];
     this.filteredTemas = [];
   }
-  
+
   onCategoryDeselect() {
     // Limpiar selecciones y filtros
     this.filteredRepositorios = [];
@@ -216,24 +216,15 @@ export class GlobalService {
       }
     );
   }
-  
+ 
   onRepositorioSelect(repositorio: any) {
     // Filtrar temas basados en el repositorio seleccionado
     this.filteredTemas = this.temas.filter(
       tema => tema.idFather === repositorio.id
     );
-    // Limpiar selecciones dependientes
-    this.repositorios = [];
-    this.temas = [];
-    this.filteredTemas = [];
-    // Limpiar tema seleccionado
-    /* this.getTemas().subscribe(
-      (response) => {
-        this.temas = response;
-      }
-    ); */
+    
   }
-  
+
   onRepositorioDeselect() {
     // Limpiar temas
     this.filteredTemas = [];
@@ -289,14 +280,15 @@ export class GlobalService {
     const params = `?page=${page}&perPage=${perPage}&sort=NombreOperador`;
     return this.http.get<any>(`${this.apirestUrlClientes}collections/clientes/records${params}`);
   }
+  
 
-  
+
   setClienteOperador(cliente: ClienteOperador) {
-  this.clienteOperador = cliente;
+    this.clienteOperador = cliente;
   }
- uploadDocument(){
-  
- }
+  uploadDocument() {
+
+  }
   activateInfo() {
     this.isInfoActive = true;
   }
@@ -384,14 +376,14 @@ export class GlobalService {
       }
     );
   }
-  
-  
-  
+
+
+
   viewPerfil(clienteOperador: any) {
     console.log("clienteOperador:", clienteOperador);
   }
 
-  getClass(){
+  getClass() {
     return {
       'fmapp-wrap': !this.isInfoActive,
       'fmapp-wrap fmapp-info-active': this.isInfoActive
@@ -403,7 +395,7 @@ export class GlobalService {
     const isLoggedIn = localStorage.getItem('isLoggedin');
     const type = localStorage.getItem('type');
     const settings = localStorage.getItem('settings');
-  
+
     this.getConfig().subscribe(config => {
       if (isLoggedIn === null || isLoggedIn === undefined) {
         // Si no existe, redirigir a la página de inicio de sesión
@@ -421,7 +413,7 @@ export class GlobalService {
           console.error("Tipo de usuario desconocido");
         }
       }
-  
+
       if (!config) {
         this.virtuallRouter.routerActive = "settings";
       }
@@ -435,7 +427,7 @@ export class GlobalService {
 
   onUpload() {
     console.log(JSON.stringify(this._butler.uploaderImages))
-    console.log( "esta es la imagen:"+this.selectedFile);
+    console.log("esta es la imagen:" + this.selectedFile);
     if (!this.selectedFile) {
       console.error('No se ha seleccionado ningún archivo.');
       return;
@@ -446,14 +438,14 @@ export class GlobalService {
         const imageUrl = response.id;
         // console.log('Imagen subida correctamente:', response);
         let imageComplete =
-        "https://db.vendricom.com:8091/api/files/" +
-        response.collectionId +
-        "/" +
-        imageUrl +
-        "/" +
-        response.file;
-      // console.log("imageURL: " + imageComplete);
-      this._butler.uploaderImages.push(imageComplete);
+          "https://db.vendricom.com:8091/api/files/" +
+          response.collectionId +
+          "/" +
+          imageUrl +
+          "/" +
+          response.file;
+        // console.log("imageURL: " + imageComplete);
+        this._butler.uploaderImages.push(imageComplete);
         // Aquí puedes manejar la respuesta del servidor, como mostrar un mensaje de éxito
       },
       error => {
@@ -461,11 +453,11 @@ export class GlobalService {
         // Aquí puedes manejar cualquier error que ocurra durante la carga de la imagen
       }
     );
-    }
-  onFileChanged(event:Event) {
-      this.selectedFile = (event.target as HTMLInputElement).files?.[0] || null;
-      this.onUpload();
-    }    
+  }
+  onFileChanged(event: Event) {
+    this.selectedFile = (event.target as HTMLInputElement).files?.[0] || null;
+    this.onUpload();
+  }
 
   ClientFicha(): any {
     let client_string = localStorage.getItem('clientFicha');
@@ -510,7 +502,7 @@ export class GlobalService {
       this.yeoman.config.clientSelected = i;
     });
   }
- 
+
   applyFilters() {
     this.filteredDocuments = this.documents.filter((doc: Document) => {
       // Verificar si selectedTema no está vacío y si es así, comprobar que coincide con algún tema del documento
@@ -529,11 +521,11 @@ export class GlobalService {
       // Verificar si searchQuery no está vacío y si es así, comprobar que coincide con el campo entity del normativaumento
       let matchesSearchText = this.searchQuery ? normativa.subject.toLowerCase().includes(this.searchQuery.toLowerCase()) : true;
       // Verificar si selectedYear no está vacío y si es así, comprobar que el año de la fecha de creación coincide con el año seleccionado
-       let matchesYear = this.selectedYear ? new Date(normativa.created).getFullYear() === this.selectedYear : true;
-      return  matchesSearchText && matchesYear;
+      let matchesYear = this.selectedYear ? new Date(normativa.created).getFullYear() === this.selectedYear : true;
+      return matchesSearchText && matchesYear;
     });
   }
- 
+
   applyFiltersBoletines() {
     this.filteredBoletines = this.boletines.filter((boletines: Boletin) => {
       // Verificar si selectedTema no está vacío y si es así, comprobar que coincide con algún tema del boletinesumento
@@ -542,7 +534,7 @@ export class GlobalService {
       let matchesSearchText = this.searchQuery ? boletines.subject.toLowerCase().includes(this.searchQuery.toLowerCase()) : true;
       // Verificar si selectedYear no está vacío y si es así, comprobar que el año de la fecha de creación coincide con el año seleccionado
       // let matchesYear = this.selectedYear ? new Date(boletines.created).getFullYear() === this.selectedYear : true;
-      return  matchesSearchText;
+      return matchesSearchText;
     });
   }
   applyFiltersJurisprudencias() {
@@ -553,7 +545,7 @@ export class GlobalService {
       let matchesSearchText = this.searchQuery ? jurisprudencia.subject.toLowerCase().includes(this.searchQuery.toLowerCase()) : true;
       // Verificar si selectedYear no está vacío y si es así, comprobar que el año de la fecha de creación coincide con el año seleccionado
       // let matchesYear = this.selectedYear ? new Date(jurisprudencia.created).getFullYear() === this.selectedYear : true;
-      return  matchesSearchText;
+      return matchesSearchText;
     });
   }
   applyFiltersModelos() {
@@ -567,7 +559,7 @@ export class GlobalService {
       return matchesTema && matchesSearchText && matchesYear;
     });
   }
-  
+
   selectYear(year: number) {
     this.selectedYear = year;
     this.applyFilters();
@@ -594,7 +586,7 @@ export class GlobalService {
     event.preventDefault(); // Evitar el comportamiento por defecto del formulario
     this.applyFiltersModelos();
   }
-  
+
   selectTema(tema: any) {
     this.selectedTema = tema;
     this.applyFilters();

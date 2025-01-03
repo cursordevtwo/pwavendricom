@@ -123,8 +123,7 @@ export class AppComponent {
 
       this.global.getTemas().subscribe(
         (data) => {
-          this.global.temas = data.items; // Asigna los registros obtenidos a la variable 'registros'
-          // console.log(data); // respuesta
+          this.global.temas = data.items; 
         },
         (error) => {
           console.error(error); // Manejo de errores si la solicitud falla

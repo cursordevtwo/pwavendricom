@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Component,OnInit, Renderer2, ElementRef, ViewChild } from '@angular/core';
-import { FormBuilder, FormsModule } from '@angular/forms';
+import { FormBuilder, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AuthRESTService } from '@app/services/auth-rest.service';
 import { Butler } from '@app/services/butler.service';
 import { GlobalService } from '@app/services/global.service';
@@ -42,6 +42,7 @@ interface DocumentInterface {
     FilePickerModule,
     FormsModule,
     NgMultiSelectDropDownModule,
+    ReactiveFormsModule
   ],
   providers: [FilterByRepositorioPipe],
   templateUrl: './file-manager.component.html',
@@ -64,6 +65,7 @@ export class FileManagerComponent implements OnInit{
     subject: '',
     entity: '',
     status: '',
+    repositorioId: '',
   };
   
 docummentSelected: DocumentInterface = {
@@ -78,7 +80,8 @@ docummentSelected: DocumentInterface = {
   receiver: '',
   subject: '',
   entity: '',
-  status: ''
+  status: '',
+
 };
   dropdownSettings: IDropdownSettings = {};
   formData: any = {};
@@ -161,6 +164,28 @@ docummentSelected: DocumentInterface = {
     // Verifica si temaSelected está establecido
     console.log('Tema seleccionado:', this.global.temaSelected);
   }
+  viewRepositorio(repositorio: any) {
+    this.showDocuments = true;
+    if (repositorio && repositorio.id) {
+      // Filter documents that belong to the selected repository
+      this.global.filteredDocuments = this.global.documents.filter(doc => 
+        doc.repositorios.some((repo: any) => repo.id === repositorio.id)
+      );
+      
+      if (this.global.filteredDocuments.length === 0) {
+        Swal.fire({
+          title: 'Info',
+          text: 'No se encontraron documentos en este repositorio',
+          icon: 'info',
+          confirmButtonText: 'OK'
+        });
+      }
+    } else {
+      // If no repository is selected, show all documents
+      this.global.filteredDocuments = this.global.documents;
+    }
+  }
+
   onCategoryChange(selectedCategory: any): void {
     if (selectedCategory && selectedCategory.length > 0) {
       console.log('Categoría seleccionada: ' + JSON.stringify(selectedCategory));
@@ -187,78 +212,7 @@ docummentSelected: DocumentInterface = {
       this.global.categorySelected = false;
       this.global.filteredRepositorios = [];
     }
-  }
-  
-  viewRepositorio(repositorio: any) {
-    this.showDocuments = true;
-    if (repositorio && repositorio.id) {
-      // Filter documents that belong to the selected repository
-      this.global.filteredDocuments = this.global.documents.filter(doc => 
-        doc.repositorios.some((repo: any) => repo.id === repositorio.id)
-      );
-      
-      if (this.global.filteredDocuments.length === 0) {
-        Swal.fire({
-          title: 'Info',
-          text: 'No se encontraron documentos en este repositorio',
-          icon: 'info',
-          confirmButtonText: 'OK'
-        });
-      }
-    } else {
-      // If no repository is selected, show all documents
-      this.global.filteredDocuments = this.global.documents;
-    }
-  }
-  filterRepositoriosByCategory() {
-    if (this.selectedCategory) {
-      this.global.filteredRepositorios = this.global.repositorios.filter(repo => 
-        repo.categoryId === this.selectedCategory.id
-      );
-    } else {
-      this.global.filteredRepositorios = this.global.repositorios;
-    }
-  }
-  
-  onRepositorioChange(selectedRepositorio: any): void { 
-    if (selectedRepositorio && selectedRepositorio.length > 0) {
-      console.log('Repositorio seleccionado: ' + JSON.stringify(selectedRepositorio));
-      this.global.repositorioSelected = true;
-      let idrepositorioSelected = selectedRepositorio[0].id; // Suponiendo que es un array
-  
-      this.global.filteredTemas = []; // Reinicia el array
-  
-      for (let tema of this.global.temas) { // Asegúrate de usar `global.temas` para filtrar
-        console.log(
-          'Comparando [' + idrepositorioSelected + '] con [' + tema.idFhater + ']'
-        );
-        // Asegúrate de que ambos son del mismo tipo
-        if (idrepositorioSelected === tema.idFhater) {
-          console.log('Tema agregado al array: ' + JSON.stringify(tema));
-          this.global.filteredTemas.push(tema);
-        }
-      }
-  
-      // Verificar si se agregaron temas y actualizar el estado
-      this.global.temaSelected = this.global.filteredTemas.length > 0;
-      
-    } else {
-      this.global.repositorioSelected = false;
-      this.global.filteredTemas = []; // Limpiar si no hay repositorio seleccionado
-      this.global.temaSelected = false; // Asegúrate de limpiar el estado
-    }
-  }
-  
-
-  filterTemasByRepositorios() {
-    if (this.selectedRepositorio) {
-      this.global.filteredTemas = this.global.temas.filter(repo => 
-        repo.temasId === this.selectedRepositorio.id
-      );
-    } else {
-      this.global.filteredTemas = this.global.temas;
-    }
-  }
+  }  
 
   submitForm() {
     // Aquí puedes manejar los datos del formulario, por ejemplo, enviarlos a un servicio o imprimirlos en la consola.
@@ -302,7 +256,8 @@ docummentSelected: DocumentInterface = {
           receiver: '',
           subject: '',
           entity: '',
-          status: ''
+          status: '',
+          repositorioId: '',
         };
         
         // Limpiar las imágenes subidas
@@ -326,64 +281,78 @@ docummentSelected: DocumentInterface = {
     // Limpia el formulario después de enviarlo.
     this.formData = {};
   }
- /*  onCategorySelect(event: any) {
-    this.selectedCategory = event; // Asumiendo que el objeto `event` contiene la categoría seleccionada
-    this.global.applyFilterRepositorios(); // Actualiza los repositorios filtrados según la categoría seleccionada
-  } */
   
   // Manejar el inicio del modo de edición
-  editDocument(document: any): void {
+  /* editDocument(document: any): void {
     this.isEditMode = true;
     this.editingDocumentId = document.id;
-    this.formData = { ...document }; // Rellena el formulario con los datos del documento
-  }
+    this.formData = { ...document };
+    this.global.repositorioSelected = document.repositorioId || null; // Cargar el repositorio seleccionado
+  } */
+    editDocument(document: any): void {
+      this.isEditMode = true;
+      this.editingDocumentId = document.id;
+      this.formData = { ...document };
+    
+      // Asegurarte de que `repositorios` sea un objeto
+      if (!this.formData.repositorios) {
+        this.formData.repositorios = { id: '', name: '' };
+      }
+    }
+    
+    
 
-  // Actualizar un documento existente
-  updateDocument(): void {
+  // Actualizar documento
+  /* updateDocument(): void {
     if (!this.editingDocumentId) return;
-  
-    console.log('Actualizando documento:', this.formData);
-  
-    // Llama al servicio para actualizar el documento
+
     this.dataApi.updateDocument(this.formData, this.editingDocumentId).subscribe(
       (response) => {
-        // Actualizar el documento en la lista global
+        // Actualizar lista de documentos
         const index = this.global.documents.findIndex(doc => doc.id === this.editingDocumentId);
         if (index !== -1) {
           this.global.documents[index] = response;
           this.global.filteredDocuments = [...this.global.documents];
         }
-  
-        Swal.fire({
-          title: 'Éxito',
-          text: 'El documento ha sido actualizado con éxito.',
-          icon: 'success',
-          confirmButtonText: 'OK'
-        });
-  
-        // Reiniciar el formulario
+
+        Swal.fire('Éxito', 'El documento ha sido actualizado con éxito.', 'success');
         this.resetForm();
       },
       (error) => {
-        console.error('Error al actualizar el documento:', error);
-        Swal.fire({
-          title: 'Error',
-          text: 'Ocurrió un error al actualizar el documento. Por favor, inténtelo de nuevo.',
-          icon: 'error',
-          confirmButtonText: 'OK'
-        });
+        Swal.fire('Error', 'Ocurrió un error al actualizar el documento.', 'error');
       }
     );
-  }
-  
-
-  // Reiniciar el formulario
+  } */
+    updateDocument(): void {
+      if (!this.editingDocumentId) return;
+    
+      this.dataApi.updateDocument(this.formData, this.editingDocumentId).subscribe(
+        (response) => {
+          const index = this.global.documents.findIndex(doc => doc.id === this.editingDocumentId);
+          if (index !== -1) {
+            this.global.documents[index] = response;
+            this.global.filteredDocuments = [...this.global.documents];
+          }
+    
+          Swal.fire('Éxito', 'El documento ha sido actualizado con éxito.', 'success');
+          this.resetForm();
+        },
+        (error) => {
+          Swal.fire('Error', 'Ocurrió un error al actualizar el documento.', 'error');
+        }
+      );
+    }
+    
+    
+  // Reiniciar formulario
   resetForm(): void {
     this.isEditMode = false;
     this.editingDocumentId = null;
-    this.formData = {};
-    this._butler.uploaderImages = [];
+    this.formData = {
+      repositorios: { id: '', name: '' }
+    };
   }
+  
 
   
   deleteDocuments(document: any) {
