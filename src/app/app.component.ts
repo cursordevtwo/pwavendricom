@@ -26,6 +26,7 @@ import { ModelosComponent } from './components/modelos/modelos.component';
 import { CursosComponent } from './components/cursos/cursos.component';
 import { PublicityComponent } from './components/publicity/publicity.component';
 import { FaqComponent } from './components/faq/faq.component';
+import { ContactsComponent } from './components/contacts/contacts.component';
 
 
 @Component({
@@ -54,7 +55,8 @@ import { FaqComponent } from './components/faq/faq.component';
     ModelosComponent,
     CursosComponent,
     PublicityComponent,
-    FaqComponent    
+    FaqComponent,
+    ContactsComponent    
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'

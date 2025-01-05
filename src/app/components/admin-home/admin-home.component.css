@@ -3,3 +3,46 @@
       --bs-modal-width: 600px;
     }
   }
+.hk-pg-header{
+  padding: 1.25rem 0;
+    background: #ffffff00;
+/*     border-bottom: 1px solid #bbbbbb;
+ */}
+.w-300p {
+  width: 160px !important;
+}
+.card.card-border {
+/*   border: 1px #bbbbbb !important;
+ */  box-shadow: none;
+}
+.items {
+  background: #bbbbbb;
+  border-radius: 10px;
+  padding: 10px;
+  margin-right: 1px; 
+  color:black;
+  font-size: 20px;
+}
+
+/* Asegurarse de que no haya margen extra en la última columna */
+.items:last-child {
+  margin-right: 0;
+}
+
+.boton{
+  width: 40px;
+  height: 40px;
+  margin-right: 8px;
+  background:linear-gradient(135deg, #864ba8 0%, #f69950 100%);
+  border-radius: 50%;
+  margin-right: 8px;
+  padding: 5px;
+}
+.badge.badge-soft-success {
+  background: #ebfcf5;
+  color: #582e6d;
+}
+.badge.badge-sm {
+  --bs-badge-font-size: 1rem;
+  --bs-badge-padding-x: 1rem;
+  --bs-badge-padding-y: 1rem;}

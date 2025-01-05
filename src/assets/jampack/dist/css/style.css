@@ -61881,8 +61881,8 @@ div.hopscotch-bubble .hopscotch-bubble-container .hopscotch-actions .hopscotch-n
 .hk-pg-header {
   padding: 1.25rem 0;
   background: #fff;
-  border-bottom: 1px solid #eaeaea;
-}
+/*   border-bottom: 1px solid #eaeaea;
+ */}
 .hk-pg-header .pg-title {
   font-size: 1.75rem;
   font-weight: 700;

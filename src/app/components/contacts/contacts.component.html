@@ -1,0 +1,564 @@
+<div class="hk-pg-wrapper pb-0">
+    <!-- Page Body -->
+
+    <div class="hk-pg-body py-0">
+        <div class="contactapp-wrap">
+
+            <div class="contactapp-content" style="padding-left: 20px;">
+                <div class="contactapp-detail-wrap">
+                    <header class="contact-header">
+                        <div class="d-flex align-items-center">
+                            <div class="dropdown">
+                                <a class="contactapp-title dropdown-toggle link-dark" data-bs-toggle="dropdown" href="#"
+                                    role="button" aria-haspopup="true" aria-expanded="false">
+                                    <h1>Clientes de vendricom</h1>
+                                </a>
+
+                            </div>
+                        </div>
+                        <div class="contact-options-wrap">
+
+                            <!-- <a class="dropdown-item active" href="clientes.html"><span class="feather-icon dropdown-icon"><i data-feather="grid"></i></span><span> </span></a> -->
+
+                            <a class="btn btn-icon btn-flush-dark flush-soft-hover dropdown-toggle no-caret active"><span
+                                    class="icon"><span class="feather-icon"><i
+                                            data-feather="list"></i></span></span></a>
+                            <a class="btn btn-icon btn-flush-dark flush-soft-hover dropdown-toggle no-caret active"><span
+                                    class="icon"><span class="feather-icon"><i
+                                            data-feather="grid"></i></span></span></a>
+                            <div class="v-separator d-lg-block d-none"></div>
+                            <!-- <a class="btn btn-icon btn-flush-dark btn-rounded flush-soft-hover dropdown-toggle no-caret d-lg-inline-block d-none ms-sm-0" href="#" data-bs-toggle="dropdown"><span class="icon" data-bs-toggle="tooltip" data-placement="top" title="" data-bs-original-title="Manage Contact"><span class="feather-icon"><i data-feather="settings"></i></span></span></a>
+                        <div class="dropdown-menu dropdown-menu-end">
+                             <a class="dropdown-item" href="#">Manage Contact</a> 
+                             <a class="dropdown-item" href="#">Importar</a>
+                            <a class="dropdown-item" href="#">Exportar</a>
+                            <div class="dropdown-divider"></div> 
+                            
+                        </div> -->
+
+                            <a class="btn btn-icon btn-flush-dark btn-rounded flush-soft-hover hk-navbar-togglable d-sm-inline-block d-none"
+                                href="#" data-bs-toggle="tooltip" data-placement="top" title=""
+                                data-bs-original-title="Collapse">
+                                <span class="icon">
+                                    <span class="feather-icon"><i data-feather="chevron-up"></i></span>
+                                    <span class="feather-icon d-none"><i data-feather="chevron-down"></i></span>
+                                </span>
+                            </a>
+                        </div>
+                        <!-- <div class="hk-sidebar-togglable"></div> -->
+                    </header>
+                    <div class="contact-body">
+                        <div data-simplebar class="nicescroll-bar">
+                            <div class="collapse" id="collapseQuick">
+                                <div class="quick-access-form-wrap">
+                                    <form class="quick-access-form border">
+                                        <div class="row gx-3">
+                                            <div class="col-xxl-10">
+                                                <div class="position-relative">
+                                                    <div class="dropify-square">
+                                                        <input type="file" class="dropify-1" />
+                                                    </div>
+                                                    <div class="col-md-12">
+                                                        <div class="row gx-3">
+                                                            <div class="col-lg-4">
+                                                                <div class="form-group">
+                                                                    <input class="form-control"
+                                                                        placeholder="First name*" value="" type="text">
+                                                                </div>
+                                                                <div class="form-group">
+                                                                    <input class="form-control" placeholder="Last name*"
+                                                                        value="" type="text">
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-lg-4">
+                                                                <div class="form-group">
+                                                                    <input class="form-control" placeholder="Email Id*"
+                                                                        value="" type="text">
+                                                                </div>
+                                                                <div class="form-group">
+                                                                    <input class="form-control" placeholder="Phone"
+                                                                        value="" type="text">
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-lg-4">
+                                                                <div class="form-group">
+                                                                    <input class="form-control" placeholder="Department"
+                                                                        value="" type="text">
+                                                                </div>
+                                                                <div class="form-group">
+                                                                    <select id="input_tags" class="form-control"
+                                                                        multiple="multiple">
+                                                                        <option selected="selected">Collaborator
+                                                                        </option>
+                                                                        <option>Designer</option>
+                                                                        <option selected="selected">Developer</option>
+                                                                    </select>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-xxl-2">
+                                                <div class="form-group">
+                                                    <button data-bs-toggle="collapse" data-bs-target="#collapseExample"
+                                                        aria-expanded="false" class="btn btn-block btn-primary ">Create
+                                                        New
+                                                    </button>
+                                                </div>
+                                                <div class="form-group">
+                                                    <button data-bs-toggle="collapse" disabled
+                                                        data-bs-target="#collapseExample" aria-expanded="false"
+                                                        class="btn btn-block btn-secondary">Discard
+                                                    </button>
+                                                </div>
+                                            </div>>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                            <div class="contact-card-view">
+                                <div class="row">
+                                    <div class="col-7 mb-3">
+                                        <div id="datable_1_filter" class="dataTables_filter"><label><input type="search"
+                                                    class="form-control form-control-sm"
+                                                    placeholder="Buscar  colaborador"></label></div>
+
+                                    </div>
+                                    <!-- <div class="col-5 mb-3">
+                                    <div class="contact-toolbar-right">
+                                         <div class="dataTables_length" id="datable_1_length">
+                                            <label>
+                                                View  
+                                                <select name="datable_1_length" class="form-select form-select-sm">
+                                                    <option value="10">10</option>
+                                                    <option value="25">25</option>
+                                                    <option value="50">50</option>
+                                                    <option value="100">100</option>
+                                                </select>
+                                            </label>
+                                        </div>
+                                        <div class="dataTables_info" id="datable_1_info" role="status" aria-live="polite">1 - 10 of 11</div>
+                                        <div class="dataTables_paginate paging_simple_numbers" id="datable_1_paginate">
+                                            <ul class="pagination custom-pagination pagination-simple m-0">
+                                                <li class="paginate_button page-item previous disabled" id="datable_1_previous"><a href="#" data-dt-idx="0" tabindex="0" class="page-link"><i class="ri-arrow-left-s-line"></i></a></li>
+                                                <li class="paginate_button page-item active"><a href="#" data-dt-idx="1" tabindex="0" class="page-link">1</a></li>
+                                                <li class="paginate_button page-item "><a href="#" data-dt-idx="2" tabindex="0" class="page-link">2</a></li>
+                                                <li class="paginate_button page-item next" id="datable_1_next"><a href="#" data-dt-idx="3" tabindex="0" class="page-link"><i class="ri-arrow-right-s-line"></i></a></li>
+                                            </ul>
+                                        </div> 
+                                    </div>
+                                </div> -->
+                                </div>
+                                <div
+                                    class="row gx-4 row-cols-xxl-4 row-cols-xl-4 row-cols-lg-4 row-cols-md-2 row-cols-1 mb-5">
+                                    <div class="col" *ngFor="let cliente of globalService.clientes">
+                                        <div class="card card-border contact-card"
+                                            style="  border-radius: 10px 30px; background: #d8d8d8;">
+                                            <div class="card-body text-center">
+                                                <div class="card-action-wrap">
+                                                    <a class="btn btn-icon btn-flush-dark btn-rounded flush-soft-hover"
+                                                        href="#" aria-expanded="false" data-bs-toggle="dropdown"><span
+                                                            class="btn-icon-wrap"><span class="feather-icon"><i
+                                                                    data-feather="trash"></i></span></span></a>
+                                                    <div class="dropdown-menu  dropdown-menu-end" role="menu">
+                                                        <a class="dropdown-item" href="javascript:void(0)"
+                                                            role="menuitem"><i class="icon wb-trash"
+                                                                aria-hidden="true"></i>Borrar</a>
+                                                    </div>
+                                                </div>
+                                                <div class="avatar avatar-xl avatar-rounded">
+                                                    <img src="assets/jampack/dist/img/avataer10.jpg" class="avatar-img">
+                                                </div>
+                                                <div class="user-name"><span class="contact-star"><span
+                                                            class="feather-icon"><i
+                                                                data-feather="star"></i></span></span>{{cliente.name}}
+                                                </div>
+                                                <div class="user-email">{{cliente.type}}</div>
+                                                <div class="user-contact">+{{cliente.phone}}</div>
+                                                <div class="user-desg"><span
+                                                        class="badge badge-primary badge-indicator badge-indicator-lg me-2"></span>
+                                                    {{cliente.name}}</div>
+                                            </div>
+                                            <div class="card-footer text-muted position-relative">
+                                                <div class="v-separator-full m-0"></div>
+                                                <!-- <a href="#" class="d-flex align-items-center" data-bs-toggle="modal" data-bs-target="#contact_detail">
+                                                <span class="feather-icon me-2"><i data-feather="user-check"></i></span>
+                                                <span class="fs-7 lh-1">Ver perfil</span>
+                                            </a> -->
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div *ngIf="loading" class="text-center">
+                                    <div class="spinner-border" role="status">
+                                        <span class="visually-hidden">Loading...</span>
+                                    </div>
+                                </div>
+
+                                <!-- Lista de clientes operadores -->
+                                <h1 style="font-size: 20px; font-weight: bold;">Clientes de la empresa</h1>
+
+                                <div
+                                    class="row gx-3 row-cols-xxl-5 row-cols-xl-4 row-cols-lg-3 row-cols-md-2 row-cols-1 mb-5">
+                                    <div class="col" *ngFor="let clienteOperador of globalService.clientesOperadores">
+                                        <div class="card card-border contact-card"
+                                            style="border-radius: 10px 30px; background: #d8d8d8;">
+                                            <div class="card-body text-center">
+                                                <div class="user-name"
+                                                    style="background:#582e6d; color: #fff; border-radius: 10px;">
+                                                    {{clienteOperador.NombreOperador |
+                                                    slice:0:10}}{{clienteOperador.NombreOperador.length > 15 ? '...' :
+                                                    ''}}</div>
+                                                <div class="user-email">{{clienteOperador.Email}}</div>
+                                                <div class="user-contact">{{clienteOperador.Telefono}}</div>
+
+                                                <div class="user-desg">
+                                                    <span
+                                                        class="badge badge-primary badge-indicator badge-indicator-lg me-2"></span>
+                                                    {{clienteOperador.Direccion}}
+                                                </div>
+                                                <div class="user-desg text-center d-flex flex-column align-items-center justify-content-center"
+                                                    style="height: 100px;">
+                                                    <a (click)="globalService.setClienteOperador(clienteOperador)"
+                                                        style="cursor: pointer;"
+                                                        class="d-flex align-items-center justify-content-center"
+                                                        data-bs-toggle="modal" data-bs-target="#contact_detail">
+                                                        <span class="feather-icon me-2">
+                                                            <i data-feather="user-check"></i>
+                                                        </span>
+                                                        <span class="fs-7 lh-1"
+                                                            (click)="globalService.setClienteOperador(clienteOperador)">
+                                                            Ver perfil
+                                                        </span>
+                                                    </a>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div
+                                        class="d-flex align-items-center col-sm-12 col-md-5 justify-content-center justify-content-md-start">
+                                        <div class="dataTables_info">
+                                            Mostrando {{ (currentPage - 1) * itemsPerPage + 1 }} -
+                                            {{ Math.min(currentPage * itemsPerPage, totalItems) }}
+                                            de {{ totalItems }}
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-12 col-md-7">
+                                        <ul
+                                            class="pagination custom-pagination pagination-simple mb-0 justify-content-center justify-content-md-end">
+                                            <!-- Botón Previous -->
+                                            <li class="paginate_button page-item previous"
+                                                [class.disabled]="currentPage === 1">
+                                                <a href="javascript:void(0)" (click)="onPageChange(currentPage - 1)"
+                                                    class="page-link">
+                                                    <i class="ri-arrow-left-s-line"></i>
+                                                </a>
+                                            </li>
+
+                                            <!-- Números de página -->
+                                            <li class="paginate_button page-item" *ngFor="let page of pages"
+                                                [class.active]="page === currentPage">
+                                                <a href="javascript:void(0)" (click)="onPageChange(page)"
+                                                    class="page-link">
+                                                    {{page}}
+                                                </a>
+                                            </li>
+
+                                            <!-- Botón Next -->
+                                            <li class="paginate_button page-item next"
+                                                [class.disabled]="currentPage === totalPages">
+                                                <a href="javascript:void(0)" (click)="onPageChange(currentPage + 1)"
+                                                    class="page-link">
+                                                    <i class="ri-arrow-right-s-line"></i>
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="contact_detail" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true"
+                    *ngIf="globalService.clienteOperador">
+                    <div class="modal-dialog modal-dialog-centered modal-xl contact-detail-modal" role="document">
+                        <div class="modal-content">
+                            <div class="modal-body p-0">
+                                <header class="contact-header">
+                                    <div class="d-flex align-items-center">
+                                        <div class="w-100">
+                                            <div class="cp-name text-truncate">
+                                                <h2 style="color: #000;">Detalles del cliente</h2>
+                                            </div>
+                                            <div class="rating rating-yellow my-rating-4" data-rating="3"></div>
+                                        </div>
+                                    </div>
+                                </header>
+                                <div class="contact-body contact-detail-body">
+                                    <div data-simplebar class="nicescroll-bar">
+                                        <div class="container-fluid">
+
+                                            <div class="card shadow-sm">
+                                                <div class="card-header bg-light">
+                                                    <div class="d-flex justify-content-between align-items-center">
+                                                        <h5 class="mb-0">Perfil</h5>
+                                                        <div class="dropdown">
+                                                            <button aria-expanded="false" data-bs-toggle="dropdown"
+                                                                class="btn btn-outline-secondary btn-sm dropdown-toggle"
+                                                                type="button">Acciones</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="card-body">
+                                                    <ul class="list-group list-group-flush">
+                                                        <li class="list-group-item d-flex justify-content-between">
+                                                            <strong>Nombres:</strong>
+                                                            <span>{{globalService.clienteOperador.NombreOperador}}</span>
+                                                        </li>
+                                                        <li class="list-group-item d-flex justify-content-between">
+                                                            <strong>Email:</strong>
+                                                            <span>{{globalService.clienteOperador.Email}}</span>
+                                                        </li>
+                                                        <li class="list-group-item d-flex justify-content-between">
+                                                            <strong>Teléfono:</strong>
+                                                            <span>{{globalService.clienteOperador.Telefono}}</span>
+                                                        </li>
+                                                        <li class="list-group-item d-flex justify-content-between">
+                                                            <strong>Dirección:</strong>
+                                                            <span>{{globalService.clienteOperador.Direccion}}</span>
+                                                        </li>
+                                                        <li class="list-group-item d-flex justify-content-between">
+                                                            <strong>Pagina web:</strong>
+                                                            <span>{{globalService.clienteOperador.PaginaWeb}}</span>
+                                                        </li>
+                                                        <li class="list-group-item d-flex justify-content-between">
+                                                            <strong>Fax:</strong>
+                                                            <span>{{globalService.clienteOperador.Fax}}</span>
+                                                        </li>
+                                                        <li class="list-group-item d-flex justify-content-between">
+                                                            <strong>Fax Notificacion:</strong>
+                                                            <span>{{globalService.clienteOperador.FaxNotificacion}}</span>
+                                                        </li>
+                                                        <li class="list-group-item d-flex justify-content-between">
+                                                            <strong>Codigo Postal:</strong>
+                                                            <span>{{globalService.clienteOperador.CodigoPostal}}</span>
+                                                        </li>
+                                                        <li class="list-group-item d-flex justify-content-between">
+                                                            <strong>Codigo Postal Notificacion:</strong>
+                                                            <span>{{globalService.clienteOperador.CodigoPostalNotificacion}}</span>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- /Contact Details -->
+
+                <!-- Edit Info -->
+                <div id="add_new_contact" class="modal fade add-new-contact" tabindex="-1" role="dialog"
+                    aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+                        <div class="modal-content">
+                            <div class="modal-body">
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">×</span>
+                                </button>
+                                <h5 class="mb-5">Create New Conatct</h5>
+                                <form>
+                                    <div class="row gx-3">
+                                        <div class="col-sm-2 form-group">
+                                            <div class="dropify-square">
+                                                <input type="file" class="dropify-1" />
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-10 form-group">
+                                            <textarea class="form-control mnh-100p" rows="4"
+                                                placeholder="Add Biography"></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="title title-xs title-wth-divider text-primary text-uppercase my-4">
+                                        <span>Basic Info</span>
+                                    </div>
+                                    <div class="row gx-3">
+                                        <div class="col-sm-4">
+                                            <div class="form-group">
+                                                <label class="form-label">First Name</label>
+                                                <input class="form-control" type="text" />
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-4">
+                                            <div class="form-group">
+                                                <label class="form-label">Middle Name</label>
+                                                <input class="form-control" type="text" />
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-4">
+                                            <div class="form-group">
+                                                <label class="form-label">Last Name</label>
+                                                <input class="form-control" type="text" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row gx-3">
+                                        <div class="col-sm-6">
+                                            <div class="form-group">
+                                                <label class="form-label">Email ID</label>
+                                                <input class="form-control" type="text" />
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <div class="form-group">
+                                                <label class="form-label">Phone</label>
+                                                <input class="form-control" type="text" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row gx-3">
+                                        <div class="col-sm-4">
+                                            <div class="form-group">
+                                                <label class="form-label">City</label>
+                                                <select class="form-select">
+                                                    <option selected="">--</option>
+                                                    <option value="1">One</option>
+                                                    <option value="2">Two</option>
+                                                    <option value="3">Three</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-4">
+                                            <div class="form-group">
+                                                <label class="form-label">State</label>
+                                                <select class="form-select">
+                                                    <option selected="">--</option>
+                                                    <option value="1">One</option>
+                                                    <option value="2">Two</option>
+                                                    <option value="3">Three</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-4">
+                                            <div class="form-group">
+                                                <label class="form-label">Country</label>
+                                                <select class="form-select">
+                                                    <option selected="">--</option>
+                                                    <option value="1">One</option>
+                                                    <option value="2">Two</option>
+                                                    <option value="3">Three</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="title title-xs title-wth-divider text-primary text-uppercase my-4">
+                                        <span>Company Info</span>
+                                    </div>
+                                    <div class="row gx-3">
+                                        <div class="col-sm-6">
+                                            <div class="form-group">
+                                                <label class="form-label">Company Name</label>
+                                                <input class="form-control" type="text" />
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <div class="form-group">
+                                                <label class="form-label">Designation</label>
+                                                <input class="form-control" type="text" />
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <div class="form-group">
+                                                <label class="form-label">Website</label>
+                                                <input class="form-control" type="text" />
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <div class="form-group">
+                                                <label class="form-label">Work Phone</label>
+                                                <input class="form-control" type="text" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="title title-xs title-wth-divider text-primary text-uppercase my-4">
+                                        <span>Additional Info</span>
+                                    </div>
+
+                                </form>
+                            </div>
+                            <div class="modal-footer align-items-center">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Discard</button>
+                                <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Create
+                                    Contact</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- /Edit Info -->
+
+                <!-- Add Label -->
+                <div id="add_new_label" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered modal-sm" role="document">
+                        <div class="modal-content">
+                            <div class="modal-body">
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">×</span>
+                                </button>
+                                <h6 class="text-uppercase fw-bold mb-3">Add Label</h6>
+                                <form>
+                                    <div class="row gx-3">
+                                        <div class="col-sm-12">
+                                            <div class="form-group">
+                                                <input class="form-control" type="text" placeholder="Label Name" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <button type="button" class="btn btn-primary float-end"
+                                        data-bs-dismiss="modal">Add</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Add Label -->
+
+                <!-- Add Tag -->
+                <div id="add_new_tag" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered modal-sm" role="document">
+                        <div class="modal-content">
+                            <div class="modal-body">
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">×</span>
+                                </button>
+                                <h6 class="text-uppercase fw-bold mb-3">Add Tag</h6>
+                                <form>
+                                    <div class="row gx-3">
+                                        <div class="col-sm-12">
+                                            <div class="form-group">
+                                                <select id="input_tags_3" class="form-control" multiple="multiple">
+                                                    <option selected="selected">Collaborator</option>
+                                                    <option selected="selected">Designer</option>
+                                                    <option selected="selected">React Developer</option>
+                                                    <option selected="selected">Promotion</option>
+                                                    <option selected="selected">Advertisement</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <button type="button" class="btn btn-primary float-end"
+                                        data-bs-dismiss="modal">Add</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Add Tag -->
+            </div>
+        </div>
+    </div>
