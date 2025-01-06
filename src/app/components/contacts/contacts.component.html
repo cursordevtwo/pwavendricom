@@ -47,74 +47,6 @@
                     </header>
                     <div class="contact-body">
                         <div data-simplebar class="nicescroll-bar">
-                            <div class="collapse" id="collapseQuick">
-                                <div class="quick-access-form-wrap">
-                                    <form class="quick-access-form border">
-                                        <div class="row gx-3">
-                                            <div class="col-xxl-10">
-                                                <div class="position-relative">
-                                                    <div class="dropify-square">
-                                                        <input type="file" class="dropify-1" />
-                                                    </div>
-                                                    <div class="col-md-12">
-                                                        <div class="row gx-3">
-                                                            <div class="col-lg-4">
-                                                                <div class="form-group">
-                                                                    <input class="form-control"
-                                                                        placeholder="First name*" value="" type="text">
-                                                                </div>
-                                                                <div class="form-group">
-                                                                    <input class="form-control" placeholder="Last name*"
-                                                                        value="" type="text">
-                                                                </div>
-                                                            </div>
-                                                            <div class="col-lg-4">
-                                                                <div class="form-group">
-                                                                    <input class="form-control" placeholder="Email Id*"
-                                                                        value="" type="text">
-                                                                </div>
-                                                                <div class="form-group">
-                                                                    <input class="form-control" placeholder="Phone"
-                                                                        value="" type="text">
-                                                                </div>
-                                                            </div>
-                                                            <div class="col-lg-4">
-                                                                <div class="form-group">
-                                                                    <input class="form-control" placeholder="Department"
-                                                                        value="" type="text">
-                                                                </div>
-                                                                <div class="form-group">
-                                                                    <select id="input_tags" class="form-control"
-                                                                        multiple="multiple">
-                                                                        <option selected="selected">Collaborator
-                                                                        </option>
-                                                                        <option>Designer</option>
-                                                                        <option selected="selected">Developer</option>
-                                                                    </select>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-xxl-2">
-                                                <div class="form-group">
-                                                    <button data-bs-toggle="collapse" data-bs-target="#collapseExample"
-                                                        aria-expanded="false" class="btn btn-block btn-primary ">Create
-                                                        New
-                                                    </button>
-                                                </div>
-                                                <div class="form-group">
-                                                    <button data-bs-toggle="collapse" disabled
-                                                        data-bs-target="#collapseExample" aria-expanded="false"
-                                                        class="btn btn-block btn-secondary">Discard
-                                                    </button>
-                                                </div>
-                                            </div>>
-                                        </div>
-                                    </form>
-                                </div>
-                            </div>
                             <div class="contact-card-view">
                                 <div class="row">
                                     <div class="col-7 mb-3">
@@ -130,7 +62,7 @@
                                         <div class="card card-border contact-card"
                                             style="  border-radius: 10px 30px; background: #d8d8d8;">
                                             <div class="card-body text-center">
-                                                <div class="card-action-wrap">
+                                                <!-- <div class="card-action-wrap">
                                                     <a class="btn btn-icon btn-flush-dark btn-rounded flush-soft-hover"
                                                         href="#" aria-expanded="false" data-bs-toggle="dropdown"><span
                                                             class="btn-icon-wrap"><span class="feather-icon"><i
@@ -140,7 +72,7 @@
                                                             role="menuitem"><i class="icon wb-trash"
                                                                 aria-hidden="true"></i>Borrar</a>
                                                     </div>
-                                                </div>
+                                                </div> -->
                                                 <div class="avatar avatar-xl avatar-rounded">
                                                     <img src="assets/jampack/dist/img/avataer10.jpg" class="avatar-img">
                                                 </div>
@@ -149,14 +81,13 @@
                                                                 data-feather="star"></i></span></span>{{cliente.name}}
                                                 </div>
                                                 <div class="user-email">{{cliente.type}}</div>
-                                                <div class="user-contact">+{{cliente.phone}}</div>
-                                                <div class="user-desg"><span
-                                                        class="badge badge-primary badge-indicator badge-indicator-lg me-2"></span>
-                                                    {{cliente.name}}</div>
+                                                <!-- <div class="user-contact">+{{cliente.phone}}</div> -->
+                                                <!-- <div class="user-desg">
+                                                   <a (click)="virtualRouter.setRoute('contact-detail', cliente.id)">  Ver detalles</a>
+                                                </div> -->
                                             </div>
                                             <div class="card-footer text-muted position-relative">
                                                 <div class="v-separator-full m-0"></div>
-
                                             </div>
                                         </div>
                                     </div>
@@ -201,7 +132,7 @@
                                                         </span>
                                                         <span class="fs-7 lh-1"
                                                             (click)="globalService.setClienteOperador(clienteOperador)">
-                                                            Ver perfil
+                                                            Ver Detalles
                                                         </span>
                                                     </a>
                                                 </div>

@@ -142,6 +142,7 @@ export class GlobalService {
     temas: [] as any[]
   };
   
+  
   constructor(
     private apollo: Apollo,
     public catalogo: Catalogo,
@@ -574,6 +575,10 @@ export class GlobalService {
   selectTema(tema: any) {
     this.selectedTema = tema;
     this.applyFilters();
+    this.applyFiltersNormativas();
+    this.applyFiltersBoletines();
+    this.applyFiltersJurisprudencias();
+    this.applyFiltersModelos();
   }
 
   signOut() {

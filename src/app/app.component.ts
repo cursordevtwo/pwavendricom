@@ -27,7 +27,8 @@ import { CursosComponent } from './components/cursos/cursos.component';
 import { PublicityComponent } from './components/publicity/publicity.component';
 import { FaqComponent } from './components/faq/faq.component';
 import { ContactsComponent } from './components/contacts/contacts.component';
-
+import { Pipe, PipeTransform } from '@angular/core';
+import { OrderByPipe } from './order-by.pipe';
 
 @Component({
   selector: 'app-root',
@@ -56,7 +57,8 @@ import { ContactsComponent } from './components/contacts/contacts.component';
     CursosComponent,
     PublicityComponent,
     FaqComponent,
-    ContactsComponent    
+    ContactsComponent,
+    OrderByPipe
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
@@ -66,7 +68,6 @@ export class AppComponent {
   layoutStyle: string = "default";
   deviceInfo: any = null
   isChatOpen: boolean = false;
-
  
   constructor(
     private deviceService: DeviceDetectorService,

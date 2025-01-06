@@ -11,14 +11,32 @@ import { FilePickerModule } from 'ngx-awesome-uploader';
 import { UploaderCaptions } from 'ngx-awesome-uploader';
 import { DemoFilePickerAdapter } from '@app/file-picker.adapter';
 import { ImageUploadService } from '@app/services/image-upload.service';
-import {
-  IDropdownSettings,
-  NgMultiSelectDropDownModule,
-} from 'ng-multiselect-dropdown';
+import {  IDropdownSettings,  NgMultiSelectDropDownModule,} from 'ng-multiselect-dropdown';
 import { CommonModule } from '@angular/common';
 import { DataApiService } from '@app/services/data-api-service';
 import Swal from 'sweetalert2';
 import { FilterByRepositorioPipe } from '@app/pipes/filter-by-repositorio.pipe';
+import { Pipe, PipeTransform } from '@angular/core';
+
+@Pipe({
+  name: 'orderBy'
+})
+export class OrderByPipe implements PipeTransform {
+  transform(value: any[], field: string, ascending: boolean = true): any[] {
+    if (!value || !Array.isArray(value)) {
+      return value; // Si no es un array, retorna el valor original
+    }
+
+    return value.sort((a, b) => {
+      if (a[field] < b[field]) {
+        return ascending ? -1 : 1; // Ascendente o descendente
+      } else if (a[field] > b[field]) {
+        return ascending ? 1 : -1; // Ascendente o descendente
+      }
+      return 0; // Son iguales
+    });
+  }
+}
 
 interface DocumentInterface {
   id?: string;
@@ -34,6 +52,7 @@ interface DocumentInterface {
   entity: string;
   status: string;
 }
+
 @Component({
   selector: 'app-file-manager',
   standalone: true,
@@ -42,13 +61,14 @@ interface DocumentInterface {
     FilePickerModule,
     FormsModule,
     NgMultiSelectDropDownModule,
-    ReactiveFormsModule
+    ReactiveFormsModule, 
   ],
   providers: [FilterByRepositorioPipe],
   templateUrl: './file-manager.component.html',
-  /* styleUrl: './file-manager.component.css', */
-  styleUrls: ['./file-manager.component.css']
+  styleUrl: './file-manager.component.css',
+  /* styleUrls: ['./file-manager.component.css'] */
 })
+
 export class FileManagerComponent implements OnInit{
   @ViewChild('infoDiv', { static: true }) infoDiv!: ElementRef;
   years: number[] = [];
@@ -84,6 +104,7 @@ docummentSelected: DocumentInterface = {
   status: '',
 
 };
+
   dropdownSettings: IDropdownSettings = {};
   formData: any = {};
   editingDocumentId: string | null = null; // Almacena el ID del documento que se está editando
@@ -109,7 +130,7 @@ docummentSelected: DocumentInterface = {
   selectedCategory: any; // La categoría seleccionada
   filteredRepositorios: any[] = []; // Para guardar los repositorios filtrados
   selectedRepositorio: any = null; // Para guardar el repositorio seleccionado
-
+  documentTitle: string = 'Documentos';
   constructor(
     public imageUpload: ImageUploadService,
     private formBuilder: FormBuilder,
@@ -134,6 +155,8 @@ docummentSelected: DocumentInterface = {
       allowSearchFilter: true
     };
   }
+
+
   
   close() {
     // Aquí va tu lógica para la acción
@@ -164,8 +187,23 @@ docummentSelected: DocumentInterface = {
     
     // Verifica si temaSelected está establecido
     console.log('Tema seleccionado:', this.global.temaSelected);
-    
+   
+      // Ordenar los temas alfabéticamente
+      this.global.temas.sort((a, b) => a.name.localeCompare(b.name));
+     
   }
+  verTodosTemas() {
+    this.global.filteredDocuments = this.global.documents;
+    this.documentTitle = 'Todos los Documentos'; // Cambia el título
+    this.global.selectedTema = null; // Asegúrate de que el tema seleccionado se oculte
+}
+
+verTodosAños() {
+  this.global.filteredDocuments = this.global.documents;
+  this.documentTitle = 'Todos los Documentos'; // Cambia el título
+  this.global.selectedYear = null; // Asegúrate de que el año seleccionado se oculte
+}
+  
   viewRepositorio(repositorio: any) {
     this.showDocuments = true;
     if (repositorio && repositorio.id) {
