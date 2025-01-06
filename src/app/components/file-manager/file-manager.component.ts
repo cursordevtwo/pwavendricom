@@ -283,12 +283,7 @@ docummentSelected: DocumentInterface = {
   }
   
   // Manejar el inicio del modo de edición
-  /* editDocument(document: any): void {
-    this.isEditMode = true;
-    this.editingDocumentId = document.id;
-    this.formData = { ...document };
-    this.global.repositorioSelected = document.repositorioId || null; // Cargar el repositorio seleccionado
-  } */
+
     editDocument(document: any): void {
       this.isEditMode = true;
       this.editingDocumentId = document.id;
@@ -303,26 +298,7 @@ docummentSelected: DocumentInterface = {
     
 
   // Actualizar documento
-  /* updateDocument(): void {
-    if (!this.editingDocumentId) return;
-
-    this.dataApi.updateDocument(this.formData, this.editingDocumentId).subscribe(
-      (response) => {
-        // Actualizar lista de documentos
-        const index = this.global.documents.findIndex(doc => doc.id === this.editingDocumentId);
-        if (index !== -1) {
-          this.global.documents[index] = response;
-          this.global.filteredDocuments = [...this.global.documents];
-        }
-
-        Swal.fire('Éxito', 'El documento ha sido actualizado con éxito.', 'success');
-        this.resetForm();
-      },
-      (error) => {
-        Swal.fire('Error', 'Ocurrió un error al actualizar el documento.', 'error');
-      }
-    );
-  } */
+ 
     updateDocument(): void {
       if (!this.editingDocumentId) return;
     

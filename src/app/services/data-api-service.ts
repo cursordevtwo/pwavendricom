@@ -252,6 +252,12 @@ export class DataApiService {
 		  map(data => data)
 		);
 	  }
+	  saveCliente( cliente: ClientInterface) {	
+		const url_api = 'https://db.vendricom.com:8091/api/collections/clientes/records';
+		return this.http.post<ClientInterface>(url_api, cliente).pipe(
+		  map(data => data)
+		);
+	  }
 	deletePart(id: string){
 		const token = this.AuthRESTService.getToken();
 		const url_api=	this.yeoman.origin.restUrl+`/api/products/${id}/?access_token$={token}`;
@@ -382,6 +388,19 @@ export class DataApiService {
 		const url_api = `${this.yeoman.origin.restUrl}/api/collections/vendricomDocuments/records/${id}`;
 			return this.http.delete<DocumentInterface>(url_api).pipe(map((data) => data));
 		  }
+	deleteClientOperator(id: string) {
+	const url_api = `https://db.vendricom.com:8091/api/collections/clientes/records/${id}`;
+	return this.http.delete<ClientInterface>(url_api).pipe(map((data) => data));
+	}
+		  
+	deleteNormativa(id: string) {
+	const url_api = `${this.yeoman.origin.restUrl}/api/collections/vendricomNormativas/records/${id}`;
+		return this.http.delete<DocumentInterface>(url_api).pipe(map((data) => data));
+		}
+	deleteBoletin(id: string) {
+	const url_api = `${this.yeoman.origin.restUrl}/api/collections/vendricomBoletines/records/${id}`;
+		return this.http.delete<DocumentInterface>(url_api).pipe(map((data) => data));
+		}
 	deleteOrder(orderId: string): Observable<void> {
 		const token = this.AuthRESTService.getToken();
 		const url_api = `${this.yeoman.origin.restUrl}/api/orders/${orderId}/?access_token=${token}`;
@@ -411,29 +430,34 @@ export class DataApiService {
 		return ( this.http.get(url_api));		
 	}
 
-
-	// updateOrderStatus(order: any): Observable<any> {
-	// 	const url = `${this.yeoman.origin.restUrl}/orders/${order.id}`;
-	// 	const orderUpdate = { status: 'procesando' }; // Datos a enviar en el cuerpo de la solicitud
-	  
-	// 	return this.http
-	// 	  .put(url, orderUpdate)
-	// 	  .pipe(map(data => data));
-	//   }
-	
-	 /*  updateDocument(data: any, id: string): Observable<any> {
-		const url = `https://db.buckapi.com:8090/api/collections/vendricomDocuments/records/${id}`;
-			return this.http.patch(url, document).pipe(
-		  map(response => response)
-		);
-	  } */
 	  updateDocument(data: any, id: string): Observable<any> {
 		const url = `https://db.buckapi.com:8090/api/collections/vendricomDocuments/records/${id}`;
 		return this.http.patch(url, data).pipe(
 		  map(response => response)
 		);
 	  }
-	  
+	 /*  updateContact(data: any, id: string): Observable<any> {
+		const url = `https://db.vendricom.com:8091/api/collections/clientes/records/${id}`;
+		return this.http.patch(url, data).pipe(
+		  map(response => response)
+		);
+	  } */
+		updateContact(data: any, id: string): Observable<any> {
+			const url = `https://db.vendricom.com:8091/api/collections/clientes/records/${id}`;
+			
+			// Verificar los datos antes de enviarlos
+			console.log('Datos enviados a la API:', data); 
+		  
+			return this.http.patch(url, data).pipe(
+			  map(response => {
+				// Verificar la respuesta recibida de la API
+				console.log('Respuesta de la API:', response);  
+				return response;
+			  })
+			);
+		  }
+		  
+	
 	  
 	  orderUpdate(order : OrderInterface , id: string){
 		// let token = this.authService.getToken();

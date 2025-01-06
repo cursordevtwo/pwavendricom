@@ -11,14 +11,13 @@
                             <div class="dropdown">
                                 <a class="contactapp-title dropdown-toggle link-dark" data-bs-toggle="dropdown" href="#"
                                     role="button" aria-haspopup="true" aria-expanded="false">
-                                    <h1>Clientes de vendricom</h1>
+                                    <h1>Clientes registrados en Vendricom</h1>
                                 </a>
 
                             </div>
                         </div>
                         <div class="contact-options-wrap">
 
-                            <!-- <a class="dropdown-item active" href="clientes.html"><span class="feather-icon dropdown-icon"><i data-feather="grid"></i></span><span> </span></a> -->
 
                             <a class="btn btn-icon btn-flush-dark flush-soft-hover dropdown-toggle no-caret active"><span
                                     class="icon"><span class="feather-icon"><i
@@ -27,14 +26,11 @@
                                     class="icon"><span class="feather-icon"><i
                                             data-feather="grid"></i></span></span></a>
                             <div class="v-separator d-lg-block d-none"></div>
-                            <!-- <a class="btn btn-icon btn-flush-dark btn-rounded flush-soft-hover dropdown-toggle no-caret d-lg-inline-block d-none ms-sm-0" href="#" data-bs-toggle="dropdown"><span class="icon" data-bs-toggle="tooltip" data-placement="top" title="" data-bs-original-title="Manage Contact"><span class="feather-icon"><i data-feather="settings"></i></span></span></a>
+                            <a class="btn btn-icon btn-flush-dark btn-rounded flush-soft-hover dropdown-toggle no-caret d-lg-inline-block d-none ms-sm-0" href="#" data-bs-toggle="dropdown"><span class="icon" data-bs-toggle="tooltip" data-placement="top" title="" data-bs-original-title="Manage Contact"><span class="feather-icon"><i data-feather="user"></i></span></span></a>
                         <div class="dropdown-menu dropdown-menu-end">
-                             <a class="dropdown-item" href="#">Manage Contact</a> 
-                             <a class="dropdown-item" href="#">Importar</a>
-                            <a class="dropdown-item" href="#">Exportar</a>
-                            <div class="dropdown-divider"></div> 
-                            
-                        </div> -->
+                            <a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#add_new_contact"><i class="dropdown-icon feather-icon"><i data-feather="user-plus"></i></i>Crear Contacto</a>                            
+                        <div class="dropdown-divider"></div> 
+                        </div>
 
                             <a class="btn btn-icon btn-flush-dark btn-rounded flush-soft-hover hk-navbar-togglable d-sm-inline-block d-none"
                                 href="#" data-bs-toggle="tooltip" data-placement="top" title=""
@@ -45,7 +41,6 @@
                                 </span>
                             </a>
                         </div>
-                        <!-- <div class="hk-sidebar-togglable"></div> -->
                     </header>
                     <div class="contact-body">
                         <div data-simplebar class="nicescroll-bar">
@@ -125,33 +120,8 @@
                                                     placeholder="Buscar  colaborador"></label></div>
 
                                     </div>
-                                    <!-- <div class="col-5 mb-3">
-                                    <div class="contact-toolbar-right">
-                                         <div class="dataTables_length" id="datable_1_length">
-                                            <label>
-                                                View  
-                                                <select name="datable_1_length" class="form-select form-select-sm">
-                                                    <option value="10">10</option>
-                                                    <option value="25">25</option>
-                                                    <option value="50">50</option>
-                                                    <option value="100">100</option>
-                                                </select>
-                                            </label>
-                                        </div>
-                                        <div class="dataTables_info" id="datable_1_info" role="status" aria-live="polite">1 - 10 of 11</div>
-                                        <div class="dataTables_paginate paging_simple_numbers" id="datable_1_paginate">
-                                            <ul class="pagination custom-pagination pagination-simple m-0">
-                                                <li class="paginate_button page-item previous disabled" id="datable_1_previous"><a href="#" data-dt-idx="0" tabindex="0" class="page-link"><i class="ri-arrow-left-s-line"></i></a></li>
-                                                <li class="paginate_button page-item active"><a href="#" data-dt-idx="1" tabindex="0" class="page-link">1</a></li>
-                                                <li class="paginate_button page-item "><a href="#" data-dt-idx="2" tabindex="0" class="page-link">2</a></li>
-                                                <li class="paginate_button page-item next" id="datable_1_next"><a href="#" data-dt-idx="3" tabindex="0" class="page-link"><i class="ri-arrow-right-s-line"></i></a></li>
-                                            </ul>
-                                        </div> 
-                                    </div>
-                                </div> -->
                                 </div>
-                                <div
-                                    class="row gx-4 row-cols-xxl-4 row-cols-xl-4 row-cols-lg-4 row-cols-md-2 row-cols-1 mb-5">
+                                <div  class="row gx-4 row-cols-xxl-4 row-cols-xl-4 row-cols-lg-4 row-cols-md-2 row-cols-1 mb-5">
                                     <div class="col" *ngFor="let cliente of globalService.clientes">
                                         <div class="card card-border contact-card"
                                             style="  border-radius: 10px 30px; background: #d8d8d8;">
@@ -182,10 +152,7 @@
                                             </div>
                                             <div class="card-footer text-muted position-relative">
                                                 <div class="v-separator-full m-0"></div>
-                                                <!-- <a href="#" class="d-flex align-items-center" data-bs-toggle="modal" data-bs-target="#contact_detail">
-                                                <span class="feather-icon me-2"><i data-feather="user-check"></i></span>
-                                                <span class="fs-7 lh-1">Ver perfil</span>
-                                            </a> -->
+                                             
                                             </div>
                                         </div>
                                     </div>
@@ -199,8 +166,7 @@
                                 <!-- Lista de clientes operadores -->
                                 <h1 style="font-size: 20px; font-weight: bold;">Clientes de la empresa</h1>
 
-                                <div
-                                    class="row gx-3 row-cols-xxl-5 row-cols-xl-4 row-cols-lg-3 row-cols-md-2 row-cols-1 mb-5">
+                                <div class="row gx-3 row-cols-xxl-5 row-cols-xl-4 row-cols-lg-3 row-cols-md-2 row-cols-1 mb-5">
                                     <div class="col" *ngFor="let clienteOperador of globalService.clientesOperadores">
                                         <div class="card card-border contact-card"
                                             style="border-radius: 10px 30px; background: #d8d8d8;">
@@ -219,7 +185,8 @@
                                                     {{clienteOperador.Direccion}}
                                                 </div>
                                                 <div class="user-desg text-center d-flex flex-column align-items-center justify-content-center"
-                                                    style="height: 100px;">
+                                                    style="padding-top: 10px;
+                                                    padding-bottom: 10px;">
                                                     <a (click)="globalService.setClienteOperador(clienteOperador)"
                                                         style="cursor: pointer;"
                                                         class="d-flex align-items-center justify-content-center"
@@ -233,7 +200,6 @@
                                                         </span>
                                                     </a>
                                                 </div>
-
                                             </div>
                                         </div>
                                     </div>
@@ -283,87 +249,119 @@
                         </div>
                     </div>
                 </div>
-                <div id="contact_detail" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true"
-                    *ngIf="globalService.clienteOperador">
+                <div id="contact_detail" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true" *ngIf="globalService.clienteOperador">
                     <div class="modal-dialog modal-dialog-centered modal-xl contact-detail-modal" role="document">
-                        <div class="modal-content">
-                            <div class="modal-body p-0">
-                                <header class="contact-header">
-                                    <div class="d-flex align-items-center">
-                                        <div class="w-100">
-                                            <div class="cp-name text-truncate">
-                                                <h2 style="color: #000;">Detalles del cliente</h2>
-                                            </div>
-                                            <div class="rating rating-yellow my-rating-4" data-rating="3"></div>
-                                        </div>
-                                    </div>
-                                </header>
-                                <div class="contact-body contact-detail-body">
-                                    <div data-simplebar class="nicescroll-bar">
-                                        <div class="container-fluid">
+                      <div class="modal-content">
+                        <div class="modal-body p-0">
+                          <header class="contact-header justify-content-between">
+                            <div class="d-flex justify-content-between ">
+                              <div class="w-100">
+                                <h2 class="mb-0" style="color: #000;">Detalles del cliente</h2>
+                                <div class="rating rating-yellow my-rating-4" data-rating="3"></div>
+                              </div>
+                            </div>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" style="align-items: end;"></button>
 
-                                            <div class="card shadow-sm">
-                                                <div class="card-header bg-light">
-                                                    <div class="d-flex justify-content-between align-items-center">
-                                                        <h5 class="mb-0">Perfil</h5>
-                                                        <div class="dropdown">
-                                                            <button aria-expanded="false" data-bs-toggle="dropdown"
-                                                                class="btn btn-outline-secondary btn-sm dropdown-toggle"
-                                                                type="button">Acciones</button>
+                          </header>
+                  
+                          <div class="contact-body contact-detail-body">
+                            <div data-simplebar class="nicescroll-bar">
+                              <div class="container-fluid">
+                                <div class="card shadow-sm">
+                                  <div class="card-header bg-light">
+                                    <h5 class="mb-0">Perfil</h5>
+                                  </div>
+                                  <div class="card-body">
+                                 
+                  
+                                    <div *ngIf="!isEditing">
+                                        <!-- Vista de solo lectura -->
+                                        <div class="row gx-3">
+                                          <div class="col-sm-4 form-group">
+                                            <label class="form-label">Nombre: </label>
+                                            <span>{{globalService.clienteOperador.NombreOperador}}</span>
+                                          </div>
+                                          <div class="col-sm-4 form-group">
+                                            <label class="form-label">Correo: </label>
+                                            <span>{{globalService.clienteOperador.Email}}</span>
+                                          </div>
+                                          <div class="col-sm-4 form-group">
+                                            <label class="form-label">Teléfono: </label>
+                                            <span>{{globalService.clienteOperador.Telefono}}</span>
+                                          </div>
+                                          <div class="col-sm-4 form-group">
+                                            <label class="form-label">Dirección: </label>
+                                            <span>{{globalService.clienteOperador.Direccion}}</span>
+                                          </div>
+                                          <div class="col-sm-4 form-group">
+                                            <label class="form-label">Página Web: </label>
+                                            <span>{{globalService.clienteOperador.PaginaWeb}}</span>
+                                          </div>
+                                          <div class="col-sm-4 form-group">
+                                            <label class="form-label">Fax: </label>
+                                            <span>{{globalService.clienteOperador.Fax}}</span>
+                                          </div>
+                                        </div>
+                                        <button class="btn btn-primary" (click)="isEditing = true">Editar</button>
+                                        <button class="btn btn-danger" (click)="borrarCliente()">Borrar</button>                                        
+                                      </div>
+                                      
+                                       <!-- Formulario de edición -->
+                                        <div *ngIf="isEditing">
+                                                    <form (ngSubmit)="guardarCambios()">
+                                                    <div class="row gx-3">
+                                                        <div class="col-sm-4 form-group">
+                                                        <label class="form-label">Nombre:</label>
+                                                        <input type="text" class="form-control" [(ngModel)]="globalService.clienteOperador.NombreOperador" name="NombreOperador" required />
+                                                        </div>
+                                                        <div class="col-sm-4 form-group">
+                                                        <label class="form-label">Correo:</label>
+                                                        <input type="email" class="form-control" [(ngModel)]="globalService.clienteOperador.Email" name="Email" />
+                                                        </div>
+                                                        <div class="col-sm-4 form-group">
+                                                        <label class="form-label">Teléfono:</label>
+                                                        <input type="text" class="form-control" [(ngModel)]="globalService.clienteOperador.Telefono" name="Telefono" />
+                                                        </div>
+                                                        <div class="col-sm-4 form-group">
+                                                        <label class="form-label">Dirección:</label>
+                                                        <input type="text" class="form-control" [(ngModel)]="globalService.clienteOperador.Direccion" name="Direccion" />
+                                                        </div>
+                                                        <div class="col-sm-4 form-group">
+                                                        <label class="form-label">Página Web:</label>
+                                                        <input type="text" class="form-control" [(ngModel)]="globalService.clienteOperador.PaginaWeb" name="PaginaWeb" />
+                                                        </div>
+                                                        <div class="col-sm-4 form-group">
+                                                        <label class="form-label">Fax:</label>
+                                                        <input type="text" class="form-control" [(ngModel)]="globalService.clienteOperador.Fax" name="Fax" />
                                                         </div>
                                                     </div>
-                                                </div>
-                                                <div class="card-body">
-                                                    <ul class="list-group list-group-flush">
-                                                        <li class="list-group-item d-flex justify-content-between">
-                                                            <strong>Nombres:</strong>
-                                                            <span>{{globalService.clienteOperador.NombreOperador}}</span>
-                                                        </li>
-                                                        <li class="list-group-item d-flex justify-content-between">
-                                                            <strong>Email:</strong>
-                                                            <span>{{globalService.clienteOperador.Email}}</span>
-                                                        </li>
-                                                        <li class="list-group-item d-flex justify-content-between">
-                                                            <strong>Teléfono:</strong>
-                                                            <span>{{globalService.clienteOperador.Telefono}}</span>
-                                                        </li>
-                                                        <li class="list-group-item d-flex justify-content-between">
-                                                            <strong>Dirección:</strong>
-                                                            <span>{{globalService.clienteOperador.Direccion}}</span>
-                                                        </li>
-                                                        <li class="list-group-item d-flex justify-content-between">
-                                                            <strong>Pagina web:</strong>
-                                                            <span>{{globalService.clienteOperador.PaginaWeb}}</span>
-                                                        </li>
-                                                        <li class="list-group-item d-flex justify-content-between">
-                                                            <strong>Fax:</strong>
-                                                            <span>{{globalService.clienteOperador.Fax}}</span>
-                                                        </li>
-                                                        <li class="list-group-item d-flex justify-content-between">
-                                                            <strong>Fax Notificacion:</strong>
-                                                            <span>{{globalService.clienteOperador.FaxNotificacion}}</span>
-                                                        </li>
-                                                        <li class="list-group-item d-flex justify-content-between">
-                                                            <strong>Codigo Postal:</strong>
-                                                            <span>{{globalService.clienteOperador.CodigoPostal}}</span>
-                                                        </li>
-                                                        <li class="list-group-item d-flex justify-content-between">
-                                                            <strong>Codigo Postal Notificacion:</strong>
-                                                            <span>{{globalService.clienteOperador.CodigoPostalNotificacion}}</span>
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
+                                
+                                                    <div class="modal-footer align-items-center">
+                                                        <button type="button" class="btn btn-secondary" (click)="isEditing = false">Cancelar</button>
+                                                        <button type="submit" class="btn btn-primary">Guardar cambios</button>
+                                                    </div>
+                                                    </form>
+                                                </div>  
+                                        
+                                      
+                                  </div>
                                 </div>
+                              </div>
                             </div>
+                          </div>
                         </div>
+                  
+                        <div class="modal-footer align-items-center">
+                          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                          <!-- <button type="button" class="btn btn-primary" (click)="guardarCambios()" *ngIf="isEditing">Guardar Cambios</button>
+                          <button type="button" class="btn btn-primary" (click)="cancelar()" *ngIf="isEditing">Cancelar</button> -->
+
+                        </div>
+                      </div>
                     </div>
                 </div>
-                <!-- /Contact Details -->
+                  
 
-                <!-- Edit Info -->
                 <div id="add_new_contact" class="modal fade add-new-contact" tabindex="-1" role="dialog"
                     aria-hidden="true">
                     <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
@@ -372,135 +370,61 @@
                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
                                     <span aria-hidden="true">×</span>
                                 </button>
-                                <h5 class="mb-5">Create New Conatct</h5>
-                                <form>
-                                    <div class="row gx-3">
-                                        <div class="col-sm-2 form-group">
-                                            <div class="dropify-square">
-                                                <input type="file" class="dropify-1" />
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-10 form-group">
-                                            <textarea class="form-control mnh-100p" rows="4"
-                                                placeholder="Add Biography"></textarea>
-                                        </div>
-                                    </div>
+                                <h3 class="mb-5" style="color: #000;">Crear nuevo contacto</h3>
+                                <form [formGroup]="clienteForm" (ngSubmit)="agregarNuevoCliente()">
                                     <div class="title title-xs title-wth-divider text-primary text-uppercase my-4">
-                                        <span>Basic Info</span>
+                                        <span>Información personal</span>
                                     </div>
                                     <div class="row gx-3">
-                                        <div class="col-sm-4">
+                                        <div class="col-sm-12">
                                             <div class="form-group">
-                                                <label class="form-label">First Name</label>
-                                                <input class="form-control" type="text" />
+                                                <label class="form-label">Nombre completo</label>
+                                                <input class="form-control" type="text" formControlName="NombreOperador" />
                                             </div>
                                         </div>
-                                        <div class="col-sm-4">
+                                        <div class="col-sm-12">
                                             <div class="form-group">
-                                                <label class="form-label">Middle Name</label>
-                                                <input class="form-control" type="text" />
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-4">
-                                            <div class="form-group">
-                                                <label class="form-label">Last Name</label>
-                                                <input class="form-control" type="text" />
+                                                <label class="form-label">Dirección</label>
+                                                <input class="form-control" type="text" formControlName="Direccion" />
                                             </div>
                                         </div>
                                     </div>
                                     <div class="row gx-3">
                                         <div class="col-sm-6">
                                             <div class="form-group">
-                                                <label class="form-label">Email ID</label>
-                                                <input class="form-control" type="text" />
+                                                <label class="form-label">Correo</label>
+                                                <input class="form-control" type="text" formControlName="Email" />
                                             </div>
                                         </div>
                                         <div class="col-sm-6">
                                             <div class="form-group">
-                                                <label class="form-label">Phone</label>
-                                                <input class="form-control" type="text" />
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row gx-3">
-                                        <div class="col-sm-4">
-                                            <div class="form-group">
-                                                <label class="form-label">City</label>
-                                                <select class="form-select">
-                                                    <option selected="">--</option>
-                                                    <option value="1">One</option>
-                                                    <option value="2">Two</option>
-                                                    <option value="3">Three</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-4">
-                                            <div class="form-group">
-                                                <label class="form-label">State</label>
-                                                <select class="form-select">
-                                                    <option selected="">--</option>
-                                                    <option value="1">One</option>
-                                                    <option value="2">Two</option>
-                                                    <option value="3">Three</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-4">
-                                            <div class="form-group">
-                                                <label class="form-label">Country</label>
-                                                <select class="form-select">
-                                                    <option selected="">--</option>
-                                                    <option value="1">One</option>
-                                                    <option value="2">Two</option>
-                                                    <option value="3">Three</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="title title-xs title-wth-divider text-primary text-uppercase my-4">
-                                        <span>Company Info</span>
-                                    </div>
-                                    <div class="row gx-3">
-                                        <div class="col-sm-6">
-                                            <div class="form-group">
-                                                <label class="form-label">Company Name</label>
-                                                <input class="form-control" type="text" />
+                                                <label class="form-label">Telefono</label>
+                                                <input class="form-control" type="text" formControlName="Telefono" />
                                             </div>
                                         </div>
                                         <div class="col-sm-6">
                                             <div class="form-group">
-                                                <label class="form-label">Designation</label>
-                                                <input class="form-control" type="text" />
+                                                <label class="form-label">Fax</label>
+                                                <input class="form-control" type="text" formControlName="Fax" />
                                             </div>
                                         </div>
                                         <div class="col-sm-6">
                                             <div class="form-group">
-                                                <label class="form-label">Website</label>
-                                                <input class="form-control" type="text" />
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-6">
-                                            <div class="form-group">
-                                                <label class="form-label">Work Phone</label>
-                                                <input class="form-control" type="text" />
+                                                <label class="form-label">Pagina web</label>
+                                                <input class="form-control" type="text" formControlName="PaginaWeb" />
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="title title-xs title-wth-divider text-primary text-uppercase my-4">
-                                        <span>Additional Info</span>
+                                    <div class="modal-footer align-items-center">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                                        <button type="submit" class="btn btn-primary">Guardar Contacto</button>
                                     </div>
-
                                 </form>
                             </div>
-                            <div class="modal-footer align-items-center">
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Discard</button>
-                                <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Create
-                                    Contact</button>
-                            </div>
+                            
                         </div>
                     </div>
                 </div>
-                <!-- /Edit Info -->
 
                 <!-- Add Label -->
                 <div id="add_new_label" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">

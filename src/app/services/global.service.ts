@@ -65,29 +65,12 @@ interface Modelos {
   // otros campos según tu estructura de datos
 }
 export interface ClienteOperador {
+  id: string;
   NombreOperador: string;
   Telefono: string;
-  Direccion: string;
-  IdOperador: string;
-  IdDetalleOperador: string;
-  NombreCorto: string;
-  CedulaJuridica: string;
-  Barrio: string;
-  DireccionNotificacion: string;
-  Sector: string;
-  EstadoDetalleOperador: string;
-  EstadoOperador: string;
-  CodigoINTRAN: string;
-  IDServicio: string;
-  Provincia: string;
-  Canton: string;
-  Distrito: string;
-  FiguraJuridica: string;
+  Direccion: string;  
   Fax: string;
-  FaxNotificacion: string;
   PaginaWeb: string;
-  CodigoPostal: string;
-  CodigoPostalNotificacion: string;
   Email: string;
 }
 @Injectable({
@@ -158,6 +141,7 @@ export class GlobalService {
     repositorios: [] as any[],
     temas: [] as any[]
   };
+  
   constructor(
     private apollo: Apollo,
     public catalogo: Catalogo,
