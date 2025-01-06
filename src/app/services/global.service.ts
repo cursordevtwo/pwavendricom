@@ -142,7 +142,8 @@ export class GlobalService {
     temas: [] as any[]
   };
   
-  
+  documentTitle: string = 'Documentos';
+
   constructor(
     private apollo: Apollo,
     public catalogo: Catalogo,
@@ -544,7 +545,16 @@ export class GlobalService {
       return matchesTema && matchesSearchText && matchesYear;
     });
   }
-
+  verTodosTemas() {
+    this.filteredDocuments = this.documents;
+    this.documentTitle = 'Todos los Documentos'; // Cambia el título
+    this.selectedTema = null; // Asegúrate de que el tema seleccionado se oculte
+}
+verTodosAnos() {
+  this.filteredDocuments = this.documents;
+  this.documentTitle = 'Todos los Documentos'; // Cambia el título
+  this.selectedYear = null; // Asegúrate de que el año seleccionado se oculte
+}
   selectYear(year: number) {
     this.selectedYear = year;
     this.applyFilters();
