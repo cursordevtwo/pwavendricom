@@ -33,7 +33,9 @@ interface Repository {
 }
 
 interface Document {
+  id: string;
   created: string;
+  issue: string;
   subject: string;
   temas: Tema[];
   repositories: Repository[];
@@ -489,7 +491,7 @@ export class GlobalService {
     });
   }
 
-  applyFilters() {
+  /* applyFilters() {
     this.filteredDocuments = this.documents.filter((doc: Document) => {
       // Verificar si selectedTema no está vacío y si es así, comprobar que coincide con algún tema del documento
       let matchesTema = this.selectedTema ? doc.temas.some((t: Tema) => t.id === this.selectedTema.id) : true;
@@ -499,6 +501,17 @@ export class GlobalService {
       let matchesYear = this.selectedYear ? new Date(doc.created).getFullYear() === this.selectedYear : true;
       return matchesTema && matchesSearchText && matchesYear;
     });
+  } */
+    applyFilters() {
+      this.filteredDocuments = this.documents.filter((doc: Document) => {
+          // Verificar si selectedTema no está vacío y si es así, comprobar que coincide con algún tema del documento
+          let matchesTema = this.selectedTema ? doc.temas.some((t: Tema) => t.id === this.selectedTema.id) : true;
+          // Verificar si searchQuery no está vacío y si es así, comprobar que coincide con el campo entity del documento
+          let matchesSearchText = this.searchQuery ? doc.subject.toLowerCase().includes(this.searchQuery.toLowerCase()) : true;
+          // Verificar si selectedYear no está vacío y si es así, comprobar que el año de la fecha de issue coincide con el año seleccionado
+          let matchesYear = this.selectedYear ? new Date(doc.issue).getFullYear() === this.selectedYear : true;
+          return matchesTema && matchesSearchText && matchesYear;
+      });
   }
   applyFiltersNormativas() {
     this.filteredNormativas = this.normativas.filter((normativa: Normativa) => {
