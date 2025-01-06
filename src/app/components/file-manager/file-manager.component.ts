@@ -46,7 +46,8 @@ interface DocumentInterface {
   ],
   providers: [FilterByRepositorioPipe],
   templateUrl: './file-manager.component.html',
-  styleUrl: './file-manager.component.css',
+  /* styleUrl: './file-manager.component.css', */
+  styleUrls: ['./file-manager.component.css']
 })
 export class FileManagerComponent implements OnInit{
   @ViewChild('infoDiv', { static: true }) infoDiv!: ElementRef;
@@ -163,6 +164,7 @@ docummentSelected: DocumentInterface = {
     
     // Verifica si temaSelected está establecido
     console.log('Tema seleccionado:', this.global.temaSelected);
+    
   }
   viewRepositorio(repositorio: any) {
     this.showDocuments = true;

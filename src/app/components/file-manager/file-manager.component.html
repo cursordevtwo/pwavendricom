@@ -143,7 +143,7 @@
                                 <input type="text" class="form-control" id="serial" name="serial"
                                     [(ngModel)]="formData.serial" required>
                             </div>
-                           <!--  <div class="form-group">
+                            <!--  <div class="form-group">
                                 <label for="repositorioActual">Repositorio Actual:</label>
                                 <input type="text" class="form-control" id="repositorioActual" name="repositorioActual"
                                     [(ngModel)]="formData.repositorios.name" readonly>
@@ -163,7 +163,7 @@
                                   </option>
                                 </select>
                               </div> -->
-                              
+
                             <button type="submit" class="btn btn-primary">
                                 {{ isEditMode ? 'Actualizar' : 'Guardar' }}
                             </button>
@@ -186,9 +186,11 @@
                 </div>
             </nav>
             <div class="fmapp-content">
+                
                 <div class="fmapp-detail-wrap">
                     <h2 class="text-center mb-4" *ngIf="!showDocuments">Documentos Organizados por Repositorios</h2>
-                    <h2 class="text-center mb-4" *ngIf="showDocuments">Documentos pertenecientes al repositorio</h2>
+                    <h2 class="text-center mb-4" *ngIf="showDocuments">Documentos pertenecientes al Repositorio
+                        seleccionado</h2>
 
 
                     <header class="fm-header" *ngIf="showDocuments">
@@ -199,7 +201,8 @@
                                 <h1>{{ global.selectedTema ? global.selectedTema.name : 'Todos los temas' }}</h1>
                             </a>
                             <div class="dropdown-menu">
-                                <a class="dropdown-item" *ngFor="let tema of global.temas" (click)="global.selectTema(tema)">
+                                <a class="dropdown-item" *ngFor="let tema of global.temas"
+                                    (click)="global.selectTema(tema)">
                                     <span class="feather-icon dropdown-icon"><i data-feather="file"></i></span>
                                     <span>{{ tema.name }}</span>
                                 </a>
@@ -221,15 +224,23 @@
                                 </a>
                             </div>
                         </div>
-                        <div class="fm-options-wrap">
-                            <a class="btn btn-icon btn-flush-dark btn-rounded flush-soft-hover "
-                            (click)="showDocuments = false"><span class="icon"><span class="feather-icon"><i data-feather="arrow-left"></i></span></span></a>
-                            <a class="btn btn-icon btn-flush-dark btn-rounded flush-soft-hover hk-navbar-togglable d-lg-inline-block d-none"
-                                href="#" data-bs-toggle="tooltip" data-bs-placement="top" title=""
-                                data-bs-original-title="Collapse">
+                        
+                        <div class="fm-options-wrap" *ngIf="showDocuments" style="text-align: right;">
+                            <!-- Botón de flecha izquierda -->
+                           
+                            <a class="btn btn-icon btn-flush-dark btn-rounded flush-soft-hover"
+                                (click)="showDocuments = false" >
                                 <span class="icon">
-                                    <span class="feather-icon"><i data-feather="chevron-up"></i></span>
-                                    <span class="feather-icon d-none"><i data-feather="chevron-down"></i></span>
+                                    <i class="fa fa-arrow-left"></i>
+                                </span>
+                            </a>
+    
+                            <!-- Botón de colapso (solo visible en pantallas grandes) -->
+                            <a class="btn btn-icon btn-flush-dark btn-rounded flush-soft-hover hk-navbar-togglable d-lg-inline-block d-none"
+                                href="#" data-bs-toggle="tooltip" data-bs-placement="top" title="Collapse">
+                                <span class="icon">
+                                    <i class="fa fa-chevron-up"></i>
+                                    <i class="d-none" data-feather="chevron-down"></i>
                                 </span>
                             </a>
                         </div>
@@ -239,13 +250,13 @@
                         <div class="hk-sidebar-togglable"></div>
                     </header>
 
-
+                    
                     <div class="fm-body">
                         <div data-simplebar class="nicescroll-bar">
 
                             <div class="row row-cols-xxl-3 row-cols-xl-3 row-cols-lg-3 row-cols-md-2 row-cols-1 mt-4"
                                 [hidden]="showDocuments">
-                                <div class="col" *ngFor="let repositorio of global.repositorios idRepo">
+                                <div class="col" *ngFor="let repositorio of global.repositorios; let i = index">
                                     <div class="card card-border contact-card"
                                         style="  border-radius: 10px 30px; background: #d8d8d8;"
                                         (click)="viewRepositorio(repositorio)">
@@ -272,8 +283,8 @@
                                 <div class="card">
                                     <div id="fm_collapse_1" class="collapse show">
                                         <div
-                                            class="row row-cols-xxl-4 row-cols-xl-4 row-cols-lg-4 row-cols-md-2 row-cols-1 mt-4">
-                                            <div class="col-4" *ngFor="let document of global.filteredDocuments"
+                                            class="row row-cols-xxl-3 row-cols-xl-3 row-cols-lg-3 row-cols-md-2 row-cols-1 mt-4">
+                                            <div class="col-3" *ngFor="let document of global.filteredDocuments"
                                                 (click)="setPreview(document)">
                                                 <div class="card  card-border fmapp-info-toggle"
                                                     style="border-radius: 10px; background: #582e6d;">
@@ -326,29 +337,33 @@
                                                             <div class="d-flex">
                                                                 <!-- Botón del Menú -->
                                                                 <a class="menu-btn-gradient btn btn-xs btn-icon btn-rounded flex-shrink-0"
-                                                                   data-bs-toggle="dropdown"
-                                                                   role="button"
-                                                                   aria-haspopup="true"
-                                                                   aria-expanded="false"
-                                                                   (click)="$event.stopPropagation()">
-                                                                  <span class="icon">
-                                                                    <span class="feather-icon"><i data-feather="more-horizontal"></i></span>
-                                                                  </span>
+                                                                    data-bs-toggle="dropdown" role="button"
+                                                                    aria-haspopup="true" aria-expanded="false"
+                                                                    (click)="$event.stopPropagation()">
+                                                                    <span class="icon">
+                                                                        <span class="feather-icon"><i
+                                                                                data-feather="more-horizontal"></i></span>
+                                                                    </span>
                                                                 </a>
-                                                              
+
                                                                 <!-- Menú Desplegable -->
-                                                                <div class="dropdown-menu" (click)="$event.stopPropagation()">
-                                                                  <a class="dropdown-item" (click)="editDocument(document)">
-                                                                    <span class="feather-icon dropdown-icon"><i data-feather="edit"></i></span>
-                                                                    Editar
-                                                                  </a>
-                                                                  <a class="dropdown-item" (click)="deleteDocuments(document)">
-                                                                    <span class="feather-icon dropdown-icon"><i data-feather="trash-2"></i></span>
-                                                                    Borrar
-                                                                  </a>
+                                                                <div class="dropdown-menu"
+                                                                    (click)="$event.stopPropagation()">
+                                                                    <a class="dropdown-item"
+                                                                        (click)="editDocument(document)">
+                                                                        <span class="feather-icon dropdown-icon"><i
+                                                                                data-feather="edit"></i></span>
+                                                                        Editar
+                                                                    </a>
+                                                                    <a class="dropdown-item"
+                                                                        (click)="deleteDocuments(document)">
+                                                                        <span class="feather-icon dropdown-icon"><i
+                                                                                data-feather="trash-2"></i></span>
+                                                                        Borrar
+                                                                    </a>
                                                                 </div>
-                                                              </div>
-                                                              
+                                                            </div>
+
                                                         </div>
                                                     </div>
                                                 </div>

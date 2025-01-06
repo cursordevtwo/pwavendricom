@@ -17,20 +17,23 @@
                             </div>
                         </div>
                         <div class="contact-options-wrap">
-
-
-                            <a class="btn btn-icon btn-flush-dark flush-soft-hover dropdown-toggle no-caret active"><span
-                                    class="icon"><span class="feather-icon"><i
+                            <a class="btn btn-icon btn-flush-dark flush-soft-hover dropdown-toggle no-caret active">
+                                <span class="icon"><span class="feather-icon"><i
                                             data-feather="list"></i></span></span></a>
-                            <a class="btn btn-icon btn-flush-dark flush-soft-hover dropdown-toggle no-caret active"><span
-                                    class="icon"><span class="feather-icon"><i
+                            <a class="btn btn-icon btn-flush-dark flush-soft-hover dropdown-toggle no-caret active">
+                                <span class="icon"><span class="feather-icon"><i
                                             data-feather="grid"></i></span></span></a>
                             <div class="v-separator d-lg-block d-none"></div>
-                            <a class="btn btn-icon btn-flush-dark btn-rounded flush-soft-hover dropdown-toggle no-caret d-lg-inline-block d-none ms-sm-0" href="#" data-bs-toggle="dropdown"><span class="icon" data-bs-toggle="tooltip" data-placement="top" title="" data-bs-original-title="Manage Contact"><span class="feather-icon"><i data-feather="user"></i></span></span></a>
-                        <div class="dropdown-menu dropdown-menu-end">
-                            <a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#add_new_contact"><i class="dropdown-icon feather-icon"><i data-feather="user-plus"></i></i>Crear Contacto</a>                            
-                        <div class="dropdown-divider"></div> 
-                        </div>
+                            <a class="btn btn-icon btn-flush-dark btn-rounded flush-soft-hover dropdown-toggle no-caret d-lg-inline-block d-none ms-sm-0"
+                                href="#" data-bs-toggle="dropdown"><span class="icon" data-bs-toggle="tooltip"
+                                    data-placement="top" title="" data-bs-original-title="Manage Contact"><span
+                                        class="feather-icon"><i data-feather="user"></i></span></span></a>
+                            <div class="dropdown-menu dropdown-menu-end">
+                                <a class="dropdown-item" href="#" data-bs-toggle="modal"
+                                    data-bs-target="#add_new_contact"><i class="dropdown-icon feather-icon"><i
+                                            data-feather="user-plus"></i></i>Crear Contacto</a>
+                                <div class="dropdown-divider"></div>
+                            </div>
 
                             <a class="btn btn-icon btn-flush-dark btn-rounded flush-soft-hover hk-navbar-togglable d-sm-inline-block d-none"
                                 href="#" data-bs-toggle="tooltip" data-placement="top" title=""
@@ -121,7 +124,8 @@
 
                                     </div>
                                 </div>
-                                <div  class="row gx-4 row-cols-xxl-4 row-cols-xl-4 row-cols-lg-4 row-cols-md-2 row-cols-1 mb-5">
+                                <div
+                                    class="row gx-4 row-cols-xxl-4 row-cols-xl-4 row-cols-lg-4 row-cols-md-2 row-cols-1 mb-5">
                                     <div class="col" *ngFor="let cliente of globalService.clientes">
                                         <div class="card card-border contact-card"
                                             style="  border-radius: 10px 30px; background: #d8d8d8;">
@@ -152,7 +156,7 @@
                                             </div>
                                             <div class="card-footer text-muted position-relative">
                                                 <div class="v-separator-full m-0"></div>
-                                             
+
                                             </div>
                                         </div>
                                     </div>
@@ -166,7 +170,8 @@
                                 <!-- Lista de clientes operadores -->
                                 <h1 style="font-size: 20px; font-weight: bold;">Clientes de la empresa</h1>
 
-                                <div class="row gx-3 row-cols-xxl-5 row-cols-xl-4 row-cols-lg-3 row-cols-md-2 row-cols-1 mb-5">
+                                <div
+                                    class="row gx-3 row-cols-xxl-5 row-cols-xl-4 row-cols-lg-3 row-cols-md-2 row-cols-1 mb-5">
                                     <div class="col" *ngFor="let clienteOperador of globalService.clientesOperadores">
                                         <div class="card card-border contact-card"
                                             style="border-radius: 10px 30px; background: #d8d8d8;">
@@ -249,118 +254,134 @@
                         </div>
                     </div>
                 </div>
-                <div id="contact_detail" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true" *ngIf="globalService.clienteOperador">
+                <div id="contact_detail" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true"
+                    *ngIf="globalService.clienteOperador">
                     <div class="modal-dialog modal-dialog-centered modal-xl contact-detail-modal" role="document">
-                      <div class="modal-content">
-                        <div class="modal-body p-0">
-                          <header class="contact-header justify-content-between">
-                            <div class="d-flex justify-content-between ">
-                              <div class="w-100">
-                                <h2 class="mb-0" style="color: #000;">Detalles del cliente</h2>
-                                <div class="rating rating-yellow my-rating-4" data-rating="3"></div>
-                              </div>
-                            </div>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" style="align-items: end;"></button>
-
-                          </header>
-                  
-                          <div class="contact-body contact-detail-body">
-                            <div data-simplebar class="nicescroll-bar">
-                              <div class="container-fluid">
-                                <div class="card shadow-sm">
-                                  <div class="card-header bg-light">
-                                    <h5 class="mb-0">Perfil</h5>
-                                  </div>
-                                  <div class="card-body">
-                                 
-                  
-                                    <div *ngIf="!isEditing">
-                                        <!-- Vista de solo lectura -->
-                                        <div class="row gx-3">
-                                          <div class="col-sm-4 form-group">
-                                            <label class="form-label">Nombre: </label>
-                                            <span>{{globalService.clienteOperador.NombreOperador}}</span>
-                                          </div>
-                                          <div class="col-sm-4 form-group">
-                                            <label class="form-label">Correo: </label>
-                                            <span>{{globalService.clienteOperador.Email}}</span>
-                                          </div>
-                                          <div class="col-sm-4 form-group">
-                                            <label class="form-label">Teléfono: </label>
-                                            <span>{{globalService.clienteOperador.Telefono}}</span>
-                                          </div>
-                                          <div class="col-sm-4 form-group">
-                                            <label class="form-label">Dirección: </label>
-                                            <span>{{globalService.clienteOperador.Direccion}}</span>
-                                          </div>
-                                          <div class="col-sm-4 form-group">
-                                            <label class="form-label">Página Web: </label>
-                                            <span>{{globalService.clienteOperador.PaginaWeb}}</span>
-                                          </div>
-                                          <div class="col-sm-4 form-group">
-                                            <label class="form-label">Fax: </label>
-                                            <span>{{globalService.clienteOperador.Fax}}</span>
-                                          </div>
+                        <div class="modal-content">
+                            <div class="modal-body p-0">
+                                <header class="contact-header justify-content-between">
+                                    <div class="d-flex justify-content-between ">
+                                        <div class="w-100">
+                                            <h2 class="mb-0" style="color: #000;">Detalles del cliente</h2>
+                                            <div class="rating rating-yellow my-rating-4" data-rating="3"></div>
                                         </div>
-                                        <button class="btn btn-primary" (click)="isEditing = true">Editar</button>
-                                        <button class="btn btn-danger" (click)="borrarCliente()">Borrar</button>                                        
-                                      </div>
-                                      
-                                       <!-- Formulario de edición -->
-                                        <div *ngIf="isEditing">
-                                                    <form (ngSubmit)="guardarCambios()">
-                                                    <div class="row gx-3">
-                                                        <div class="col-sm-4 form-group">
-                                                        <label class="form-label">Nombre:</label>
-                                                        <input type="text" class="form-control" [(ngModel)]="globalService.clienteOperador.NombreOperador" name="NombreOperador" required />
+                                    </div>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+                                        style="align-items: end;"></button>
+
+                                </header>
+
+                                <div class="contact-body contact-detail-body">
+                                    <div data-simplebar class="nicescroll-bar">
+                                        <div class="container-fluid">
+                                            <div class="card shadow-sm">
+                                                <div class="card-header bg-light">
+                                                    <h5 class="mb-0">Perfil</h5>
+                                                </div>
+                                                <div class="card-body">
+
+
+                                                    <div *ngIf="!isEditing">
+                                                        <!-- Vista de solo lectura -->
+                                                        <div class="row gx-3">
+                                                            <div class="col-sm-4 form-group">
+                                                                <label class="form-label">Nombre: </label>
+                                                                <span>{{globalService.clienteOperador.NombreOperador}}</span>
+                                                            </div>
+                                                            <div class="col-sm-4 form-group">
+                                                                <label class="form-label">Correo: </label>
+                                                                <span>{{globalService.clienteOperador.Email}}</span>
+                                                            </div>
+                                                            <div class="col-sm-4 form-group">
+                                                                <label class="form-label">Teléfono: </label>
+                                                                <span>{{globalService.clienteOperador.Telefono}}</span>
+                                                            </div>
+                                                            <div class="col-sm-4 form-group">
+                                                                <label class="form-label">Dirección: </label>
+                                                                <span>{{globalService.clienteOperador.Direccion}}</span>
+                                                            </div>
+                                                            <div class="col-sm-4 form-group">
+                                                                <label class="form-label">Página Web: </label>
+                                                                <span>{{globalService.clienteOperador.PaginaWeb}}</span>
+                                                            </div>
+                                                            <div class="col-sm-4 form-group">
+                                                                <label class="form-label">Fax: </label>
+                                                                <span>{{globalService.clienteOperador.Fax}}</span>
+                                                            </div>
                                                         </div>
-                                                        <div class="col-sm-4 form-group">
-                                                        <label class="form-label">Correo:</label>
-                                                        <input type="email" class="form-control" [(ngModel)]="globalService.clienteOperador.Email" name="Email" />
-                                                        </div>
-                                                        <div class="col-sm-4 form-group">
-                                                        <label class="form-label">Teléfono:</label>
-                                                        <input type="text" class="form-control" [(ngModel)]="globalService.clienteOperador.Telefono" name="Telefono" />
-                                                        </div>
-                                                        <div class="col-sm-4 form-group">
-                                                        <label class="form-label">Dirección:</label>
-                                                        <input type="text" class="form-control" [(ngModel)]="globalService.clienteOperador.Direccion" name="Direccion" />
-                                                        </div>
-                                                        <div class="col-sm-4 form-group">
-                                                        <label class="form-label">Página Web:</label>
-                                                        <input type="text" class="form-control" [(ngModel)]="globalService.clienteOperador.PaginaWeb" name="PaginaWeb" />
-                                                        </div>
-                                                        <div class="col-sm-4 form-group">
-                                                        <label class="form-label">Fax:</label>
-                                                        <input type="text" class="form-control" [(ngModel)]="globalService.clienteOperador.Fax" name="Fax" />
-                                                        </div>
+                                                        <button class="btn btn-primary"
+                                                            (click)="isEditing = true">Editar</button>
+                                                        <button class="btn btn-danger"
+                                                            (click)="borrarCliente()">Borrar</button>
                                                     </div>
-                                
-                                                    <div class="modal-footer align-items-center">
-                                                        <button type="button" class="btn btn-secondary" (click)="isEditing = false">Cancelar</button>
-                                                        <button type="submit" class="btn btn-primary">Guardar cambios</button>
+
+                                                    <!-- Formulario de edición -->
+                                                    <div *ngIf="isEditing">
+                                                        <form (ngSubmit)="guardarCambios()">
+                                                            <div class="row gx-3">
+                                                                <div class="col-sm-4 form-group">
+                                                                    <label class="form-label">Nombre:</label>
+                                                                    <input type="text" class="form-control"
+                                                                        [(ngModel)]="globalService.clienteOperador.NombreOperador"
+                                                                        name="NombreOperador" required />
+                                                                </div>
+                                                                <div class="col-sm-4 form-group">
+                                                                    <label class="form-label">Correo:</label>
+                                                                    <input type="email" class="form-control"
+                                                                        [(ngModel)]="globalService.clienteOperador.Email"
+                                                                        name="Email" />
+                                                                </div>
+                                                                <div class="col-sm-4 form-group">
+                                                                    <label class="form-label">Teléfono:</label>
+                                                                    <input type="text" class="form-control"
+                                                                        [(ngModel)]="globalService.clienteOperador.Telefono"
+                                                                        name="Telefono" />
+                                                                </div>
+                                                                <div class="col-sm-4 form-group">
+                                                                    <label class="form-label">Dirección:</label>
+                                                                    <input type="text" class="form-control"
+                                                                        [(ngModel)]="globalService.clienteOperador.Direccion"
+                                                                        name="Direccion" />
+                                                                </div>
+                                                                <div class="col-sm-4 form-group">
+                                                                    <label class="form-label">Página Web:</label>
+                                                                    <input type="text" class="form-control"
+                                                                        [(ngModel)]="globalService.clienteOperador.PaginaWeb"
+                                                                        name="PaginaWeb" />
+                                                                </div>
+                                                                <div class="col-sm-4 form-group">
+                                                                    <label class="form-label">Fax:</label>
+                                                                    <input type="text" class="form-control"
+                                                                        [(ngModel)]="globalService.clienteOperador.Fax"
+                                                                        name="Fax" />
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="modal-footer align-items-center">
+                                                                <button type="button" class="btn btn-secondary"
+                                                                    (click)="isEditing = false">Cancelar</button>
+                                                                <button type="submit" class="btn btn-primary">Guardar
+                                                                    cambios</button>
+                                                            </div>
+                                                        </form>
                                                     </div>
-                                                    </form>
-                                                </div>  
-                                        
-                                      
-                                  </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
-                              </div>
                             </div>
-                          </div>
-                        </div>
-                  
-                        <div class="modal-footer align-items-center">
-                          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                          <!-- <button type="button" class="btn btn-primary" (click)="guardarCambios()" *ngIf="isEditing">Guardar Cambios</button>
+
+                            <div class="modal-footer align-items-center">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                                <!-- <button type="button" class="btn btn-primary" (click)="guardarCambios()" *ngIf="isEditing">Guardar Cambios</button>
                           <button type="button" class="btn btn-primary" (click)="cancelar()" *ngIf="isEditing">Cancelar</button> -->
 
+                            </div>
                         </div>
-                      </div>
                     </div>
                 </div>
-                  
+
 
                 <div id="add_new_contact" class="modal fade add-new-contact" tabindex="-1" role="dialog"
                     aria-hidden="true">
@@ -379,7 +400,8 @@
                                         <div class="col-sm-12">
                                             <div class="form-group">
                                                 <label class="form-label">Nombre completo</label>
-                                                <input class="form-control" type="text" formControlName="NombreOperador" />
+                                                <input class="form-control" type="text"
+                                                    formControlName="NombreOperador" />
                                             </div>
                                         </div>
                                         <div class="col-sm-12">
@@ -416,12 +438,13 @@
                                         </div>
                                     </div>
                                     <div class="modal-footer align-items-center">
-                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                                        <button type="button" class="btn btn-secondary"
+                                            data-bs-dismiss="modal">Cancelar</button>
                                         <button type="submit" class="btn btn-primary">Guardar Contacto</button>
                                     </div>
                                 </form>
                             </div>
-                            
+
                         </div>
                     </div>
                 </div>
