@@ -545,6 +545,12 @@ export class GlobalService {
       return matchesTema && matchesSearchText && matchesYear;
     });
   }
+  verTodos() {
+    this.filteredDocuments = this.documents;
+    this.documentTitle = 'Todos los Documentos'; // Cambia el título
+    this.selectedTema = null; // Asegúrate de que el tema seleccionado se oculte
+    this.selectedYear = null; // Asegúrate de que el año seleccionado se oculte
+  }
   verTodosTemas() {
     this.filteredDocuments = this.documents;
     this.documentTitle = 'Todos los Documentos'; // Cambia el título
