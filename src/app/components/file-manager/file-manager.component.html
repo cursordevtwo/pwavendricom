@@ -296,8 +296,7 @@
                                     <div id="fm_collapse_1" class="collapse show">
                                         <div
                                             class="row row-cols-xxl-3 row-cols-xl-3 row-cols-lg-3 row-cols-md-2 row-cols-1 mt-4">
-                                            <div class="col-3" *ngFor="let document of global.documents">
-                                                <div class="card card-border fmapp-info-toggle"
+                                            <div class="col-3" *ngFor="let document of global.filteredDocuments"
                                                 (click)="setPreview(document)">
                                                 <div class="card  card-border fmapp-info-toggle"
                                                     style="border-radius: 10px; background: #582e6d;">

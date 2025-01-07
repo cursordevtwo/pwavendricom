@@ -190,21 +190,12 @@ docummentSelected: DocumentInterface = {
    
       // Ordenar los temas alfabéticamente
       this.global.temas.sort((a, b) => a.name.localeCompare(b.name));
-
-      
      
   }
-  verTodosTemas() {
+  verTodos(){
+   /*  this.showDocuments = false; */
     this.global.filteredDocuments = this.global.documents;
-    this.documentTitle = 'Todos los Documentos'; // Cambia el título
-    this.global.selectedTema = null; // Asegúrate de que el tema seleccionado se oculte
-}
-
-verTodosAños() {
-  this.global.filteredDocuments = this.global.documents;
-  this.documentTitle = 'Todos los Documentos'; // Cambia el título
-  this.global.selectedYear = null; // Asegúrate de que el año seleccionado se oculte
-}
+  }
   
   viewRepositorio(repositorio: any) {
     this.showDocuments = true;
