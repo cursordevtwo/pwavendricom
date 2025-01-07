@@ -43,27 +43,39 @@ interface Document {
   // otros campos según tu estructura de datos
 }
 interface Normativa {
+  id: string;
   created: string;
   subject: string;
   temas: Tema[];
+  issue: string;
+
   // otros campos según tu estructura de datos
 }
 interface Boletin {
+  id: string;
   created: string;
   subject: string;
   temas: Tema[];
+  issue: string;
+
   // otros campos según tu estructura de datos
 }
 interface Jurisprudencia {
+  id: string;
   created: string;
   subject: string;
   temas: Tema[];
+  issue: string;
+
   // otros campos según tu estructura de datos
 }
 interface Modelos {
+  id: string;
   created: string;
   subject: string;
   temas: Tema[];
+  issue: string;
+
   // otros campos según tu estructura de datos
 }
 export interface ClienteOperador {
@@ -494,18 +506,8 @@ export class GlobalService {
     });
   }
 
-  /* applyFilters() {
-    this.filteredDocuments = this.documents.filter((doc: Document) => {
-      // Verificar si selectedTema no está vacío y si es así, comprobar que coincide con algún tema del documento
-      let matchesTema = this.selectedTema ? doc.temas.some((t: Tema) => t.id === this.selectedTema.id) : true;
-      // Verificar si searchQuery no está vacío y si es así, comprobar que coincide con el campo entity del documento
-      let matchesSearchText = this.searchQuery ? doc.subject.toLowerCase().includes(this.searchQuery.toLowerCase()) : true;
-      // Verificar si selectedYear no está vacío y si es así, comprobar que el año de la fecha de creación coincide con el año seleccionado
-      let matchesYear = this.selectedYear ? new Date(doc.created).getFullYear() === this.selectedYear : true;
-      return matchesTema && matchesSearchText && matchesYear;
-    });
-  } */
-    applyFilters() {
+  
+  applyFilters() {
       this.filteredDocuments = this.documents.filter((doc: Document) => {
           // Verificar si selectedTema no está vacío y si es así, comprobar que coincide con algún tema del documento
           let matchesTema = this.selectedTema ? doc.temas.some((t: Tema) => t.id === this.selectedTema.id) : true;
@@ -541,20 +543,17 @@ export class GlobalService {
   }
   applyFiltersJurisprudencias() {
     this.filteredJurisprudencias = this.jurisprudencias.filter((jurisprudencia: Jurisprudencia) => {
-      // Verificar si selectedTema no está vacío y si es así, comprobar que coincide con algún tema del jurisprudenciaumento
-      // let matchesTema = this.selectedTema ? jurisprudencia.temas.some((t: Tema) => t.id === this.selectedTema.id) : true;
-      // Verificar si searchQuery no está vacío y si es así, comprobar que coincide con el campo entity del jurisprudenciaumento
+       let matchesTema = this.selectedTema ? jurisprudencia.temas.some((t: Tema) => t.id === this.selectedTema.id) : true;
       let matchesSearchText = this.searchQuery ? jurisprudencia.subject.toLowerCase().includes(this.searchQuery.toLowerCase()) : true;
-      // Verificar si selectedYear no está vacío y si es así, comprobar que el año de la fecha de creación coincide con el año seleccionado
-      // let matchesYear = this.selectedYear ? new Date(jurisprudencia.created).getFullYear() === this.selectedYear : true;
-      return matchesSearchText;
+      let matchesYear = this.selectedYear ? new Date(jurisprudencia.issue).getFullYear() === this.selectedYear : true;
+      return matchesSearchText && matchesYear && matchesTema;
     });
   }
   applyFiltersModelos() {
     this.filteredModelos = this.modelos.filter((modelos: Modelos) => {
-      // Verificar si selectedTema no está vacío y si es así, comprobar que coincide con algún tema del modelos
+      // Verificar si selectedTema no está vacío y si es asi, comprobar que coincide con algun tema del modelos
       let matchesTema = this.selectedTema ? modelos.temas.some((t: Tema) => t.id === this.selectedTema.id) : true;
-      // Verificar si searchQuery no está vacío y si es así, comprobar que coincide con el campo entity del modelos
+      // Verificar si searchQuery no está vacío y si es asi, comprobar que coincide con el campo entity del modelos
       let matchesSearchText = this.searchQuery ? modelos.subject.toLowerCase().includes(this.searchQuery.toLowerCase()) : true;
       // Verificar si selectedYear no está vacío y si es así, comprobar que el año de la fecha de creación coincide con el año seleccionado
       let matchesYear = this.selectedYear ? new Date(modelos.created).getFullYear() === this.selectedYear : true;

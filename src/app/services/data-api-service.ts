@@ -177,21 +177,6 @@ export class DataApiService {
 		  "Content-Type":"application/json"	
 	});
 
-
-	// updateOrderStatus(orderId: string, newStatus: string): Observable<any> {
-	// 	const url = `${this.yeoman.origin.restUrl}/orders/${orderId}`; // Reemplaza con la URL y el endpoint correctos
-	// 	const body = { status: newStatus }; // Datos a enviar en el cuerpo de la solicitud
-	
-	// 	return this.http.put(url, body); // Realiza la solicitud PUT
-	//   }
-
-	  
-	// changePassword(userId: string, newPassword: string): Observable<string> {
-	// 	const url = `${this.yeoman.origin.restUrl}/api/user/changePassword`;
-	// 	const requestBody = { userId, newPassword };
-	
-	// 	return this.http.post<string>(url, requestBody, { headers: this.headers });
-	//   }
 	saveDocument( document: DocumentInterface) {
 		const url_api =  'https://db.buckapi.com:8090/api/collections/vendricomDocuments/records';
 		return this.http.post<DocumentInterface>(url_api, document).pipe(
@@ -392,6 +377,10 @@ export class DataApiService {
 	const url_api = `https://db.vendricom.com:8091/api/collections/clientes/records/${id}`;
 	return this.http.delete<ClientInterface>(url_api).pipe(map((data) => data));
 	}
+	deleteJurisprudencia(id: string) {
+		const url_api = `https://db.buckapi.com:8090/api/collections/vendricomJurisprudencias/records/${id}`;
+		return this.http.delete<ClientInterface>(url_api).pipe(map((data) => data));
+		}
 		  
 	deleteNormativa(id: string) {
 	const url_api = `${this.yeoman.origin.restUrl}/api/collections/vendricomNormativas/records/${id}`;
@@ -436,12 +425,12 @@ export class DataApiService {
 		  map(response => response)
 		);
 	  }
-	 /*  updateContact(data: any, id: string): Observable<any> {
-		const url = `https://db.vendricom.com:8091/api/collections/clientes/records/${id}`;
+	  updateJurisprudencia(data: any, id: string): Observable<any> {
+		const url = `https://db.buckapi.com:8090/api/collections/vendricomJurisprudencias/records/${id}`;
 		return this.http.patch(url, data).pipe(
 		  map(response => response)
 		);
-	  } */
+	  }
 		updateContact(data: any, id: string): Observable<any> {
 			const url = `https://db.vendricom.com:8091/api/collections/clientes/records/${id}`;
 			

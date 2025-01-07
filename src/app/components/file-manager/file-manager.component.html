@@ -110,7 +110,14 @@
                                 </ng-multiselect-dropdown>
 
                             </div>
-
+                            <div class="btn btn-outline-primary btn-rounded btn-block btn-file mb-4">
+                                Subir documento
+                                <input type="file" (change)="global.onFileChanged($event)">
+                            </div>
+                            <button class="btn btn-primary btn-rounded btn-block btn-file mb-4"
+                                [hidden]="_butler.uploaderImages.length==0" (click)="submitForm()"> <span
+                                    class="nav-icon-wrap"><span class="feather-icon"><i
+                                            data-feather="upload"></i></span></span> Guardar</button>
                         </form>
                         <form (ngSubmit)="updateDocument()" *ngIf="isEditMode">
                             <h4 *ngIf="isEditMode">Editar Documento</h4>
@@ -174,14 +181,7 @@
                         <div class="separator separator-light"></div>
                         <div class="menu-group">
                         </div>
-                        <div class="btn btn-outline-primary btn-rounded btn-block btn-file mb-4">
-                            Subir documento
-                            <input type="file" (change)="global.onFileChanged($event)">
-                        </div>
-                        <button class="btn btn-primary btn-rounded btn-block btn-file mb-4"
-                            [hidden]="_butler.uploaderImages.length==0" (click)="submitForm()"> <span
-                                class="nav-icon-wrap"><span class="feather-icon"><i
-                                        data-feather="upload"></i></span></span> Guardar</button>
+                        
                     </div>
                 </div>
             </nav>
@@ -353,11 +353,6 @@
                                     </div>
                                 </div>
                             </div>
-                            <!-- <div class="pagination">
-                                <button (click)="currentPage = currentPage - 1" [disabled]="currentPage === 1">Anterior</button>
-                                <span>Página {{ currentPage }}</span>
-                                <button (click)="currentPage = currentPage + 1" [disabled]="currentPage * itemsPerPage >= global.filteredDocuments.length">Siguiente</button>
-                            </div> -->
                         </div>
                     </div>
                     

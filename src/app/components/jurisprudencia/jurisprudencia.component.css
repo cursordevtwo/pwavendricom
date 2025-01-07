@@ -7,3 +7,33 @@
     background-repeat: no-repeat;
     background-position: center;
 }
+.menu-btn-gradient {
+    background: linear-gradient(135deg, #864ba8 0%, #f69950 100%) !important;
+    color: white !important;
+    border-radius: 50%;
+    padding: 10px;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    transition: all 0.3s ease-in-out;
+    border: none;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Efecto hover */
+  .menu-btn-gradient:hover {
+    background: linear-gradient(135deg, #f69950 0%, #864ba8 100%) !important;
+    transform: scale(1.1);
+  }
+  
+  /* Estilo del icono */
+  .menu-btn-gradient .icon {
+    color: white !important;
+    font-size: 18px;
+  }
+  
+  /* Efecto activo */
+  .menu-btn-gradient:active {
+    transform: scale(0.95);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  }

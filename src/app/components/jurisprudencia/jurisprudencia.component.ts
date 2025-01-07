@@ -18,7 +18,10 @@ import {
 } from 'ng-multiselect-dropdown';
 import { CommonModule } from '@angular/common';
 import { DataApiService, JurisprudenciaInterface } from '@app/services/data-api-service';
+import Swal from 'sweetalert2';
+
 interface jurisprudencia {
+  id: string;
   categories: any[];
   temas: any[];
   files: string[];
@@ -45,7 +48,8 @@ interface jurisprudencia {
 export class JurisprudenciaComponent {
   @ViewChild('infoDiv', { static: true }) infoDiv!: ElementRef;
   years: number[] = [];
-
+  isEditMode: boolean = false;
+  editingJurisprudenciaId: string = '';
   data = {
     categories: [] as any[],
     temas: [] as any[],
@@ -89,7 +93,7 @@ docummentSelected: JurisprudenciaInterface = {
     },
   };
   adapter = new DemoFilePickerAdapter(this.http, this._butler, this.global);
-
+  jurisprudencias: jurisprudencia[] = [];
   constructor(
     public imageUpload: ImageUploadService,
     private formBuilder: FormBuilder,
@@ -103,7 +107,7 @@ docummentSelected: JurisprudenciaInterface = {
     private renderer: Renderer2,
     public dataApi: DataApiService
   ) {
-    
+    this.loadJurisprudencias();
     this.dropdownSettings = {
       singleSelection: false,
       idField: 'id',
@@ -113,7 +117,16 @@ docummentSelected: JurisprudenciaInterface = {
       itemsShowLimit: 3,
       allowSearchFilter: true,
     };
+    
   }
+  loadJurisprudencias() {
+    this.global.getJurisprudencias().subscribe((jurisprudencias: jurisprudencia[]) => {
+        this.global.jurisprudencias = jurisprudencias;
+        this.global.filteredJurisprudencias = jurisprudencias; // Asegúrate de inicializar la lista filtrada
+    }, error => {
+        console.error('Error al cargar las jurisprudencias:', error);
+    });
+}
   close() {
     // Aquí va tu lógica para la acción
     this.renderer.removeClass(this.infoDiv.nativeElement, 'fmapp-info-active');
@@ -135,9 +148,7 @@ docummentSelected: JurisprudenciaInterface = {
     }
   }
   submitForm() {
-    // Aquí puedes manejar los datos del formulario, por ejemplo, enviarlos a un servicio o imprimirlos en la consola.
     console.log(this.formData);
-    // this.dataApi.saveDocument(this.formData).subscribe(){};
     this.data.entity = this.formData.entidadRegulatoria;
     this.data.subject = this.formData.asunto;
     this.data.receiver = this.formData.nombreReceptor;
@@ -165,14 +176,6 @@ docummentSelected: JurisprudenciaInterface = {
         // this.temas = [...this.temas];
         this._butler.uploaderImages=[];
         console.log('Jurisprudencia cargada con éxito:', response);
-        // Agregar la marca de la respuesta al array de marcas, si es necesario
-
-        // Limpiar los valores para futuros usos
-        // this.global.newBrand = '';
-        // this.yeoman.brands.push(response);
-        // this.yeoman.brands = [...this.yeoman.brands];
-        // Cerrar el modal
-        // this.activeModal.close();
       },
       (error) => {
         console.error('Error al guardar la marca:', error);
@@ -181,5 +184,152 @@ docummentSelected: JurisprudenciaInterface = {
     // Limpia el formulario después de enviarlo.
     this.formData = {};
   }
+    
+      /* submitForm() {
+        if (this.isEditMode) {
+            this.updateJurisprudencia(this.formData); // Llama al método de actualización
+        } else {
+            this.dataApi.saveJurisprudencia(this.formData).subscribe(response => {
+                console.log('Jurisprudencia guardada:', response);
+                this.loadJurisprudencias(); // Carga las jurisprudencias actualizadas
+                this.resetForm(); // Reinicia el formulario
+            }, error => {
+                console.error('Error al guardar el jurisprudencia:', error);
+            });
+        }
+    } */
+    editJurisprudencia(jurisprudencia: jurisprudencia): void {
+    this.editingJurisprudenciaId = jurisprudencia.id; // Establece el ID del documento que se va a editar
+    this.formData = { ...jurisprudencia }; // Carga los datos del documento en el formulario
+    this.isEditMode = true; // Cambia a modo de edición
+}
+ 
+// Actualizar documento
+
+/* updateJurisprudencia(jurisprudencia: jurisprudencia): void {
+  this.editingJurisprudenciaId = jurisprudencia.id;
+  this.formData = { ...jurisprudencia };
+
+  // Aquí va la lógica para actualizar la jurisprudencia
+  this.dataApi.updateJurisprudencia(this.formData, this.editingJurisprudenciaId).subscribe(
+      (response) => {
+          const index = this.global.jurisprudencias.findIndex(doc => doc.id === this.editingJurisprudenciaId);
+          if (index !== -1) {
+              this.global.jurisprudencias[index] = response;
+              this.global.filteredJurisprudencias = [...this.global.jurisprudencias];
+          }
+          Swal.fire('Éxito', 'El documento ha sido actualizado con éxito.', 'success');
+      },
+      (error) => {
+          Swal.fire('Error', 'Ocurrió un error al actualizar el documento.', 'error');
+      }
+  );
+} */
+  updateJurisprudencia(jurisprudencia: jurisprudencia): void {
+    if (!this.editingJurisprudenciaId) return; // Asegúrate de que estás en modo de edición
+
+    this.dataApi.updateJurisprudencia(this.formData, this.editingJurisprudenciaId).subscribe(
+        (response) => {
+            const index = this.global.jurisprudencias.findIndex(doc => doc.id === this.editingJurisprudenciaId);
+            if (index !== -1) {
+                this.global.jurisprudencias[index] = response; // Actualiza el documento existente
+                this.global.filteredJurisprudencias = [...this.global.jurisprudencias]; // Actualiza la lista filtrada
+            }
+
+            Swal.fire('Éxito', 'El documento ha sido actualizado con éxito.', 'success');
+            this.resetForm(); // Reinicia el formulario después de la actualización
+        },
+        (error) => {
+            Swal.fire('Error', 'Ocurrió un error al actualizar el documento.', 'error');
+        }
+    );
+}
+  
+// Reiniciar formulario
+resetForm(): void {
+  this.isEditMode = false;
+  this.editingJurisprudenciaId = '';
+  this.formData = {
+    repositorios: { id: '', name: '' }
+  };
+}
+
+/* deleteJurisprudencia(document: any) {
+  const jurisprudenciaId = document.id;
+
+  if (!jurisprudenciaId) {
+      console.error('No se puede eliminar el documento: ID no definido');
+      return;
+  }
+
+  Swal.fire({
+      title: '¿Estás seguro?',
+      text: '¡Esta acción no se podrá revertir!',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Sí, borrar!',
+      cancelButtonText: 'No, cancelar'
+  }).then((result) => {
+      if (result.isConfirmed) {
+          this.dataApi.deleteJurisprudencia(jurisprudenciaId).subscribe(
+              response => {
+                  console.log('Documento eliminado:', response);
+                  this.global.jurisprudencias = this.global.filteredJurisprudencias.filter((jurisprudencia: jurisprudencia) => jurisprudencia.id !== jurisprudenciaId);
+                  Swal.fire('Borrado!', 'El documento ha sido eliminado.', 'success');
+                  
+                  // Llama al método para cargar jurisprudencias actualizadas
+                  this.loadJurisprudencias(); // Carga las jurisprudencias actualizadas
+                },
+              error => {
+                  Swal.fire('Error', 'Ocurrió un error al eliminar el documento. Inténtelo de nuevo más tarde.', 'error');
+                  console.error('Error al borrar el documento:', error);
+              }
+          );
+      }
+  });
+} */
+  /* deleteJurisprudencia(id: string): void {
+    this.dataApi.deleteJurisprudencia(id).subscribe(
+        response => {
+            // Eliminar el documento de la lista local
+            this.global.jurisprudencias = this.global.jurisprudencias.filter(doc => doc.id !== id);
+            this.global.filteredJurisprudencias = [...this.global.jurisprudencias]; // Actualiza la lista filtrada
+            Swal.fire('Borrado!', 'El documento ha sido eliminado.', 'success');
+        },
+        error => {
+            Swal.fire('Error', 'Ocurrió un error al eliminar el documento. Inténtelo de nuevo más tarde.', 'error');
+            console.error('Error al borrar el documento:', error);
+        }
+    );
+    
+} */
+    deleteJurisprudencia(id: string): void {
+      // Primero, muestra el cuadro de confirmación
+      Swal.fire({
+          title: '¿Estás seguro?',
+          text: '¡Esta acción no se podrá revertir!',
+          icon: 'warning',
+          showCancelButton: true,
+          confirmButtonText: 'Sí, borrar!',
+          cancelButtonText: 'No, cancelar'
+      }).then((result) => {
+          if (result.isConfirmed) {
+              // Si el usuario confirma, procede a eliminar
+              this.dataApi.deleteJurisprudencia(id).subscribe(
+                  response => {
+                      // Eliminar el documento de la lista local
+                      this.global.jurisprudencias = this.global.jurisprudencias.filter(doc => doc.id !== id);
+                      this.global.filteredJurisprudencias = [...this.global.jurisprudencias]; // Actualiza la lista filtrada
+                      Swal.fire('Borrado!', 'El documento ha sido eliminado.', 'success');
+                  },
+                  error => {
+                      Swal.fire('Error', 'Ocurrió un error al eliminar el documento. Inténtelo de nuevo más tarde.', 'error');
+                      console.error('Error al borrar el documento:', error);
+                  }
+              );
+          }
+      });
+  }
+cancelDelete(){}
 }
 

@@ -44,9 +44,10 @@ export class ContactsComponent {
   editingClientId: string | null = null;
   clienteOperador: ClienteOperador | null = null; 
   clientesOperadores: ClienteOperador[] = [];
-  // Asegurándote de que la propiedad 'email' esté presente en el tipo
-
-constructor (
+  filteredClientesOperadores: ClienteOperador[] = [];
+  searchQuery: string = ''; // Para almacenar la consulta de búsqueda
+  
+  constructor (
   public globalService: GlobalService,
   public fb: FormBuilder,
   public dataApiService: DataApiService
@@ -72,6 +73,11 @@ ngOnInit() {
     PaginaWeb: ['', Validators.required],
     Fax: ['', [Validators.required, Validators.pattern(/^\d{9}$/)]]
   });
+  this.globalService.getClientesOperadores().subscribe((data: ClienteOperador[]) => {
+    this.clientesOperadores = data;
+    this.filteredClientesOperadores = data; // Inicializa el filtro con todos los contactos
+    console.log('Clientes Operadores:', this.clientesOperadores); // Verifica que los datos se carguen correctamente
+});
 }
 private loadData(page: number = 1) {
   this.loading = true;
@@ -107,19 +113,16 @@ get pages(): number[] {
 setClienteOperador(cliente: ClienteOperador): void {
   this.clienteOperador = cliente;
 }
-
-/* editarElemento(clienteOperador: ClienteOperador) {
-  this.isEditing = true;
-  this.editingClientId = clienteOperador.id; // Asigna el ID correcto al editar
-  this.clienteForm.patchValue({
-    NombreOperador: clienteOperador.NombreOperador,
-    Email: clienteOperador.Email,
-    Telefono: clienteOperador.Telefono,
-    Direccion: clienteOperador.Direccion,
-    PaginaWeb: clienteOperador.PaginaWeb,
-    Fax: clienteOperador.Fax,
-  });
-} */
+applyFilters() {
+  if (this.searchQuery) {
+      this.filteredClientesOperadores = this.clientesOperadores.filter(contact =>
+          contact.NombreOperador.toLowerCase().includes(this.searchQuery.toLowerCase())
+      );
+  } else {
+      this.filteredClientesOperadores = this.clientesOperadores; // Si no hay búsqueda, mostrar todos
+  }
+  console.log('Filtrados:', this.filteredClientesOperadores); // Verifica el resultado del filtrado
+}
   editarElemento(clienteOperador: ClienteOperador) {
     this.isEditing = true;
     this.globalService.clienteOperador = clienteOperador; // Asigna el cliente seleccionado

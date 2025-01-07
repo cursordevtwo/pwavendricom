@@ -64,18 +64,6 @@
                     <div class="fm-body">
                         <div data-simplebar class="nicescroll-bar">
                             <div class="file-card-view">
-                               <!--  <div class="alert alert-warning alert-wth-icon alert-dismissible fade show"
-                                    role="alert">
-                                    <span class="alert-icon-wrap"><i class="ri-alert-line"></i></span>
-                                    <div class="d-flex align-items-center flex-wrap flex-sm-nowrap">
-                                        Bienvenido, aqui un mensaje de actualización de perfil
-                                        <a href="#"
-                                            class="btn btn-sm btn-warning ms-sm-auto mt-sm-0 mt-2 flex-shrink-0">Actualizar
-                                            información</a>
-                                    </div>
-                                    <button type="button" class="btn-close" data-bs-dismiss="alert"
-                                        aria-label="Close"></button>
-                                </div> -->
                                 <div class="collapse-simple mt-4">
                                     <div class="card">
                                         <div class="card-header">
@@ -165,20 +153,12 @@
                                         <span class="nav-link-text">Detalles</span>
                                     </a>
                                 </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" data-bs-toggle="tab" href="#tab_activity">
-                                        <span class="nav-link-text">Actividad</span>
-                                    </a>
-                                </li>
                             </ul>
                             <div class="tab-content mt-5">
                                 <div class="tab-pane fade show active" id="tab_info">
                                     <div class="collapse-simple">
                                         <div class="card">
-                                            <div class="card-header">
-                                                <a role="button" data-bs-toggle="collapse" href="#fl_info"
-                                                    aria-expanded="true">Detalles</a>
-                                            </div>
+                                          
                                             <div id="fl_info" class="collapse show">
                                                 <div class="card-body">
                                                     <ul class="fm-info">
@@ -189,30 +169,14 @@
                                                                     style="color: blue; cursor: pointer;"> abrir</a>
                                                             </span>
                                                         </li>
-                                                     <!--    <li>
-                                                            <span>Serial</span>
-                                                            <span>{{docummentSelected.serial}}</span>
-                                                        </li> -->
                                                         <li>
                                                             <span>Asunto</span>
                                                             <span>{{docummentSelected.subject}}</span>
                                                         </li>
-                                                        <!-- <li>
-                                                            <span>Entidad Emisora</span>
-                                                            <span>{{docummentSelected.entity}}</span>
-                                                        </li> -->
                                                         <li>
                                                             <span>Fecha de expedicion</span>
                                                             <span>{{docummentSelected.issue}}</span>
                                                         </li>
-                                                        <!-- <li>
-                                                            <span>Persona receptora</span>
-                                                            <span>{{docummentSelected.receiver}}</span>
-                                                        </li> -->
-                                                        <!-- <li>
-                                                            <span>Dimension</span>
-                                                            <span>1950 x 1245</span>
-                                                        </li> -->
                                                     </ul>
                                                 </div>
                                             </div>
@@ -261,144 +225,13 @@
                                                                 <span class="initial-wrap">W</span>
                                                             </div>
                                                         </li>
-                                                        <!-- <li>
-                                                            <a href="#"
-                                                                class="avatar avatar-sm avatar-icon avatar-soft-light avatar-rounded"
-                                                                data-bs-toggle="modal" data-bs-target="#invite_people">
-                                                                <span class="initial-wrap" data-bs-toggle="tooltip"
-                                                                    data-bs-placement="top" title=""
-                                                                    data-bs-original-title="Add New">
-                                                                    <span class="feather-icon"><i
-                                                                            data-feather="plus"></i></span>
-                                                                </span>
-                                                            </a>
-                                                        </li> -->
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <!-- <div class="card">
-                                            <div class="card-header">
-                                                <a role="button" data-bs-toggle="collapse" href="#settings"
-                                                    aria-expanded="true">Settings </a>
-                                            </div>
-                                            <div id="settings" class="collapse show">
-                                                <div class="card-body">
-                                                    <ul class="fm-action">
-                                                        <li>
-                                                            <a href="javascript:void(0);">
-                                                                <span class="text-danger">Delete File</span>
-                                                            </a>
-                                                        </li>
-                                                        <li>
-                                                            <a href="javascript:void(0);">
-                                                                Somthing's Wrong
-                                                            </a>
-                                                        </li>
-                                                    </ul>
-                                                    <a href="#" class="d-block text-dark fs-7 mb-2">Give feedback and
-                                                        report conversation</a>
-                                                </div>
-                                            </div>
-                                        </div> -->
-                                    </div>
-                                </div>
-                                <div class="tab-pane fade" id="tab_activity">
-                                    <div class="collapse-simple">
-                                        <div class="card">
-                                            <div class="card-header">
-                                                <a role="button" data-bs-toggle="collapse" href="#act_info1"
-                                                    aria-expanded="true">Actividad</a>
-                                            </div>
-                                            <div id="act_info1" class="collapse show">
-                                                <div class="card-body">
-                                                    <!-- <ul class="activity-list list-group list-group-flush">
-                                                        <li class="list-group-item">
-                                                            <div class="media">
-                                                                <div class="media-head">
-                                                                    <div
-                                                                        class="avatar avatar-sm avatar-primary avatar-rounded">
-                                                                        <span class="initial-wrap">H</span>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="media-body">
-                                                                    <p><span class="text-dark">Hencework</span> is
-                                                                        working on <a href="#"
-                                                                            class="link-url"><u>https://assets.adobe.com/id/urn:aaid:sc:AP:5cebaf53-ca19-420a-aeeb-1517b04ab8c0?view=file</u></a>
-                                                                    </p>
-                                                                    <div class="last-activity-time">3:15 PM</div>
-                                                                </div>
-                                                            </div>
-                                                        </li>
-                                                        <li class="list-group-item">
-                                                            <div class="media">
-                                                                <div class="media-head">
-                                                                    <div
-                                                                        class="avatar avatar-sm avatar-soft-danger avatar-rounded">
-                                                                        <span class="initial-wrap">W</span>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="media-body">
-                                                                    <p><span class="text-dark">Morgan Fregman</span>
-                                                                        completed react conversion of <a href="#"
-                                                                            class="link-default"><u>components</u></a>
-                                                                    </p>
-                                                                    <div class="last-activity-time">3:15 PM</div>
-                                                                </div>
-                                                            </div>
-                                                        </li>
-                                                    </ul> -->
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="card">
-                                            <div class="card-header">
-                                                <a role="button" data-bs-toggle="collapse" href="#act_info2"
-                                                    aria-expanded="true">23 April</a>
-                                            </div>
-                                            <div id="act_info2" class="collapse show">
-                                                <div class="card-body">
-                                                    <ul class="activity-list list-group list-group-flush">
-                                                        <li class="list-group-item">
-                                                            <div class="media">
-                                                                <div class="media-head">
-                                                                    <div class="avatar avatar-sm avatar-rounded">
-                                                                        <img src="assets/jampack/dist/img/avatar15.jpg"
-                                                                            alt="user" class="avatar-img">
-                                                                    </div>
-                                                                </div>
-                                                                <div class="media-body">
-                                                                    <p><span class="text-dark">lalala</span> is
-                                                                        working on <a href="#"
-                                                                            class="link-url"><u>https://assets.adobe.com/id/urn:aaid:sc:AP:5cebaf53-ca19-420a-aeeb-1517b04ab8c0?view=file</u></a>
-                                                                    </p>
-                                                                    <div class="last-activity-time">3:15 PM</div>
-                                                                </div>
-                                                            </div>
-                                                        </li>
-                                                        <li class="list-group-item">
-                                                            <div class="media">
-                                                                <div class="media-head">
-                                                                    <div class="avatar avatar-sm avatar-rounded">
-                                                                        <img src="assets/jampack/dist/img/avatar12.jpg"
-                                                                            alt="user" class="avatar-img">
-                                                                    </div>
-                                                                </div>
-                                                                <div class="media-body">
-                                                                    <p><span class="text-dark">Morgan Fregman</span>
-                                                                        completed react conversion of <a href="#"
-                                                                            class="link-default"><u>components</u></a>
-                                                                    </p>
-                                                                    <div class="last-activity-time">3:15 PM</div>
-                                                                </div>
-                                                            </div>
-                                                        </li>
                                                     </ul>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
+                              
                             </div>
                         </div>
                     </div>

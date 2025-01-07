@@ -11,23 +11,23 @@
                                     <a class="nav-link" href="javascript:void(0);">
                                         <span class="nav-icon-wrap"><span class="feather-icon"><i
                                                     data-feather="upload"></i></span></span>
-                                        <span class="nav-link-text">Subir Jurisprudencia a VENDRICOM</span>
+                                        <span class="nav-link-text">Agregar Jurisprudencia a VENDRICOM</span>
                                     </a>
                                 </li>
                             </ul>
                         </div>
-
-                        <form (ngSubmit)="submitForm()">
+                        
+                        <form (ngSubmit)="submitForm()" *ngIf="!isEditMode">
                             <div class="form-group">
                                 <label for="asunto">Titulo:</label>
                                 <input type="text" class="form-control" id="asunto" name="asunto"
                                     [(ngModel)]="formData.asunto" required>
                             </div>
-                            <!-- <div class="form-group">
+                            <div class="form-group">
                                 <label for="fechaEmision">Fecha de Emisión:</label>
                                 <input type="date" class="form-control" id="fechaEmision" name="fechaEmision"
                                     [(ngModel)]="formData.fechaEmision" required>
-                            </div> -->
+                            </div>
                             <div class="form-group">
                                 <label for="entidadRegulatoria">Despacho Judicial:</label>
                                 <input type="text" class="form-control" id="entidadRegulatoria"
@@ -38,31 +38,7 @@
                                 <input type="text" class="form-control" id="serial" name="serial"
                                     [(ngModel)]="formData.serial" required>
                             </div>
-                            <!-- <div class="form-group">
-                                <label for="nombreReceptor">Nombre de la Persona Receptora:</label>
-                                <input type="text" class="form-control" id="nombreReceptor" name="nombreReceptor"
-                                    [(ngModel)]="formData.nombreReceptor" required>
-                            </div> -->
-                            <div class="form-group">
-                                <div class="d-flex align-items-center justify-content-between mb-2">
-                                    <label for="nombreReceptor">Categoría:</label>
-                                    <a (click)="open('categoria')" style="cursor: pointer;"
-                                        class="btn btn-xs btn-icon btn-rounded btn-light" data-bs-toggle="modal"
-                                        data-bs-target="#add_fav_board"><span class="icon" data-bs-toggle="tooltip"
-                                            data-bs-placement="top" title="" data-bs-original-title="Add Board"><span
-                                                class="feather-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24"
-                                                    height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                                                    class="feather feather-plus">
-                                                    <line x1="12" y1="5" x2="12" y2="19"></line>
-                                                    <line x1="5" y1="12" x2="19" y2="12"></line>
-                                                </svg></span></span></a>
-                                </div>
-                                <ng-multiselect-dropdown [ngModelOptions]="{standalone: true}"
-                                    [placeholder]="'Selecciona una'" [data]="global.categories"
-                                    [(ngModel)]="data.categories" [settings]="dropdownSettings">
-                                </ng-multiselect-dropdown>
-                            </div>
+                            
                             <div class="form-group">
                                 <div class="d-flex align-items-center justify-content-between mb-2">
                                     <label for="nombreReceptor">Tema:</label>
@@ -83,9 +59,44 @@
                                     [settings]="dropdownSettings">
                                 </ng-multiselect-dropdown>
                             </div>
+                            <div class="btn btn-outline-primary btn-rounded btn-block btn-file mb-4">
+                                Subir documento
+                                <input type="file" (change)="global.onFileChanged($event)">
+                            </div>
+                            <!-- <button class="btn btn-primary btn-rounded btn-block btn-file mb-4"
+                            [hidden]="_butler.uploaderImages.length==0" (click)="submitForm()" *ngIf="!isEditMode"> 
+                            <span class="nav-icon-wrap"><span class="feather-icon"><i data-feather="upload"></i></span></span> Guardar
+                        </button> -->
+                        <button type="submit" class="btn btn-primary">Guardar</button>
+                            
+                        </form>
+                        <form (ngSubmit)="submitForm()" *ngIf="isEditMode">
+                            <h4 *ngIf="isEditMode">Editar Documento</h4>
+                            
+                            <div class="form-group">
+                                <label for="subject">Titulo:</label>
+                                <input type="text" class="form-control" id="subject" name="subject"
+                                    [(ngModel)]="formData.subject" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="fechaEmision">Fecha de Emisión:</label>
+                                <input type="date" class="form-control" id="fechaEmision" name="fechaEmision"
+                                    [(ngModel)]="formData.fechaEmision" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="entity">Despacho Judicial:</label>
+                                <input type="text" class="form-control" id="entity"
+                                    name="entity" [(ngModel)]="formData.entity" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="serial">Numero de sentencia:</label>
+                                <input type="text" class="form-control" id="serial" name="serial"
+                                    [(ngModel)]="formData.serial" required>
+                            </div>
                             <div class="d-flex align-items-center justify-content-between mb-2">
 
                             </div>
+                            <button type="button" class="btn btn-primary" (click)="updateJurisprudencia(formData)">Actualizar</button>                            <button type="button" class="btn btn-secondary" (click)="resetForm()">Cancelar</button>
                             
                         </form>
 
@@ -93,12 +104,9 @@
                         <div class="menu-group">
 
                         </div>
-                        <div class="btn btn-outline-primary btn-rounded btn-block btn-file mb-4">
-                            Subir Jurisprudencia
-                            <input type="file" (change)="global.onFileChanged($event)">
-                        </div>
-                        <button class="btn btn-primary btn-rounded btn-block btn-file mb-4"
-                            [hidden]="_butler.uploaderImages.length==0" (click)="submitForm()">Guardar</button>
+                        
+                        <!-- <button class="btn btn-primary btn-rounded btn-block btn-file mb-4"
+                          (click)="submitForm()" *ngIf="!isEditMode">Guardar</button> -->
 
                     </div>
                 </div>
@@ -107,13 +115,13 @@
             <div class="fmapp-content">
                 <div class="fmapp-detail-wrap">
 
-
+                    
                     <header class="fm-header">
                         <div class="d-flex align-items-center flex-grow-1">
-                            <!-- <a class="fmapp-title dropdown-toggle link-dark" data-bs-toggle="dropdown" href="#"
+                            <a class="fmapp-title dropdown-toggle link-dark" data-bs-toggle="dropdown" href="#"
                                 role="button" aria-haspopup="true" aria-expanded="false">
                                 <h1>{{ global.selectedTema ? global.selectedTema.name : 'Todos los temas' }}</h1>
-                            </a> -->
+                            </a>
                             <div class="dropdown-menu">
                                 <a class="dropdown-item" *ngFor="let tema of global.temas" (click)="global.selectTema(tema)">
                                     <span class="feather-icon dropdown-icon"><i data-feather="file"></i></span>
@@ -122,11 +130,9 @@
                             </div>
                             <form class="mx-3 flex-grow-1 mw-400p" role="search" (submit)="global.searchJurisprudencias($event)">
                                 <input type="text" class="form-control" placeholder="Buscar entre los documentos" [(ngModel)]="global.searchQuery" (ngModelChange)="global.applyFiltersJurisprudencias()" name="searchQuery">
-
-                                <!-- <input type="text" class="form-control" placeholder="Buscar entre los documentos" [(ngModel)]="global.searchQuery"> -->
                             </form>
                         </div>
-                        <!-- <div class="d-flex align-items-center flex-grow-1">
+                        <div class="d-flex align-items-center flex-grow-1">
                             <a class="fmapp-title dropdown-toggle link-dark" data-bs-toggle="dropdown" href="#"
                                 role="button" aria-haspopup="true" aria-expanded="false">
                                 <h1>{{ global.selectedYear ? global.selectedYear : 'Todos los años' }}</h1>
@@ -137,7 +143,7 @@
                                     <span>{{ year }}</span>
                                 </a>
                             </div>
-                        </div> -->
+                        </div>
                         <div class="fm-options-wrap">
                             <a class="btn btn-icon btn-flush-dark btn-rounded flush-soft-hover fmapp-info-toggle"
                                 href="#"><span class="icon"><span class="feather-icon"><i data-feather="info"></i></span></span></a>
@@ -153,71 +159,71 @@
                         <div class="hk-sidebar-togglable"></div>
                     </header>
                     
-                    
-                    <!-- <header class="fm-header">
-                        <div class="d-flex align-items-center flex-grow-1">
-                            <a class="fmapp-title dropdown-toggle link-dark" data-bs-toggle="dropdown" href="#"
-                                role="button" aria-haspopup="true" aria-expanded="false">
-                                <h1>Todos los temas</h1>
-                            </a>
-                            <div class="dropdown-menu">
-                                <a class="dropdown-item" *ngFor="let tema of global.temas"><span class="feather-icon dropdown-icon"><i
-                                            data-feather="file"></i></span><span> {{tema.name}}</span></a>
-                               
-                            </div>
-                            <form class="mx-3 flex-grow-1 mw-400p" role="search">
-                                <input type="text" class="form-control" placeholder="Buscar entre los documentos">
-                            </form>
-                        </div>
-                        <div class="d-flex align-items-center flex-grow-1">
-                            <a class="fmapp-title dropdown-toggle link-dark" data-bs-toggle="dropdown" href="#"
-                                role="button" aria-haspopup="true" aria-expanded="false">
-                                <h1>Todos los años</h1>
-                            </a>
-                            <div class="dropdown-menu" style="max-height: 300px; overflow-y: auto;">
-                                <a class="dropdown-item" *ngFor="let year of years">
-                                  <span class="feather-icon dropdown-icon">
-                                    <i data-feather="file"></i>
-                                  </span>
-                                  <span>{{ year }}</span>
-                                </a>
-                              </div>
-                              
-                          
-                        </div>
-                        <div class="fm-options-wrap">
-                      
-                            <a class="btn btn-icon btn-flush-dark btn-rounded flush-soft-hover fmapp-info-toggle"
-                                href="#"><span class="icon"><span class="feather-icon"><i
-                                            data-feather="info"></i></span></span></a>
-                       
-                            <a class="btn btn-icon btn-flush-dark btn-rounded flush-soft-hover hk-navbar-togglable d-lg-inline-block d-none"
-                                href="#" data-bs-toggle="tooltip" data-bs-placement="top" title=""
-                                data-bs-original-title="Collapse">
-                                <span class="icon">
-                                    <span class="feather-icon"><i data-feather="chevron-up"></i></span>
-                                    <span class="feather-icon d-none"><i data-feather="chevron-down"></i></span>
-                                </span>
-                            </a>
-                        </div>
-                        <div class="hk-sidebar-togglable"></div>
-                    </header> -->
                     <div class="fm-body">
                         <div data-simplebar class="nicescroll-bar">
-                            <div class="file-card-view">
-                                <div class="alert alert-warning alert-wth-icon alert-dismissible fade show"
-                                    role="alert">
-                                    <span class="alert-icon-wrap"><i class="ri-alert-line"></i></span>
-                                    <div class="d-flex align-items-center flex-wrap flex-sm-nowrap">
-                                        Bienvenido, aqui un mensaje de actualización de perfil
-                                        <a href="#"
-                                            class="btn btn-sm btn-warning ms-sm-auto mt-sm-0 mt-2 flex-shrink-0">Actualizar
-                                            información</a>
+                            
+                            <div class="collapse-simple mt-4">
+                                <div class="card">
+                                    <div id="fm_collapse_1" class="collapse show">
+                                        <div
+                                            class="row row-cols-xxl-3 row-cols-xl-3 row-cols-lg-3 row-cols-md-2 row-cols-1 mt-4">
+                                                <div class="col-3" *ngFor="let jurisprudencia of global.filteredJurisprudencias" (click)="setPreview(jurisprudencia)">
+                                                <div class="card  card-border fmapp-info-toggle"
+                                                    style="border-radius: 10px; background: #582e6d;">
+                                                    <div class="card-body ">
+                                                        <div class="d-flex justify-content-between align-items-start">
+                                                            <div>
+                                                                <div class="file-name"
+                                                                    style="font-size: 20px; font-weight: bold; color: #d8d8d8;">
+                                                                    Asunto: {{ jurisprudencia.subject | slice:0:15 }}{{
+                                                                    jurisprudencia.subject.length > 15 ? '...' : '' }}
+                                                                </div>
+                                                                <div class="text-truncate fs-8 mb-2">
+                                                                    Desapacho Judicial: {{jurisprudencia.entity | slice:0:10 }}{{
+                                                                    jurisprudencia.entity.length > 10 ? '...' : '' }}</div>
+                                                                <div class="text-truncate fs-8 mb-2">
+                                                                    Numero: {{jurisprudencia.serial }}</div>
+                                                                <p class="text-truncate p-xs">F.E:
+                                                                    {{jurisprudencia.issue}}</p>
+                                                            </div>
+                                                            <div class="d-flex" >
+                                                                <a class="menu-btn-gradient btn btn-xs btn-icon btn-rounded flex-shrink-0"
+                                                                    data-bs-toggle="dropdown" role="button"
+                                                                    aria-haspopup="true" aria-expanded="false"
+                                                                    (click)="$event.stopPropagation()">
+                                                                    <span class="icon">
+                                                                        <span class="feather-icon"><i class="fa fa-ellipsis-v"></i></span>
+                                                                    </span>
+                                                                </a>
+
+                                                                <div class="dropdown-menu menu-dropdown"
+                                                                    (click)="$event.stopPropagation()" >
+                                                                    <a class="dropdown-item"
+                                                                        (click)="editJurisprudencia(jurisprudencia)">
+                                                                        <span class="feather-icon dropdown-icon">
+                                                                            <i class="fa fa-edit"></i></span>
+                                                                        Editar
+                                                                    </a>
+                                                                    <a class="dropdown-item"
+                                                                    (click)="deleteJurisprudencia(jurisprudencia.id)">
+                                                                        <span class="feather-icon dropdown-icon">
+                                                                            <i class="fa fa-trash"></i></span>
+                                                                        Borrar
+                                                                    </a>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
-                                    <button type="button" class="btn-close" data-bs-dismiss="alert"
-                                        aria-label="Close"></button>
                                 </div>
-                                <div class="collapse-simple mt-4">
+                            </div>
+                        </div>
+                        <div data-simplebar class="nicescroll-bar">
+                            <div class="file-card-view">
+                                <div class=" mt-4">
                                     <div class="card">
                                         <div class="card-header">
                                             <a role="button" data-bs-toggle="collapse" href="#fm_collapse_1"
