@@ -248,9 +248,6 @@ export class GlobalService {
   getDocuments(): Observable<any> {
     return this.http.get<any>(this.apirestUrl + 'collections/vendricomDocuments/records');
   }
-  getDocumentById(recordId: string): Promise<any> {
-    return this.http.get<any>(`${this.apirestUrl}collections/vendricomDocuments/records/${recordId}`).toPromise();
-}
   getNormativas(): Observable<any> {
     return this.http.get<any>(this.apirestUrl + 'collections/vendricomNormativas/records');
   }

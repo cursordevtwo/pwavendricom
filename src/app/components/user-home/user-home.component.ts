@@ -13,7 +13,7 @@ import PocketBase from 'pocketbase';
 import { DemoFilePickerAdapter } from  '@app/file-picker.adapter';
 import { HttpClient } from '@angular/common/http';
 import { UploaderCaptions } from 'ngx-awesome-uploader';
-
+import Swal from 'sweetalert2';
 // import { NgxUsefulSwiperModule } from 'ngx-useful-swiper';
 
 import Swiper from 'swiper';
@@ -114,7 +114,7 @@ export class UserHomeComponent implements AfterViewInit {
   filtered=false;
   public isError = false;
   adapter = new  DemoFilePickerAdapter(this.http,this._butler,this.global);
-  
+  showDocuments: boolean = false;
   constructor(
     private formBuilder: FormBuilder, 
     public AuthRESTService: AuthRESTService,
@@ -177,10 +177,32 @@ ngAfterViewInit() {
         },
       },
     });
-}
+  }
   ngOnInit(): void {
     // this.check();
   }
+  viewRepositorio(repositorio: any) {
+    this.showDocuments = true;
+    if (repositorio && repositorio.id) {
+      // Filter documents that belong to the selected repository
+      this.global.filteredDocuments = this.global.documents.filter(doc => 
+        doc.repositorios.some((repo: any) => repo.id === repositorio.id)
+      );
+      
+      if (this.global.filteredDocuments.length === 0) {
+        Swal.fire({
+          title: 'Info',
+          text: 'No se encontraron documentos en este repositorio',
+          icon: 'info',
+          confirmButtonText: 'OK'
+        });
+      }
+    } else {
+      // If no repository is selected, show all documents
+      this.global.filteredDocuments = this.global.documents;
+    }
+  }
+
   setPreview(selected:any){
     
     this.docummentSelected=selected;

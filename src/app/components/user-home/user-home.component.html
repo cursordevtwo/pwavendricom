@@ -39,7 +39,81 @@
             
             <div class="fmapp-content">
                 <div class="fmapp-detail-wrap">
-                    
+                    <div class="fm-body">
+                        <div data-simplebar class="nicescroll-bar">
+                            <div class="row row-cols-xxl-3 row-cols-xl-3 row-cols-lg-3 row-cols-md-2 row-cols-1 mt-4"
+                                [hidden]="showDocuments">
+                                <div class="col" *ngFor="let repositorio of global.repositorios; let i = index">
+                                    <div class="card card-border contact-card"
+                                        style="  border-radius: 10px 30px; background: #d8d8d8;"
+                                        (click)="viewRepositorio(repositorio)">
+                                        <div class="card-body text-center">
+
+                                            <div class="avatar avatar-xl avatar-rounded">
+                                            </div>
+                                            <div class="user-name"><span class="contact-star"><span
+                                                        class="feather-icon"><i class="fa fa-file"></i></span></span>
+                                            </div>
+                                            <div class="user-email" (click)="viewRepositorio(repositorio)"
+                                                style="cursor: pointer;">{{repositorio.name}}
+                                            </div>
+                                            <span class="fs-7 lh-1" (click)="viewRepositorio(repositorio)"
+                                                style="cursor: pointer;">
+                                                <i class="fa fa-eye"></i>
+                                                Ver Documentos
+                                            </span>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="collapse-simple mt-4" [hidden]="!showDocuments">
+                                <div class="card">
+                                    <div id="fm_collapse_1" class="collapse show">
+                                        <div
+                                            class="row row-cols-xxl-3 row-cols-xl-3 row-cols-lg-3 row-cols-md-2 row-cols-1 mt-4">
+                                            <div class="col-3" *ngFor="let document of global.documents">
+                                                <div class="card card-border fmapp-info-toggle"
+                                                (click)="setPreview(document)">
+                                                <div class="card  card-border fmapp-info-toggle"
+                                                    style="border-radius: 10px; background: #582e6d;">
+                                                    <div class="card-body ">
+                                                        <div class="d-flex justify-content-between align-items-start">
+                                                            <div>
+                                                                <div class="file-name"
+                                                                    style="font-size: 20px; font-weight: bold; color: #d8d8d8;">
+                                                                    Asunto: {{ document.subject | slice:0:15 }}{{
+                                                                    document.subject.length > 15 ? '...' : '' }}
+                                                                </div>
+                                                                <div class="text-truncate fs-8 mb-2">
+                                                                    Receptor: {{document.receiver | slice:0:20 }}{{
+                                                                    document.receiver.length > 20 ? '...' : '' }}</div>
+                                                                <div class="text-truncate fs-8 mb-2">
+                                                                    Entidad: {{document.entity }}</div>
+                                                                <p class="text-truncate p-xs">F.E:
+                                                                    {{document.issue}}</p>
+                                                            </div>
+                                                            <div class="d-flex">
+                                                                <!-- Botón del Menú -->
+                                                                <a class="menu-btn-gradient btn btn-xs btn-icon btn-rounded flex-shrink-0"
+                                                                    data-bs-toggle="dropdown" role="button"
+                                                                    aria-haspopup="true" aria-expanded="false"
+                                                                    (click)="$event.stopPropagation()">
+                                                                    <span class="icon">
+                                                                        <span class="feather-icon"><i class="fa fa-ellipsis-v"></i></span>
+                                                                    </span>
+                                                                </a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
                     <div class="fm-body">
                         <div data-simplebar class="nicescroll-bar">
                             <div class="file-card-view">
