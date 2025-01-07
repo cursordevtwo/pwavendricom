@@ -150,7 +150,7 @@ ngAfterViewInit() {
   new Swiper('.swiper-container', {
 
       slidesPerView: 1,
-      spaceBetween: 10,
+      spaceBetween: 15,
       pagination: {
         el: '.swiper-pagination',
         clickable: true,

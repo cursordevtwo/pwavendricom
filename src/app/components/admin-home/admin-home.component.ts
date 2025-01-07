@@ -41,13 +41,25 @@ export class AdminHomeComponent implements OnInit {
   totalPages = 0;
   Math = Math;
   dateRange: string = '';
+  documentos: any[] = [];
+  document: any;
 
   constructor(
     public globalService: GlobalService,
     public imageUpload: ImageUploadService,
     public virtualRoute: virtualRouter
   ) {
-    this.globalService.getDocuments().subscribe(
+   /*  this.globalService.getDocuments().subscribe(
+      (data: any) => {
+        this.globalService.getDocuments = data.items; // Si la API devuelve un objeto con 'items'
+        this.totalDocuments = data.items.length;  // Actualiza el total de documentos
+        console.log('documentos:', this.globalService.getDocuments);
+      },
+      (error) => {
+        console.error('Error al obtener documentos:', error);
+      }
+    ); */
+     this.globalService.getDocuments().subscribe(
       (data: any) => {
         this.globalService.getDocuments = data.items; // Si la API devuelve un objeto con 'items'
         this.totalDocuments = data.items.length;  // Actualiza el total de documentos

@@ -190,8 +190,19 @@ docummentSelected: DocumentInterface = {
    
       // Ordenar los temas alfabéticamente
       this.global.temas.sort((a, b) => a.name.localeCompare(b.name));
+
+      
      
   }
+  setPreview2(document: any) {
+    this.global.getDocumentById(document.id).then((record) => {
+        console.log('Fetched document:', record);
+        // Aquí puedes manejar cómo mostrar el registro en tu UI
+        // Por ejemplo, almacenar el registro en una propiedad para mostrarlo en la plantilla
+    }).catch((error) => {
+        console.error('Error fetching document:', error);
+    });
+}
   verTodosTemas() {
     this.global.filteredDocuments = this.global.documents;
     this.documentTitle = 'Todos los Documentos'; // Cambia el título
