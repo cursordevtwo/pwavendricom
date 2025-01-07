@@ -245,9 +245,12 @@ export class GlobalService {
     return this.http.get<any>(this.apirestUrl + 'collections/vendricomRepositorios/records');
   }
 
-  getDocuments(): Observable<any> {
+ /*  getDocuments(): Observable<any> {
     return this.http.get<any>(this.apirestUrl + 'collections/vendricomDocuments/records');
-  }
+  } */
+  getDocuments(page: number = 1, perPage: number = 500): Observable<any> {
+    return this.http.get<any>(`${this.apirestUrl}collections/vendricomDocuments/records?perPage=${perPage}&page=${page}`);
+}
   getNormativas(): Observable<any> {
     return this.http.get<any>(this.apirestUrl + 'collections/vendricomNormativas/records');
   }

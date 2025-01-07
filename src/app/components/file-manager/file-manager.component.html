@@ -210,7 +210,7 @@
                                     </a>
                                 </div>
                             <form class="mx-3 flex-grow-1 mw-400p" role="search" (submit)="global.searchDocuments($event)">
-                                <input type="text" class="form-control" placeholder="Buscar entre los documentos" [(ngModel)]="global.searchQuery" (ngModelChange)="global.applyFilters()" name="searchQuery">
+                                <input type="text" class="form-control" placeholder="Buscar entre los documentos por ASUNTO" [(ngModel)]="global.searchQuery" (ngModelChange)="global.applyFilters()" name="searchQuery">
 
                             </form>
                         </div>
@@ -296,8 +296,9 @@
                                     <div id="fm_collapse_1" class="collapse show">
                                         <div
                                             class="row row-cols-xxl-3 row-cols-xl-3 row-cols-lg-3 row-cols-md-2 row-cols-1 mt-4">
-                                            <div class="col-3" *ngFor="let document of global.filteredDocuments"
-                                                (click)="setPreview(document)">
+                                            <!-- <div class="col-3" *ngFor="let document of global.filteredDocuments"
+                                                (click)="setPreview(document)"> -->
+                                                <div class="col-3" *ngFor="let document of global.filteredDocuments" (click)="setPreview(document)">
                                                 <div class="card  card-border fmapp-info-toggle"
                                                     style="border-radius: 10px; background: #582e6d;">
                                                     <div class="card-body ">
@@ -317,7 +318,6 @@
                                                                     {{document.issue}}</p>
                                                             </div>
                                                             <div class="d-flex">
-                                                                <!-- Botón del Menú -->
                                                                 <a class="menu-btn-gradient btn btn-xs btn-icon btn-rounded flex-shrink-0"
                                                                     data-bs-toggle="dropdown" role="button"
                                                                     aria-haspopup="true" aria-expanded="false"
@@ -327,7 +327,6 @@
                                                                     </span>
                                                                 </a>
 
-                                                                <!-- Menú Desplegable -->
                                                                 <div class="dropdown-menu"
                                                                     (click)="$event.stopPropagation()">
                                                                     <a class="dropdown-item"
@@ -350,12 +349,18 @@
                                                 </div>
                                             </div>
                                         </div>
+                                        
                                     </div>
                                 </div>
                             </div>
-
+                            <!-- <div class="pagination">
+                                <button (click)="currentPage = currentPage - 1" [disabled]="currentPage === 1">Anterior</button>
+                                <span>Página {{ currentPage }}</span>
+                                <button (click)="currentPage = currentPage + 1" [disabled]="currentPage * itemsPerPage >= global.filteredDocuments.length">Siguiente</button>
+                            </div> -->
                         </div>
                     </div>
+                    
                     <div class="file-info">
                         <div data-simplebar class="nicescroll-bar">
                             <button type="button" class="info-close btn-close">

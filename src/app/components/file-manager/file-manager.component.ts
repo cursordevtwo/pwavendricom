@@ -131,6 +131,9 @@ docummentSelected: DocumentInterface = {
   filteredRepositorios: any[] = []; // Para guardar los repositorios filtrados
   selectedRepositorio: any = null; // Para guardar el repositorio seleccionado
   documentTitle: string = 'Documentos';
+  currentPage: number = 1;
+itemsPerPage: number = 10; // Ajusta según lo necesario
+totalItems: number = 0; // Total de documentos filtrados
   constructor(
     public imageUpload: ImageUploadService,
     private formBuilder: FormBuilder,
@@ -157,7 +160,11 @@ docummentSelected: DocumentInterface = {
   }
 
 
-  
+  get paginatedDocuments() {
+    const start = (this.currentPage - 1) * this.itemsPerPage;
+    const end = start + this.itemsPerPage;
+    return this.global.filteredDocuments.slice(start, end);
+}
   close() {
     // Aquí va tu lógica para la acción
     this.renderer.removeClass(this.infoDiv.nativeElement, 'fmapp-info-active');
@@ -218,6 +225,27 @@ docummentSelected: DocumentInterface = {
       this.global.filteredDocuments = this.global.documents;
     }
   }
+    /* viewRepositorio(repositorio: any) {
+      this.showDocuments = true;
+      if (repositorio && repositorio.id) {
+          // Filtrar documentos que pertenecen al repositorio seleccionado
+          this.global.filteredDocuments = this.global.documents.filter(doc => 
+              doc.repositorios.some((repo: any) => repo.id === repositorio.id)
+          );
+  
+          if (this.global.filteredDocuments.length === 0) {
+              Swal.fire({
+                  title: 'Info',
+                  text: 'No se encontraron documentos en este repositorio',
+                  icon: 'info',
+                  confirmButtonText: 'OK'
+              });
+          }
+      } else {
+          // Si no se selecciona un repositorio, mostrar todos los documentos
+          this.global.filteredDocuments = this.global.documents;
+      }
+  } */
 
   onCategoryChange(selectedCategory: any): void {
     if (selectedCategory && selectedCategory.length > 0) {
