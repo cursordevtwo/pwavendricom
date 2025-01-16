@@ -28,7 +28,10 @@ interface modelos {
   receiver: string;
   subject: string;
   entity: string;
-  status: string;}
+  status: string;
+  temeOpen: string;
+
+}
 
 
 @Component({
@@ -58,6 +61,7 @@ export class ModelosComponent {
     subject: '',
     entity: '',
     status: '',
+    temeOpen: ''
   };
   
 docummentSelected: ModelosInterface = {
@@ -70,7 +74,8 @@ docummentSelected: ModelosInterface = {
   receiver: '',
   subject: '',
   entity: '',
-  status: ''
+  status: '',
+  
 };
   dropdownSettings: IDropdownSettings = {};
   formData: any = {};
@@ -161,7 +166,8 @@ docummentSelected: ModelosInterface = {
           receiver: '',
           subject: '',
           entity: '',
-          status: ''
+          status: '',
+          temeOpen: ''
         };  
         // this.temas = [...this.temas];
         this._butler.uploaderImages=[];

@@ -29,6 +29,7 @@ interface DocumentInterface {
   subject: string;
   entity: string;
   status: string;
+  temeOpen: string
 }
 @Component({
   selector: 'app-boletines',
@@ -57,6 +58,7 @@ export class BoletinesComponent {
     subject: '',
     entity: '',
     status: '',
+    temeOpen: ''
   };
   
 docummentSelected: DocumentInterface = {
@@ -69,7 +71,8 @@ docummentSelected: DocumentInterface = {
   receiver: '',
   subject: '',
   entity: '',
-  status: ''
+  status: '',
+  temeOpen: ''
 };
   dropdownSettings: IDropdownSettings = {};
   formData: any = {};
@@ -160,7 +163,8 @@ docummentSelected: DocumentInterface = {
           receiver: '',
           subject: '',
           entity: '',
-          status: ''
+          status: '',
+          temeOpen: ''
         };  
         // this.temas = [...this.temas];
         this._butler.uploaderImages=[];

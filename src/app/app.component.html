@@ -26,10 +26,16 @@
   <app-register [hidden]="virtualRouter.routerActive!=='register'"></app-register>
 </div>
 
-
+<div class="whatsapp-popup">
+    <a href="https://wa.me/50672964128?text=Bienvenidos%20a%20VENDRICOM.%20Le%20atenderemos%20brevemente%20al%20n%C3%BAmero%20de%20Costa%20Rica%3A%2072964128" target="_blank">
+        <i class="fab fa-whatsapp" style="font-size: 2.2rem; padding-right: 10px; padding-left: 15px; color: #fff;"></i>
+    </a>
+</div>
+  
 <div class="hk-chatbot-popup d-md-block d-flex" 
      [hidden]="global.chatbot==='false' || !isChatOpen"
      [ngClass]="{'d-none': !isChatOpen}">
+     
  <!--  <header>
       <div class="chatbot-head-top">
           <a class="btn btn-sm btn-icon btn-dark btn-rounded" href="javascript:void(0);" data-bs-toggle="dropdown"

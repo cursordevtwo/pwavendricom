@@ -30,6 +30,7 @@ import { ContactsComponent } from './components/contacts/contacts.component';
 import { Pipe, PipeTransform } from '@angular/core';
 import { OrderByPipe } from './order-by.pipe';
 import { ModalComponent } from './components/modal/modal.component';
+import { AuthRESTService } from './services/auth-rest.service';
 
 @Component({
   selector: 'app-root',
@@ -75,7 +76,8 @@ export class AppComponent {
     private deviceService: DeviceDetectorService,
     public script: ScriptService,
     public virtualRouter: virtualRouter,
-    public global: GlobalService
+    public global: GlobalService,
+    public authRESTService: AuthRESTService
     ) {
 
 

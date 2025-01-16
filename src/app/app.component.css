@@ -1,0 +1,26 @@
+.whatsapp-popup {
+    position: fixed;
+    bottom: 70px; /* Ajusta la posición vertical */
+    right: 30px;  /* Ajusta la posición horizontal */
+    display: block; /* Cambié a block para que sea visible, puedes cambiarlo a 'none' según lo necesites */
+    width: 60px;  /* Ancho del botón */
+    height: 60px; /* Alto del botón */
+    border-radius: 50%; /* Forma circular */
+    background-color: #25D366; /* Color de fondo de WhatsApp */
+    box-shadow: 0 8px 10px rgba(0, 0, 0, 0.1); /* Sombra */
+    z-index: 10000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+  }
+  
+  .whatsapp-popup img {
+    width: 30px;  /* Tamaño del ícono de WhatsApp */
+    height: 30px; /* Tamaño del ícono de WhatsApp */
+  }
+  
+  .whatsapp-popup:hover {
+    background-color: #128C7E; /* Color cuando el usuario pasa el mouse por encima */
+  }
+  

@@ -205,3 +205,28 @@
     margin: 2px;
   }
   
+  .rounded-button {
+    border-radius: 50%; /* Makes the button round */
+    padding: 10px 15px; /* Adjust padding for a better look */
+}
+
+/* Specific colors for each social media */
+.rounded-button[href*="wa.me"] {
+    background-color: #25D366; /* WhatsApp color */
+    color: white; /* Text color */
+}
+
+.rounded-button[href*="facebook.com"] {
+    background-color: #3b5998; /* Facebook color */
+    color: white; /* Text color */
+}
+
+.rounded-button[href*="instagram.com"] {
+    background-color: #E1306C; /* Instagram color */
+    color: white; /* Text color */
+}
+
+.rounded-button[href*="tiktok.com"] {
+    background-color: #69C9D0; /* TikTok color */
+    color: white; /* Text color */
+}
