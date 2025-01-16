@@ -1,0 +1,144 @@
+<div class="modal" [ngClass]="{'show': isVisible}" tabindex="-1" role="dialog" style="display: block;">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">{{ modalType === 'terminos' ? 'Términos de Uso' : 'Política de Privacidad' }}</h5>
+          <button type="button" class="close" (click)="close()">
+            <span>&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="container my-5">
+            <div class="row">
+              <div class="col-12 mb-5">
+                <h2 class="text-center mb-4">Términos y Condiciones de Uso</h2>
+                <div class="container my-5">
+                    <div class="row">
+                      <!-- Términos y Condiciones de Uso -->
+                      <div class="col-12 mb-5">
+                        <h3 class="text-center mb-4" style="color: #000;">Términos y Condiciones de Uso</h3>
+                  
+                        <div class="section">
+                          <h4>1. Introducción</h4>
+                          <p>Este documento establece los términos y condiciones generales aplicables al uso de la plataforma VENDRICOM (en adelante, "la plataforma"). Al acceder o utilizar la plataforma, aceptas estos términos y condiciones. Si no estás de acuerdo con alguno de estos términos, no deberías usar la plataforma.</p>
+                        </div>
+                  
+                        <div class="section">
+                          <h4>2. Acceso a la Plataforma</h4>
+                          <p>Para acceder a algunos de los servicios de la plataforma, es posible que se te solicite registrarte, crear una cuenta y proporcionar cierta información. La información que suministres debe ser precisa, completa y actualizada en todo momento.</p>
+                        </div>
+                  
+                        <div class="section">
+                          <h4>3. Registro de Usuarios</h4>
+                          <p>El usuario es responsable de la protección y confidencialidad de sus credenciales de acceso (usuario y contraseña). El uso no autorizado de la cuenta es responsabilidad del usuario, quien debe notificar a VENDRICOM ante cualquier incidente de seguridad.</p>
+                        </div>
+                  
+                        <div class="section">
+                          <h4>4. Uso Aceptable</h4>
+                          <p>El usuario acepta utilizar la plataforma solo para los fines permitidos por la ley y de acuerdo con estos términos y condiciones. Queda prohibido:</p>
+                          <ul>
+                            <li>Publicar contenido ofensivo, ilícito o inapropiado.</li>
+                            <li>Interferir o intentar dañar el funcionamiento de la plataforma.</li>
+                            <li>Hacerse pasar por otra persona o entidad.</li>
+                          </ul>
+                        </div>
+                  
+                        <div class="section">
+                          <h4>5. Propiedad Intelectual</h4>
+                          <p>Todo el contenido disponible en la plataforma, incluidos textos, gráficos, logotipos, imágenes y software, es propiedad de VENDRICOM o de sus licenciantes y está protegido por las leyes de derechos de autor y otras normativas de propiedad intelectual.</p>
+                        </div>
+                  
+                        <div class="section">
+                          <h4>6. Limitación de Responsabilidad</h4>
+                          <p>VENDRICOM no garantiza que la plataforma esté libre de errores o que su uso sea ininterrumpido. La plataforma se proporciona "tal cual" y VENDRICOM no será responsable de cualquier daño directo, indirecto, incidental o consecuente derivado del uso de la plataforma.</p>
+                        </div>
+                  
+                        <div class="section">
+                          <h4>7. Modificaciones a los Términos</h4>
+                          <p>Nos reservamos el derecho de modificar estos términos y condiciones en cualquier momento. Las modificaciones serán efectivas inmediatamente después de su publicación en la plataforma. Es responsabilidad del usuario revisar los términos y condiciones periódicamente.</p>
+                        </div>
+                  
+                        <div class="section">
+                          <h4>8. Ley Aplicable y Jurisdicción</h4>
+                          <p>Estos términos y condiciones se rigen por las leyes de Costa Rica. Cualquier controversia que surja será resuelta ante los tribunales competentes.</p>
+                        </div>
+                      </div>
+                  
+                      <!-- Políticas de Privacidad -->
+                      <div class="col-12">
+                        <h2 class="text-center mb-4">Políticas de Privacidad</h2>
+                  
+                        <div class="section">
+                          <h4>1. Introducción</h4>
+                          <p>En VENDRICOM valoramos tu privacidad y nos comprometemos a proteger tu información personal. Esta política de privacidad describe cómo recopilamos, usamos y protegemos tus datos cuando utilizas nuestra plataforma.</p>
+                        </div>
+                  
+                        <div class="section">
+                          <h4>2. Información Recopilada</h4>
+                          <p>Podemos recopilar información personal de los usuarios de diversas formas, incluyendo:</p>
+                          <ul>
+                            <li>Información proporcionada por el usuario: nombre, dirección de correo electrónico, número de teléfono, entre otros.</li>
+                            <li>Datos de navegación: dirección IP, tipo de navegador, páginas visitadas, tiempo de navegación, etc.</li>
+                          </ul>
+                        </div>
+                  
+                        <div class="section">
+                          <h4>3. Uso de la Información</h4>
+                          <p>La información que recopilamos será utilizada para:</p>
+                          <ul>
+                            <li>Proporcionar los servicios solicitados.</li>
+                            <li>Mejorar la plataforma y la experiencia del usuario.</li>
+                            <li>Comunicarnos contigo respecto a actualizaciones, ofertas o noticias relacionadas con la plataforma.</li>
+                            <li>Cumplir con obligaciones legales o regulatorias.</li>
+                          </ul>
+                        </div>
+                  
+                        <div class="section">
+                          <h4>4. Protección de Datos</h4>
+                          <p>Tomamos medidas técnicas y organizativas adecuadas para proteger tu información personal contra pérdida, uso indebido, acceso no autorizado, divulgación, alteración y destrucción.</p>
+                        </div>
+                  
+                        <div class="section">
+                          <h4>5. Compartir Información con Terceros</h4>
+                          <p>VENDRICOM no compartirá tu información personal con terceros, excepto en los siguientes casos:</p>
+                          <ul>
+                            <li>Con proveedores de servicios que actúan en nuestro nombre.</li>
+                            <li>Para cumplir con leyes aplicables, regulaciones o procesos legales.</li>
+                            <li>Si es necesario para proteger nuestros derechos, privacidad o seguridad.</li>
+                          </ul>
+                        </div>
+                  
+                        <div class="section">
+                          <h4>6. Cookies</h4>
+                          <p>La plataforma utiliza cookies para mejorar la experiencia del usuario. Las cookies son pequeños archivos que se almacenan en el dispositivo del usuario. El usuario puede optar por deshabilitar las cookies desde la configuración de su navegador, aunque esto puede afectar el funcionamiento de la plataforma.</p>
+                        </div>
+                  
+                        <div class="section">
+                          <h4>7. Derechos del Usuario</h4>
+                          <p>El usuario tiene derecho a acceder, rectificar, cancelar u oponerse al tratamiento de sus datos personales. Para ejercer estos derechos, el usuario puede contactarnos a través de soportevendricom.com o formulario de contacto de nuestra página web.</p>
+                        </div>
+                  
+                        <div class="section">
+                          <h4>8. Cambios en la Política de Privacidad</h4>
+                          <p>Nos reservamos el derecho de actualizar esta política de privacidad en cualquier momento. Las actualizaciones serán notificadas a través de la plataforma y estarán disponibles para su consulta.</p>
+                        </div>
+                  
+                        <div class="section">
+                          <h4>9. Contacto</h4>
+                          <p>Si tienes alguna duda o inquietud sobre nuestras políticas de privacidad, puedes contactarnos en: soportevendricom.com.</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  
+                <!-- Add other sections here as needed -->
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" (click)="close()">Cerrar</button>
+        </div>
+      </div>
+    </div>
+  </div>

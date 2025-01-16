@@ -29,6 +29,7 @@ import { FaqComponent } from './components/faq/faq.component';
 import { ContactsComponent } from './components/contacts/contacts.component';
 import { Pipe, PipeTransform } from '@angular/core';
 import { OrderByPipe } from './order-by.pipe';
+import { ModalComponent } from './components/modal/modal.component';
 
 @Component({
   selector: 'app-root',
@@ -58,6 +59,7 @@ import { OrderByPipe } from './order-by.pipe';
     PublicityComponent,
     FaqComponent,
     ContactsComponent,
+    ModalComponent,
     OrderByPipe
   ],
   templateUrl: './app.component.html',

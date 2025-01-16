@@ -10,11 +10,12 @@ import { NgxSpinnerModule, NgxSpinnerService } from 'ngx-spinner';
 import { PocketAuthService } from '@app/services/pocket-auth.service';
 import { CommonModule } from '@angular/common';
 import { virtualRouter } from '@app/services/virtualRouter.service';
+import { ModalComponent } from '../modal/modal.component';
 
 @Component({
   selector: 'app-register',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, NgxSpinnerModule, FormsModule],
+  imports: [CommonModule, ReactiveFormsModule, NgxSpinnerModule, FormsModule, ModalComponent],
   templateUrl: './register.component.html',
   styleUrl: './register.component.css',
 })
@@ -23,6 +24,10 @@ export class RegisterComponent {
   submitted = false;
   isError = false;
   errorMessage = '';
+  modalVisible: boolean = false;
+  modalType: string = '';
+  isVisible: boolean = false;
+
   constructor(
     private spinner: NgxSpinnerService,
     private pocketAuthService: PocketAuthService,
@@ -94,4 +99,15 @@ export class RegisterComponent {
       }
     );
   }
+  openModal(modalType: string): void {
+    this.modalType = modalType;
+    this.modalVisible = true;
+    console.log('Modal abierto:', modalType); // Verifica que se llame
+  }
+  
+  close() {
+    this.modalVisible = false;
+    console.log('Modal cerrado'); // Verifica que se llame
+  }
+
 }

@@ -9,9 +9,9 @@
                     <header class="contact-header">
                         <div class="d-flex align-items-center">
                             <div class="dropdown">
-                                <a class="contactapp-title dropdown-toggle link-dark" data-bs-toggle="dropdown" href="#"
+                                <a class="contactapp-title link-dark" data-bs-toggle="dropdown" 
                                     role="button" aria-haspopup="true" aria-expanded="false">
-                                    <h1>Clientes registrados en Vendricom</h1>
+                                    <h1>Clientes de la empresa</h1>
                                 </a>
                             </div>
                         </div>
@@ -40,34 +40,17 @@
                     <div class="contact-body">
                         <div data-simplebar class="nicescroll-bar">
                             <div class="contact-card-view">
-                                <div class="row">
+                                 <div class="row">
                                     <div class="col-7 mb-3">
-                                        <div id="datable_1_filter" class="dataTables_filter"><label>
-                                            <input type="search"
-                                                    class="form-control form-control-sm"
-                                                    placeholder="Buscar contacto"></label></div>
-
-                                    </div>
-                                </div>
-                                <div
-                                    class="row gx-4 row-cols-xxl-4 row-cols-xl-4 row-cols-lg-4 row-cols-md-2 row-cols-1 mb-5">
-                                    <div class="col" *ngFor="let cliente of globalService.clientes">
-                                        <div class="card card-border contact-card"
-                                            style="  border-radius: 10px 30px; background: #d8d8d8;">
-                                            <div class="card-body text-center">
-                                                <div class="avatar avatar-xl avatar-rounded">
-                                                    <img src="assets/jampack/dist/img/avataer10.jpg" class="avatar-img">
-                                                </div>
-                                                <div class="user-name"><span class="contact-star"><span
-                                                            class="feather-icon"><i
-                                                                data-feather="star"></i></span></span>{{cliente.name}}
-                                                </div>
-                                                <div class="user-email">{{cliente.type}}</div>
-                                            </div>
-                                            <div class="card-footer text-muted position-relative">
-                                                <div class="v-separator-full m-0"></div>
-                                            </div>
-                                        </div>
+                                        <!-- <div id="datable_1_filter" class="dataTables_filter">
+                                            <label>
+                                                <input type="search"
+                                                       class="form-control form-control-sm"
+                                                       placeholder="Buscar contacto"
+                                                       [(ngModel)]="searchQuery"
+                                                       (input)="applyFilters()">
+                                            </label>
+                                        </div> -->
                                     </div>
                                 </div>
                                 <div *ngIf="loading" class="text-center">
@@ -75,12 +58,38 @@
                                         <span class="visually-hidden">Loading...</span>
                                     </div>
                                 </div>
-
-                                <!-- Lista de clientes operadores -->
-                                <h1 style="font-size: 20px; font-weight: bold;">Clientes de la empresa</h1>
-
-                                <div
-                                    class="row gx-3 row-cols-xxl-5 row-cols-xl-4 row-cols-lg-3 row-cols-md-2 row-cols-1 mb-5">
+                                <div class="row gx-3 row-cols-xxl-5 row-cols-xl-4 row-cols-lg-3 row-cols-md-2 row-cols-1 mb-5">
+                                    <div class="col" *ngFor="let clienteOperador of globalService.clientesOperadores">
+                                        <div class="card card-border contact-card"
+                                             style="border-radius: 10px 30px; background: #d8d8d8;">
+                                            <div class="card-body text-center">
+                                                <div class="user-name"
+                                                     style="background:#582e6d; color: #fff; border-radius: 10px;">
+                                                    {{clienteOperador.NombreOperador | slice:0:10}}{{clienteOperador.NombreOperador.length > 15 ? '...' : ''}}
+                                                </div>
+                                                <div class="user-email">{{clienteOperador.Email}}</div>
+                                                <div class="user-contact">{{clienteOperador.Telefono}}</div>
+                                                <div class="user-desg">
+                                                    <span class="badge badge-primary badge-indicator badge-indicator-lg me-2"></span>
+                                                    {{clienteOperador.Direccion}}
+                                                </div>
+                                                <div class="user-desg text-center d-flex flex-column align-items-center justify-content-center"
+                                                     style="padding-top: 10px; padding-bottom: 10px;">
+                                                    <a (click)="globalService.setClienteOperador(clienteOperador)"
+                                                       style="cursor: pointer;"
+                                                       class="d-flex align-items-center justify-content-center"
+                                                       data-bs-toggle="modal" data-bs-target="#contact_detail">
+                                                        <span class="feather-icon me-2">
+                                                            <i data-feather="user-check"></i>
+                                                        </span>
+                                                        <span class="fs-7 lh-1">Ver Detalles</span>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                               <!--  <div class="row gx-3 row-cols-xxl-5 row-cols-xl-4 row-cols-lg-3 row-cols-md-2 row-cols-1 mb-5">
                                     <div class="col" *ngFor="let clienteOperador of globalService.clientesOperadores">
                                         <div class="card card-border contact-card"
                                             style="border-radius: 10px 30px; background: #d8d8d8;">
@@ -117,7 +126,8 @@
                                             </div>
                                         </div>
                                     </div>
-                                </div>
+                                </div> -->
+                             
                                 <div class="row">
                                     <div
                                         class="d-flex align-items-center col-sm-12 col-md-5 justify-content-center justify-content-md-start">

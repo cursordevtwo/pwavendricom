@@ -53,7 +53,7 @@ export class ContactsComponent {
   public dataApiService: DataApiService
 )
 {
-  this.globalService.getClientesOperadores().subscribe(
+  /* this.globalService.getClientesOperadores().subscribe(
     (data: any) => {
       this.globalService.clientesOperadores = data.items; // Si la API devuelve un objeto con 'items'
       console.log('Clientes Operadores:', this.globalService.clientesOperadores);
@@ -61,6 +61,19 @@ export class ContactsComponent {
     (error) => {
       console.error('Error al obtener clientes operadores:', error);
     }
+  );
+  this.clientesOperadores = this.globalService.clientesOperadores;
+    this.filteredClientesOperadores = this.clientesOperadores; // Initialize with all contacts
+ */
+    this.globalService.getClientesOperadores().subscribe(
+      (data: any) => {
+          this.globalService.clientesOperadores = data.items; // Store the fetched items
+          console.log('Clientes Operadores:', this.globalService.clientesOperadores);
+          this.filteredClientesOperadores = this.globalService.clientesOperadores; // Initialize with fetched contacts
+      },
+      (error) => {
+          console.error('Error al obtener clientes operadores:', error);
+      }
   );
 }
 ngOnInit() {
@@ -113,7 +126,7 @@ get pages(): number[] {
 setClienteOperador(cliente: ClienteOperador): void {
   this.clienteOperador = cliente;
 }
-applyFilters() {
+/* applyFilters() {
   if (this.searchQuery) {
       this.filteredClientesOperadores = this.clientesOperadores.filter(contact =>
           contact.NombreOperador.toLowerCase().includes(this.searchQuery.toLowerCase())
@@ -122,67 +135,21 @@ applyFilters() {
       this.filteredClientesOperadores = this.clientesOperadores; // Si no hay búsqueda, mostrar todos
   }
   console.log('Filtrados:', this.filteredClientesOperadores); // Verifica el resultado del filtrado
-}
-  editarElemento(clienteOperador: ClienteOperador) {
-    this.isEditing = true;
-    this.globalService.clienteOperador = clienteOperador; // Asigna el cliente seleccionado
-  }
-
-/* guardarCambios() {
-  if (this.clienteForm.valid) {
-    // Obtenemos todos los valores del formulario
-    const updatedContact = this.clienteForm.value; 
-
-    const clienteOperador = this.globalService.clienteOperador; // Asegúrate de que esto no sea null
-    if (!clienteOperador) {
-      console.error('No se ha seleccionado ningún cliente para editar.');
-      Swal.fire({
-        title: 'Error',
-        text: 'No se ha seleccionado un cliente para editar.',
-        icon: 'error',
-        confirmButtonText: 'Aceptar'
-      });
-      return; // Salir si clienteOperador es null
-    }
-
-    const contactId = clienteOperador.id; // Acceder al Id del cliente para actualizar
-
-    // Llamar al servicio para actualizar los datos del cliente (con todos los valores del formulario)
-    this.dataApiService.updateContact(updatedContact, contactId).subscribe(
-      (response) => {
-        console.log('Cliente actualizado con éxito:', response);
-        Swal.fire({
-          title: 'Éxito!',
-          text: 'Cliente actualizado exitosamente.',
-          icon: 'success',
-          confirmButtonText: 'Aceptar'
-        });
-
-        // Restablecer el formulario o salir del modo de edición si lo deseas
-        this.clienteForm.reset();
-        this.isEditing = false; // Salir del modo de edición
-      },
-      (error) => {
-        console.error('Error al actualizar el cliente:', error);
-        Swal.fire({
-          title: 'Error',
-          text: 'Hubo un problema al actualizar el cliente. Inténtalo de nuevo.',
-          icon: 'error',
-          confirmButtonText: 'Aceptar'
-        });
-      }
-    );
-  } else {
-    console.error('Formulario no válido');
-    Swal.fire({
-      title: 'Formulario inválido',
-      text: 'Por favor, completa todos los campos correctamente.',
-      icon: 'warning',
-      confirmButtonText: 'Aceptar'
-    });
-  }
 } */
-  guardarCambios() {
+  /* applyFilters() {
+    console.log('Search Query:', this.searchQuery);
+    console.log('All Contacts:', this.clientesOperadores);
+
+    // Test with a known value
+    const testValue = 'knownName'; // Replace 'knownName' with an actual name you expect to find
+    this.filteredClientesOperadores = this.clientesOperadores.filter(contact =>
+        contact.NombreOperador.toLowerCase().includes(testValue.toLowerCase())
+    );
+
+    console.log('Filtered Contacts:', this.filteredClientesOperadores);
+} */
+
+ guardarCambios() {
     const clienteOperador = this.globalService.clienteOperador; // Asegúrate de que esto no sea null
     if (!clienteOperador) {
       console.error('No se ha seleccionado ningún cliente para editar.');

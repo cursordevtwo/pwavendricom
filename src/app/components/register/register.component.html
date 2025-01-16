@@ -18,18 +18,18 @@
                                     </div>
                                     
                                     <div class="text-center">
-                                        <h3 class="text-white mb-2">Servidor de documentos </h3>
-                                        <p class="text-white">Accede a un amplio numero de <u>Documentos</u>.</p>
+                                        <h3 class="text-white mb-2">Biblioteca de documentos </h3>
+                                        <p class="text-white">Accede a un amplio numero de <strong>Documentos</strong>, <strong>Jurisprudencias</strong>, <strong>Normativas</strong> y <strong>Otros</strong> documentos relacionados con el area juridica de transporte.</p>
                                     </div>
                                     <ul class="list-icon text-white mt-4">
                                         <li class="mb-1">
-                                            <p><i class="ri-check-fill"></i><span>Aprovecha las ventajas de alojar tus
-                                                    documentos en la nube, accediendo a ellos desde cualquier
+                                            <p><i class="ri-check-fill"></i><span>Aprovecha las ventajas de consultar 
+                                                    documentos desde VENDRICOM, accediendo a ellos desde cualquier
                                                     lugar.</span></p>
                                         </li>
                                         <li class="mb-1">
                                             <p><i class="ri-check-fill"></i><span>Consulta tu información de manera
-                                                    rápida y segura en la nube, sin preocuparte por la pérdida de
+                                                    rápida y segura desde VENDRICOM, sin preocuparte por la pérdida de
                                                     datos.</span></p>
                                         </li>
                                     </ul>
@@ -97,11 +97,9 @@
 
                                                 <label class="form-check-label text-muted fs-8" for="logged_in">
                                                     Al crear una cuenta, especificas que has leído y aceptado nuestros
-                                                    <a href="#">Términos de uso</a> y <a href="#">Política de
+                                                    <a (click)="openModal('terminos')" style="cursor: pointer; color: black;" >Términos de uso</a> y <a (click)="openModal('privacidad')" style="cursor: pointer; color: black;">Política de
                                                         privacidad</a>.
-                                                    Podemos mantenerte informado sobre las últimas actualizaciones a través
-                                                    de nuestra configuración predeterminada de
-                                                    <a href="#">notificaciones</a>.
+                                                        <app-modal *ngIf="modalVisible" (close)="modalVisible = false"></app-modal>
                                                 </label>
                                             </div>
                                             <div class="d-flex justify-content-center">

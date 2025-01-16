@@ -44,10 +44,10 @@
                                         <div class="row gx-3">
                                             <div class="form-group col-lg-12">
                                                 <div class="form-label-group">
-                                                    <label>Email</label>
+                                                    <label style="color: black;">Usuario</label>
                                                 </div>
                                                 <div class="form-input">
-                                                    <input type="text" class="form-control" id="email" placeholder="Email" formControlName="email" required [ngClass]="{ 'is-invalid': submitted && f['email'].errors }">
+                                                    <input type="text" class="form-control" id="email" placeholder="Correo" formControlName="email" required [ngClass]="{ 'is-invalid': submitted && f['email'].errors }">
                                                     <div *ngIf="submitted && f['email'].errors" class="invalid-feedback">
                                                         <div *ngIf="f['email'].errors['required']">El email requerido</div>
                                                     </div>
@@ -55,8 +55,7 @@
                                             </div>
                                             <div class="form-group col-lg-12">
                                                 <div class="form-label-group">
-                                                    <label>Contraseña</label>
-                                                    <a href="#" class="fs-7 fw-medium">Olvidó su contraseña?</a>
+                                                    <label style="color: black;">Contraseña</label>
                                                 </div>
                                                 <div class="input-group password-check">
                                                     <span class="input-affix-wrapper affix-wth-text">
@@ -74,6 +73,8 @@
                                             <div [hidden]="!isError">
                                                 <span style="color:red;">{{message}}</span>
                                             </div>
+                                            <a href="#" class="fs-7 fw-medium">Olvidó su contraseña?</a>
+
                                         </div>
                                         <div class="d-flex justify-content-center">
                                             <div class="form-check form-check-sm mb-3"></div>
@@ -81,12 +82,14 @@
                                         
                                         <button type="submit" class="btn btn-primary btn-rounded btn-uppercase ms-2">Ingresar</button>
                                         <p class="p-lg mt-2 text-center">Eres nuevo? <a (click)="virtualRouter.setRoute('register')" style="cursor: pointer;"><u>Regístrate</u></a></p>
+
+                                        <!-- Social Media Buttons -->
+                                        <div class="d-flex justify-content-center mt-3">
+                                            <button class="btn btn-outline-success me-2"> <i class="fab fa-whatsapp"></i> Whatsapp</button>
+                                            <button class="btn btn-outline-info me-2"> <i class="fab fa-facebook-f"></i> Facebook</button>
+                                            <button class="btn btn-outline-danger"> <i class="fab fa-instagram"></i> Instagram</button>
+                                        </div>
                                     </div>
-                                    
-                                    <!-- <label>
-                                      
-                                        <input type="checkbox" (click)="change()" [(ngModel)]="mostrarColorBoxes">
-                                      </label> -->
                                 </div>
                             </form>
                         </div>
