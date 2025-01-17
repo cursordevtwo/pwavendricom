@@ -30,17 +30,23 @@
             <div class="menu-group">
                 <ul class="navbar-nav flex-column">
                     <li class="nav-item" [hidden]="pocketAuthService.getType()!='admin'">
-                        <a class="nav-link" [ngClass]="{'active': activeRoute === 'home'}" (click)="setActiveRoute('home')" style="cursor: pointer;">
-                            <span class="nav-icon-wrap iconbg">
-                                <span class="svg-icon">
-                                    <img src="assets/jampack/dist/img/home.png" style="width: 34px; height: 34px;">
-                                </span>
+                        <a class="nav-link" 
+                        [ngClass]="{'active': activeRoute === 'home', 'text-white': activeRoute === 'home'}" 
+                        (click)="setActiveRoute('home')" 
+                        style="cursor: pointer;">
+                        <span class="nav-icon-wrap iconbg">
+                            <span class="svg-icon">
+                                <img src="assets/jampack/dist/img/home.png" style="width: 34px; height: 34px;">
                             </span>
-                            <span class="nav-link-text">Inicio</span>
+                        </span>
+                        <span class="nav-link-text">Inicio</span>
                         </a>
                     </li>
                     <li class="nav-item" [hidden]="pocketAuthService.getType()!='admin'">
-                        <a class="nav-link" [ngClass]="{'active': activeRoute === 'file-manager'}" (click)="setActiveRoute('file-manager')" style="cursor: pointer;">
+                        <a class="nav-link" 
+                        [ngClass]="{'active': activeRoute === 'file-manager', 'text-white': activeRoute === 'file-manager'}" 
+                        (click)="setActiveRoute('file-manager')" 
+                        style="cursor: pointer;">
                             <span class="nav-icon-wrap iconbg">
                                 <span class="svg-icon">
                                     <img src="assets/jampack/dist/img/doc1.png" style="width: 34px; height: 34px;">
@@ -51,7 +57,10 @@
                         </a>
                     </li>
                     <li class="nav-item" [hidden]="pocketAuthService.getType()=='admin'">
-                        <a class="nav-link" [ngClass]="{'active': activeRoute === 'home'}" (click)="setActiveRoute('home')" style="cursor: pointer;">
+                        <a class="nav-link" 
+                        [ngClass]="{'active': activeRoute === 'home', 'text-white': activeRoute === 'home'}" 
+                        (click)="setActiveRoute('home')" 
+                        style="cursor: pointer;">
                             <span class="nav-icon-wrap iconbg" >
                                 <span class="svg-icon">
                                     <img src="assets/jampack/dist/img/home.png" style="width: 34px; height: 34px;">
@@ -63,7 +72,10 @@
                         </a>
                     </li>
                     <li class="nav-item" [hidden]="pocketAuthService.getType()!='admin'">
-                        <a class="nav-link" [ngClass]="{'active': activeRoute === 'normativas'}" (click)="setActiveRoute('normativas')" style="cursor: pointer;">
+                        <a class="nav-link" 
+                        [ngClass]="{'active': activeRoute === 'normativas', 'text-white': activeRoute === 'normativas'}" 
+                        (click)="setActiveRoute('normativas')" 
+                        style="cursor: pointer;">
                             <span class="nav-icon-wrap iconbg">
                                 <span class="svg-icon">
                                     <img src="assets/jampack/dist/img/doc.png" style="width: 34px; height: 34px;">
@@ -73,7 +85,10 @@
                         </a>
                     </li>
                     <li class="nav-item" [hidden]="pocketAuthService.getType()=='admin'">
-                        <a class="nav-link" [ngClass]="{'active': activeRoute === 'normativas'}" (click)="setActiveRoute('normativas')" style="cursor: pointer;">
+                        <a class="nav-link" 
+                        [ngClass]="{'active': activeRoute === 'normativas', 'text-white': activeRoute === 'normativas'}" 
+                        (click)="setActiveRoute('normativas')" 
+                        style="cursor: pointer;">
                             <span class="nav-icon-wrap iconbg">
                                 <span class="svg-icon">
                                     
@@ -84,7 +99,10 @@
                         </a>
                     </li>
                     <li class="nav-item" [hidden]="pocketAuthService.getType()!='admin'">
-                        <a class="nav-link" [ngClass]="{'active': activeRoute === 'modelos'}" (click)="setActiveRoute('modelos')" style="cursor: pointer;">
+                        <a class="nav-link" 
+                        [ngClass]="{'active': activeRoute === 'modelos', 'text-white': activeRoute === 'modelos'}" 
+                        (click)="setActiveRoute('modelos')" 
+                        style="cursor: pointer;">
                             <span class="nav-icon-wrap iconbg" >
                                 <span class="svg-icon">
                                     <img src="assets/jampack/dist/img/modelos.png" style="width: 34px; height: 34px;">
@@ -95,7 +113,10 @@
                         </a>
                     </li>
                     <li class="nav-item" [hidden]="pocketAuthService.getType()=='admin'">
-                        <a class="nav-link" [ngClass]="{'active': activeRoute === 'modelos'}" (click)="setActiveRoute('modelos')" style="cursor: pointer;">
+                        <a class="nav-link" 
+                        [ngClass]="{'active': activeRoute === 'modelos', 'text-white': activeRoute === 'modelos'}" 
+                        (click)="setActiveRoute('modelos')" 
+                        style="cursor: pointer;">
                             <span class="nav-icon-wrap iconbg">
                                 <span class="svg-icon">
                                     <img src="assets/jampack/dist/img/modelos.png" style="width: 34px; height: 34px;">
@@ -106,7 +127,10 @@
                         </a>
                     </li>
                     <li class="nav-item" [hidden]="pocketAuthService.getType()!='admin'">
-                        <a class="nav-link" [ngClass]="{'active': activeRoute === 'jurisprudencia'}" (click)="setActiveRoute('jurisprudencia')" style="cursor: pointer;">
+                        <a class="nav-link" 
+                        [ngClass]="{'active': activeRoute === 'jurisprudencia', 'text-white': activeRoute === 'jurisprudencia'}" 
+                        (click)="setActiveRoute('jurisprudencia')" 
+                        style="cursor: pointer;">
                             <span class="nav-icon-wrap iconbg">
                                 <span class="svg-icon">
                                     
@@ -118,7 +142,10 @@
                         </a>
                     </li>
                     <li class="nav-item" [hidden]="pocketAuthService.getType()=='admin'">
-                        <a class="nav-link" [ngClass]="{'active': activeRoute === 'jurisprudencia'}" (click)="setActiveRoute('jurisprudencia')" style="cursor: pointer;">
+                        <a class="nav-link" 
+                        [ngClass]="{'active': activeRoute === 'jurisprudencia', 'text-white': activeRoute === 'jurisprudencia'}" 
+                        (click)="setActiveRoute('jurisprudencia')" 
+                        style="cursor: pointer;">
                             <span class="nav-icon-wrap iconbg">
                                 <span class="svg-icon">
                                    
@@ -130,7 +157,10 @@
                         </a>
                     </li>
                     <li class="nav-item" [hidden]="pocketAuthService.getType()!='admin'">
-                        <a class="nav-link" [ngClass]="{'active': activeRoute === 'boletines'}" (click)="setActiveRoute('boletines')" style="cursor: pointer;">
+                        <a class="nav-link" 
+                        [ngClass]="{'active': activeRoute === 'boletines', 'text-white': activeRoute === 'boletines'}" 
+                        (click)="setActiveRoute('boletines')" 
+                        style="cursor: pointer;">
                             <span class="nav-icon-wrap iconbg">
                                 <span class="svg-icon">
                                    
@@ -142,7 +172,10 @@
                         </a>
                     </li>
                     <li class="nav-item" [hidden]="pocketAuthService.getType()=='admin'">
-                        <a class="nav-link" [ngClass]="{'active': activeRoute === 'boletines'}" (click)="setActiveRoute('boletines')" style="cursor: pointer;">
+                        <a class="nav-link" 
+                        [ngClass]="{'active': activeRoute === 'boletines', 'text-white': activeRoute === 'boletines'}" 
+                        (click)="setActiveRoute('boletines')" 
+                        style="cursor: pointer;">
                             <span class="nav-icon-wrap iconbg">
                                 <span class="svg-icon">
                                     <img src="assets/jampack/dist/img/clip.png" style="width: 34px; height: 34px;">
@@ -153,7 +186,10 @@
                         </a>
                     </li>
                     <li class="nav-item" [hidden]="pocketAuthService.getType()!='admin'">
-                        <a class="nav-link" [ngClass]="{'active': activeRoute === 'publicidad'}" (click)="setActiveRoute('publicity')" style="cursor: pointer;">
+                        <a class="nav-link" 
+                        [ngClass]="{'active': activeRoute === 'publicidad', 'text-white': activeRoute === 'publicidad'}" 
+                        (click)="setActiveRoute('publicity')" 
+                        style="cursor: pointer;">
                             <span class="nav-icon-wrap iconbg">
                                 <span class="svg-icon">
                                     <img src="assets/jampack/dist/img/publicity.png" style="width: 34px; height: 34px;">
@@ -163,7 +199,10 @@
                         </a>
                     </li>
                     <li class="nav-item" [hidden]="pocketAuthService.getType()!='admin'">
-                        <a class="nav-link" [ngClass]="{'active': activeRoute === 'cursos'}" (click)="setActiveRoute('cursos')" style="cursor: pointer;">
+                        <a class="nav-link" 
+                        [ngClass]="{'active': activeRoute === 'cursos', 'text-white': activeRoute === 'cursos'}" 
+                        (click)="setActiveRoute('cursos')" 
+                        style="cursor: pointer;">
                             <span class="nav-icon-wrap iconbg">
                                 <span class="svg-icon">
                                     <img src="assets/jampack/dist/img/curso.png" style="width: 34px; height: 34px;">
@@ -174,7 +213,10 @@
                         </a>
                     </li>
                     <li class="nav-item" [hidden]="pocketAuthService.getType()=='admin'">
-                        <a class="nav-link" [ngClass]="{'active': activeRoute === 'cursos'}" (click)="setActiveRoute('cursos')" style="cursor: pointer;">
+                        <a class="nav-link" 
+                        [ngClass]="{'active': activeRoute === 'cursos', 'text-white': activeRoute === 'cursos'}" 
+                        (click)="setActiveRoute('cursos')" 
+                        style="cursor: pointer;">
                             <span class="nav-icon-wrap iconbg">
                                 <span class="svg-icon">
                                     <img src="assets/jampack/dist/img/curso.png" style="width: 34px; height: 34px;">
@@ -185,7 +227,10 @@
                         </a>
                     </li>
                     <li class="nav-item" [hidden]="pocketAuthService.getType()!='admin'">
-                        <a class="nav-link" [ngClass]="{'active': activeRoute === 'cursos'}" (click)="setActiveRoute('cursos')" style="cursor: pointer;">
+                        <a class="nav-link" 
+                        [ngClass]="{'active': activeRoute === 'estudios', 'text-white': activeRoute === 'estudios'}" 
+                        (click)="setActiveRoute('estudios')" 
+                        style="cursor: pointer;">
                             <span class="nav-icon-wrap iconbg">
                                 <span class="svg-icon">
                                     <img src="assets/jampack/dist/img/estudio.png" style="width: 34px; height: 34px;">
@@ -196,7 +241,10 @@
                         </a>
                     </li>
                     <li class="nav-item" [hidden]="pocketAuthService.getType()=='admin'">
-                        <a class="nav-link"[ngClass]="{'active': activeRoute === 'estudios'}" (click)="setActiveRoute('estudios')" style="cursor: pointer;">
+                        <a class="nav-link" 
+                        [ngClass]="{'active': activeRoute === 'estudios', 'text-white': activeRoute === 'estudios'}" 
+                        (click)="setActiveRoute('estudios')" 
+                        style="cursor: pointer;">
                             <span class="nav-icon-wrap iconbg">
                                 <span class="svg-icon">
                                     <img src="assets/jampack/dist/img/estudio.png" style="width: 34px; height: 34px;">
@@ -207,7 +255,10 @@
                         </a>
                     </li>
                     <li class="nav-item" [hidden]="pocketAuthService.getType()!='admin'">
-                        <a class="nav-link" [ngClass]="{'active': activeRoute === 'estudios'}" (click)="setActiveRoute('estudios')" style="cursor: pointer;">
+                        <a class="nav-link" 
+                        [ngClass]="{'active': activeRoute === 'capacitaciones', 'text-white': activeRoute === 'capacitaciones'}" 
+                        (click)="setActiveRoute('capacitaciones')" 
+                        style="cursor: pointer;">
                             <span class="nav-icon-wrap iconbg">
                                 <span class="svg-icon">
                                     <img src="assets/jampack/dist/img/capacitaciones.png" style="width: 34px; height: 34px;">
@@ -218,7 +269,10 @@
                         </a>
                     </li>
                     <li class="nav-item" [hidden]="pocketAuthService.getType()=='admin'">
-                        <a class="nav-link" [ngClass]="{'active': activeRoute === 'capacitaciones'}" (click)="setActiveRoute('capacitaciones')" style="cursor: pointer;">
+                        <a class="nav-link" 
+                        [ngClass]="{'active': activeRoute === 'capacitaciones', 'text-white': activeRoute === 'capacitaciones'}" 
+                        (click)="setActiveRoute('capacitaciones')" 
+                        style="cursor: pointer;">
                             <span class="nav-icon-wrap iconbg">
                                 <span class="svg-icon">
                                     <img src="assets/jampack/dist/img/capacitaciones.png" style="width: 34px; height: 34px;">
@@ -229,7 +283,10 @@
                         </a>
                     </li>
                     <li class="nav-item" [hidden]="pocketAuthService.getType()!='admin'">
-                        <a class="nav-link" [ngClass]="{'active': activeRoute === 'capacitaciones'}" (click)="setActiveRoute('capacitaciones')" style="cursor: pointer;">
+                        <a class="nav-link" 
+                        [ngClass]="{'active': activeRoute === 'soporte', 'text-white': activeRoute === 'soporte'}" 
+                        (click)="setActiveRoute('soporte')" 
+                        style="cursor: pointer;">
                             <span class="nav-icon-wrap iconbg">
                                 <span class="svg-icon">
                                     <img src="assets/jampack/dist/img/chat.png" style="width: 34px; height: 34px;">
@@ -240,7 +297,10 @@
                         </a>
                     </li>
                     <li class="nav-item" [hidden]="pocketAuthService.getType()!='admin'">
-                        <a class="nav-link" [ngClass]="{'active': activeRoute === 'faq'}" (click)="setActiveRoute('faq')" style="cursor: pointer;">
+                        <a class="nav-link" 
+                        [ngClass]="{'active': activeRoute === 'faq', 'text-white': activeRoute === 'faq'}" 
+                        (click)="setActiveRoute('faq')" 
+                        style="cursor: pointer;">
                             <span class="nav-icon-wrap iconbg">
                                 <span class="svg-icon">
                                     <img src="assets/jampack/dist/img/faq.png" style="width: 34px; height: 34px;">
@@ -251,7 +311,10 @@
                         </a>
                     </li>
                     <li class="nav-item" [hidden]="pocketAuthService.getType()=='admin'">
-                        <a class="nav-link" [ngClass]="{'active': activeRoute === 'faq'}" (click)="setActiveRoute('faq')" style="cursor: pointer;">
+                        <a class="nav-link" 
+                        [ngClass]="{'active': activeRoute === 'faq', 'text-white': activeRoute === 'faq'}" 
+                        (click)="setActiveRoute('faq')" 
+                        style="cursor: pointer;">
                             <span class="nav-icon-wrap iconbg">
                                 <span class="svg-icon">
                                     <img src="assets/jampack/dist/img/faq.png" style="width: 34px; height: 34px;">
