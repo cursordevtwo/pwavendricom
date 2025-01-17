@@ -1,7 +1,7 @@
 <div [hidden]="virtualRouter.routerActive==='login' || virtualRouter.routerActive==='register' " class="hk-wrapper" data-layout="vertical"
   data-layout-style="default" data-menu="dark" data-footer="simple" data-hover="active">
-  <app-top-navbar [hidden]="virtualRouter.routerActive=='settings'"></app-top-navbar>
-  <app-vertical-nav [hidden]="virtualRouter.routerActive=='settings'"></app-vertical-nav>
+  <app-top-navbar [hidden]="virtualRouter.routerActive=='top-navbar'"></app-top-navbar>
+  <app-vertical-nav [hidden]="virtualRouter.routerActive=='vertical-nav'"></app-vertical-nav>
   <app-settings [hidden]="virtualRouter.routerActive!=='settings'"></app-settings>
   <app-user-home [hidden]="virtualRouter.routerActive!=='user-home'"></app-user-home>
   <app-admin-home [hidden]="virtualRouter.routerActive!=='admin-home'"></app-admin-home>

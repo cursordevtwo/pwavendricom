@@ -1,0 +1,87 @@
+@media (min-width: 1200px) {
+    .modal-xl {
+      --bs-modal-width: 600px;
+    }
+  }
+.hk-pg-header{
+  padding: 1.25rem 0;
+    background: #ffffff00;
+/*     border-bottom: 1px solid #bbbbbb;
+ */}
+.w-300p {
+  width: 160px !important;
+}
+.card.card-border {
+/*   border: 1px #bbbbbb !important;
+ */  box-shadow: none;
+}
+.items {
+  background: #bbbbbb;
+  border-radius: 10px;
+  padding: 10px;
+  margin-right: 1px; 
+  color:black;
+  font-size: 20px;
+}
+
+/* Asegurarse de que no haya margen extra en la última columna */
+.items:last-child {
+  margin-right: 0;
+}
+
+.boton{
+  width: 40px;
+  height: 40px;
+  margin-right: 8px;
+  background:linear-gradient(135deg, #864ba8 0%, #f69950 100%);
+  border-radius: 50%;
+  margin-right: 8px;
+  padding: 5px;
+}
+.badge.badge-soft-success {
+  background: #ebfcf5;
+  color: #582e6d;
+}
+.badge.badge-sm {
+  --bs-badge-font-size: 1rem;
+  --bs-badge-padding-x: 1rem;
+  --bs-badge-padding-y: 1rem;}
+  .svg-icon {
+    display: inline-block;
+    width: 120px; /* Ajusta el tamaño */
+    height: 120px; /* Ajusta el tamaño */
+    background-image: url('../../../assets/jampack/dist/img/doc.svg');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+.menu-btn-gradient {
+    background: linear-gradient(135deg, #864ba8 0%, #f69950 100%) !important;
+    color: white !important;
+    border-radius: 50%;
+    padding: 10px;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    transition: all 0.3s ease-in-out;
+    border: none;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Efecto hover */
+  .menu-btn-gradient:hover {
+    background: linear-gradient(135deg, #f69950 0%, #864ba8 100%) !important;
+    transform: scale(1.1);
+  }
+  
+  /* Estilo del icono */
+  .menu-btn-gradient .icon {
+    color: white !important;
+    font-size: 18px;
+  }
+  
+  /* Efecto activo */
+  .menu-btn-gradient:active {
+    transform: scale(0.95);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  }
