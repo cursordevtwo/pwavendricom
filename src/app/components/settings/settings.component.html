@@ -28,10 +28,11 @@
 										<div class="row g-0 gap-3">
 											<div class="col-xxl-3 col-lg-3 col-sm-6 mb-xxl-0 mb-4 items row">
                                                 <div class="d-flex justify-content-between align-items-center w-100">
-                                                    <span class="d-flex align-items-center fw-medium fs-7" style="cursor: pointer;">
+                                                    <span class="d-flex align-items-center fw-medium fs-7" style="cursor: pointer;" data-bs-toggle="modal" data-bs-target="#viewRepositorio">
                                                         <img src="assets/jampack/dist/img/doc.png" alt="Documentos" class="boton"> 
                                                         Repositorios
                                                     </span>
+                                                    
                                                     <div class="dropdown">
                                                         <a class="menu-btn-gradient btn btn-xs btn-icon btn-rounded flex-shrink-0 dropdown-toggle"
                                                             data-bs-toggle="dropdown" role="button"
@@ -47,16 +48,12 @@
                                                                     <i class="fa fa-eye"></i></span>
                                                                 Ver
                                                             </a>
-                                                            <a class="dropdown-item" (click)="updateTema()">
+                                                            <a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#viewRepositorio"> <!-- Pass the repo object -->
                                                                 <span class="feather-icon dropdown-icon">
-                                                                    <i class="fa fa-edit"></i></span>
-                                                                Editar
+                                                                    <i class="fa fa-add"></i></span>
+                                                                Agregar
                                                             </a>
-                                                            <a class="dropdown-item" (click)="deleteTema(deleteTema)"> <!-- Pass the repo object -->
-                                                                <span class="feather-icon dropdown-icon">
-                                                                    <i class="fa fa-trash"></i></span>
-                                                                Borrar
-                                                            </a>
+                                                           
                                                         </div>
                                                     </div>
                                                 </div>
@@ -66,6 +63,7 @@
                                                         <i class="fa fa-file"></i> {{ totalRepositorios }}
                                                     </span>
                                                 </div>
+                                                
                                             </div>
 											<div class="col-xxl-3 col-lg-3 col-sm-6 mb-xxl-0 mb-4 items row">
                                                 <div class="d-flex justify-content-between align-items-center w-100">
@@ -149,26 +147,6 @@
                                                     </span>
                                                 </div>
                                             </div>
-                                            <!-- <div id="viewRepositorio" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
-                                                <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
-                                                    <div class="modal-content">
-                                                        <div class="modal-header">
-                                                            <h5 class="modal-title">Repositorios</h5>
-                                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                                        </div>
-                                                        <div class="modal-body">
-                                                            <ul class="list-group">
-                                                                <li class="list-group-item" *ngFor="let repo of global.repositorios">
-                                                                    {{ repo.name }} 
-                                                                </li>
-                                                            </ul>
-                                                        </div>
-                                                        <div class="modal-footer">
-                                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div> -->
                                             <div id="viewRepositorio" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
                                                 <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
                                                     <div class="modal-content">
@@ -179,20 +157,20 @@
                                                         <div class="modal-body">
                                                             <ul class="list-group">
                                                                 <li class="list-group-item" *ngFor="let repo of global.repositorios">
-                                                                    {{ repo.name }} <!-- Display the name of the repository -->
+                                                                    {{ repo.name }} 
                                                                     <button class="btn btn-warning btn-sm float-end" (click)="editRepo(repo)">Editar</button>
+                                                                    <button class="btn btn-danger btn-sm float-end me-2" (click)="deleteRepositorio(repo)">Borrar</button>
                                                                 </li>
                                                             </ul>
-                                                            <form *ngIf="isEditMode" (ngSubmit)="updateRepo()">
+                                                            <h6 class="text-uppercase fw-bold mb-3" style="color: #000; padding-top: 20px">{{ isEditMode ? 'Actualizar Repositorio' : 'Agregar Nuevo Repositorio' }}</h6>
+
+                                                            <form (ngSubmit)="submitNewRepo()">
                                                                 <div class="mb-3">
-                                                                    <label for="repoName" class="form-label">Nombre del Repositorio</label>
-                                                                    <input type="text" class="form-control" id="repoName" [(ngModel)]="formData.name" name="repoName" required>
+                                                                    <label for="repoName" class="form-label" style="color: #000">Nombre del Repositorio</label>
+                                                                    <input type="text" class="form-control" id="repoName" [(ngModel)]="formData.name" name="repoName" required placeholder="Ingrese el nombre del repositorio">
                                                                 </div>
-                                                                <div class="mb-3">
-                                                                    <label for="repoDescription" class="form-label">Descripción</label>
-                                                                    <input type="text" class="form-control" id="repoDescription" [(ngModel)]="formData.description" name="repoDescription">
-                                                                </div>
-                                                                <button type="submit" class="btn btn-primary">Actualizar</button>
+                                                                <button type="submit" class="btn btn-primary">{{ isEditMode ? 'Actualizar' : 'Agregar' }}</button>
+                                                                <button type="button" class="btn btn-secondary" (click)="resetForm()">Cancelar</button>
                                                             </form>
                                                         </div>
                                                         <div class="modal-footer">

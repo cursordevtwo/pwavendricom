@@ -141,6 +141,38 @@ export class SettingsComponent {
       }
     });
   }
+  submitNewRepo(): void {
+    if (this.isEditMode) {
+        // Update existing repository
+        this.dataApi.updateRepositorio(this.formData, this.formData.id).subscribe(
+            (response) => {
+                const index = this.global.repositorios.findIndex(repo => repo.id === this.formData.id);
+                if (index !== -1) {
+                    this.global.repositorios[index] = response; // Update the repository in the list
+                }
+                Swal.fire('Éxito', 'El repositorio ha sido actualizado con éxito.', 'success');
+                this.resetForm(); // Reset the form after submission
+            },
+            (error) => {
+                Swal.fire('Error', 'Ocurrió un error al actualizar el repositorio.', 'error');
+                console.error('Error updating repository:', error);
+            }
+        );
+    } else {
+        // Add new repository
+        this.dataApi.saveRepositorio(this.formData).subscribe(
+            (response) => {
+                this.global.repositorios.push(response); // Add new repository to the list
+                Swal.fire('Éxito', 'El repositorio ha sido agregado con éxito.', 'success');
+                this.resetForm(); // Reset the form after submission
+            },
+            (error) => {
+                Swal.fire('Error', 'Ocurrió un error al agregar el repositorio.', 'error');
+                console.error('Error adding repository:', error);
+            }
+        );
+    }
+}
   updateRepo(): void {
     // Call your service to update the repository
     this.dataApi.updateRepositorio(this.formData, this.formData.id).subscribe(
@@ -158,11 +190,50 @@ export class SettingsComponent {
             Swal.fire('Error', 'Ocurrió un error al actualizar el repositorio.', 'error');
         }
     );
-}
+  }
+  deleteRepositorio(repositorio: any) {
+  const repositorioId = repositorio.id;
 
-
+  if (!repositorioId) {
+    console.error('No se puede eliminar el : ID no definido');
+    return;
+  }
   
-  resetForm() {
+  Swal.fire({
+    title: '¿Estás seguro?',
+    text: '¡Esta acción no se podrá revertir!',
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonText: 'Sí, borrar!',
+    cancelButtonText: 'No, cancelar'
+  }).then((result) => {
+    if (result.isConfirmed) {
+      this.dataApi.deleteRepositorio(repositorioId).subscribe(
+        response => {
+          console.log(' eliminado:', response);
+          
+          // Eliminar el  de la lista local
+          this.global.repositorios = this.global.repositorios.filter(repo => repo.id !== repositorioId);
+          
+          Swal.fire(
+            'Borrado!',
+            'El  ha sido eliminado.',
+            'success'
+          );
+        },
+        error => {
+          Swal.fire(
+            'Error',
+            'Ocurrió un error al eliminar el . Inténtelo de nuevo más tarde.',
+            'error'
+          );
+          console.error('Error al borrar el :', error);
+        }
+      );
+    }
+  });
+  }
+ resetForm() {
     this.isEditMode = false;
     this.editingTema = null;
     this.formData = {};
