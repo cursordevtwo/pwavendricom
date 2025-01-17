@@ -505,17 +505,34 @@ export class GlobalService {
       this.yeoman.config.clientSelected = i;
     });
   }
-
+  /* applyFilters() {
+    this.filteredDocuments = this.documents.filter((doc: Document) => {
+        // Verificar si selectedTema no está vacío y si es así, comprobar que coincide con algún tema del documento
+        let matchesTema = this.selectedTema ? doc.temas.some((t: Tema) => t.id === this.selectedTema.id) : true;
+        // Verificar si searchQuery no está vacío y si es así, comprobar que coincide con el campo entity del documento
+        let matchesSearchText = this.searchQuery ? doc.subject.toLowerCase().includes(this.searchQuery.toLowerCase()) : true;
+        // Verificar si selectedYear no está vacío y si es así, comprobar que el año de la fecha de issue coincide con el año seleccionado
+        let matchesYear = this.selectedYear ? new Date(doc.issue).getFullYear() === this.selectedYear : true;
+        return matchesTema && matchesSearchText && matchesYear;
+    });
+} */
   
-  applyFilters() {
+    applyFilters() {
       this.filteredDocuments = this.documents.filter((doc: Document) => {
-          // Verificar si selectedTema no está vacío y si es así, comprobar que coincide con algún tema del documento
-          let matchesTema = this.selectedTema ? doc.temas.some((t: Tema) => t.id === this.selectedTema.id) : true;
-          // Verificar si searchQuery no está vacío y si es así, comprobar que coincide con el campo entity del documento
-          let matchesSearchText = this.searchQuery ? doc.subject.toLowerCase().includes(this.searchQuery.toLowerCase()) : true;
-          // Verificar si selectedYear no está vacío y si es así, comprobar que el año de la fecha de issue coincide con el año seleccionado
-          let matchesYear = this.selectedYear ? new Date(doc.issue).getFullYear() === this.selectedYear : true;
-          return matchesTema && matchesSearchText && matchesYear;
+          // Check if selectedTema is not empty and if so, check if it matches any theme of the document
+          let matchesRepositorio = this.repositorioSelected ? 
+              doc.repositories.some((r: Repository) => r.id === this.repositorioSelected.id) : true;
+          
+          // Check if searchQuery is not empty and if so, check if it matches the entity field of the document
+          let matchesSearchText = this.searchQuery ? 
+              doc.subject.toLowerCase().includes(this.searchQuery.toLowerCase()) : true;
+          
+          // Check if selectedYear is not empty and if so, check if the year of the issue date matches the selected year
+          let matchesYear = this.selectedYear ? 
+              new Date(doc.issue).getFullYear() === this.selectedYear : true;
+          
+          // Ensure that the filtering applies only to the selected repository
+          return matchesRepositorio && matchesSearchText && matchesYear;
       });
   }
   applyFiltersNormativas() {

@@ -183,6 +183,7 @@ totalItems: number = 0; // Total de documentos filtrados
     this.showDocuments = false;
     this.global.filteredDocuments = this.global.documents;
   }
+
   ngOnInit(): void {
     const currentYear = new Date().getFullYear();
     for (let i = 0; i < 40; i++) {
@@ -204,7 +205,7 @@ totalItems: number = 0; // Total de documentos filtrados
     this.global.filteredDocuments = this.global.documents;
   }
   
-  viewRepositorio(repositorio: any) {
+  /* viewRepositorio(repositorio: any) {
     this.showDocuments = true;
     if (repositorio && repositorio.id) {
       // Filter documents that belong to the selected repository
@@ -224,29 +225,32 @@ totalItems: number = 0; // Total de documentos filtrados
       // If no repository is selected, show all documents
       this.global.filteredDocuments = this.global.documents;
     }
-  }
-    /* viewRepositorio(repositorio: any) {
+  } */
+    viewRepositorio(repositorio: any) {
       this.showDocuments = true;
       if (repositorio && repositorio.id) {
-          // Filtrar documentos que pertenecen al repositorio seleccionado
-          this.global.filteredDocuments = this.global.documents.filter(doc => 
-              doc.repositorios.some((repo: any) => repo.id === repositorio.id)
-          );
+        // Asignar el repositorio seleccionado
+        this.global.selectedRepositorio = repositorio;
   
-          if (this.global.filteredDocuments.length === 0) {
-              Swal.fire({
-                  title: 'Info',
-                  text: 'No se encontraron documentos en este repositorio',
-                  icon: 'info',
-                  confirmButtonText: 'OK'
-              });
-          }
+        // Filtrar documentos que pertenecen al repositorio seleccionado
+        this.global.filteredDocuments = this.global.documents.filter(doc => 
+          doc.repositorios.some((repo: any) => repo.id === repositorio.id)
+        );
+        
+        if (this.global.filteredDocuments.length === 0) {
+          Swal.fire({
+            title: 'Info',
+            text: 'No se encontraron documentos en este repositorio',
+            icon: 'info',
+            confirmButtonText: 'OK'
+          });
+        }
       } else {
-          // Si no se selecciona un repositorio, mostrar todos los documentos
-          this.global.filteredDocuments = this.global.documents;
+        // Si no se seleccionó un repositorio, mostrar todos los documentos
+        this.global.filteredDocuments = this.global.documents;
       }
-  } */
-
+  }
+  
   onCategoryChange(selectedCategory: any): void {
     if (selectedCategory && selectedCategory.length > 0) {
       console.log('Categoría seleccionada: ' + JSON.stringify(selectedCategory));

@@ -170,16 +170,17 @@
                 
                 <div class="fmapp-detail-wrap">
                     <h2 class="text-center mb-4" *ngIf="!showDocuments">Documentos Organizados por Repositorios</h2>
-                    <h2 class="text-center mb-4" *ngIf="showDocuments">Documentos pertenecientes al Repositorio
-                        seleccionado</h2>
-
-
+                    <h2 class="text-center mb-4" *ngIf="showDocuments"> Documentos pertenecientes al Repositorio 
+                    {{ global.selectedRepositorio ? global.selectedRepositorio.name : 'No hay repositorio seleccionado' }}
+                    </h2>
+                         
                     <header class="fm-header" *ngIf="showDocuments" style="background: rgba(233, 41, 144, 0.15);">
 
                         <div class="d-flex align-items-center flex-grow-1">
-                            <a class="fmapp-title dropdown-toggle link-dark" data-bs-toggle="dropdown" href="#"
+                            <!-- <a class="fmapp-title dropdown-toggle link-dark" data-bs-toggle="dropdown" href="#"
                                 role="button" aria-haspopup="true" aria-expanded="false">
-                                <h1>{{ global.selectedTema ? global.selectedTema.name : 'Todos los temas' }}</h1>                            </a>
+                                <h1>{{ global.selectedTema ? global.selectedTema.name : 'Todos los temas' }}</h1> 
+                            </a>
                                 <div class="dropdown-menu">
                                     <a class="dropdown-item" (click)="global.verTodosTemas()">
                                         <span class="feather-icon dropdown-icon"><i data-feather="eye"></i></span>
@@ -189,10 +190,9 @@
                                         <span class="feather-icon dropdown-icon"><i data-feather="file"></i></span>
                                         <span>{{ tema.name }} </span>
                                     </a>
-                                </div>
+                                </div> -->
                             <form class="mx-3 flex-grow-1 mw-400p" role="search" (submit)="global.searchDocuments($event)">
                                 <input type="text" class="form-control" placeholder="Buscar entre los documentos por ASUNTO" [(ngModel)]="global.searchQuery" (ngModelChange)="global.applyFilters()" name="searchQuery">
-
                             </form>
                         </div>
                         
@@ -277,8 +277,7 @@
                                     <div id="fm_collapse_1" class="collapse show">
                                         <div
                                             class="row row-cols-xxl-3 row-cols-xl-3 row-cols-lg-3 row-cols-md-2 row-cols-1 mt-4">
-                                            <!-- <div class="col-3" *ngFor="let document of global.filteredDocuments"
-                                                (click)="setPreview(document)"> -->
+                                            
                                                 <div class="col-3" *ngFor="let document of global.filteredDocuments" (click)="setPreview(document)">
                                                 <div class="card  card-border fmapp-info-toggle"
                                                     style="border-radius: 10px; background: #582e6d;">
@@ -295,6 +294,8 @@
                                                                     document.receiver.length > 20 ? '...' : '' }}</div>
                                                                 <div class="text-truncate fs-8 mb-2">
                                                                     Entidad: {{document.entity }}</div>
+                                                                    <div class="text-truncate fs-8 mb-2">
+                                                                        Serial: {{document.serial }}</div>
                                                                 <p class="text-truncate p-xs">F.E:
                                                                     {{document.issue}}</p>
                                                             </div>
@@ -357,20 +358,11 @@
                                         <span class="nav-link-text">Detalles</span>
                                     </a>
                                 </li>
-                                <!-- <li class="nav-item">
-                                    <a class="nav-link" data-bs-toggle="tab" href="#tab_activity">
-                                        <span class="nav-link-text">Actividad</span>
-                                    </a>
-                                </li> -->
                             </ul>
                             <div class="tab-content mt-5">
                                 <div class="tab-pane fade show active" id="tab_info">
                                     <div class="collapse-simple">
                                         <div class="card">
-                                            <!-- <div class="card-header">
-                                                <a role="button" data-bs-toggle="collapse" href="#fl_info"
-                                                    aria-expanded="true">Detalles</a>
-                                            </div> -->
                                             <div id="fl_info" class="collapse show">
                                                 <div class="card-body">
                                                     <ul class="fm-info">
@@ -407,55 +399,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <!-- <div class="card">
-                                            <div class="card-header">
-                                                <a role="button" data-bs-toggle="collapse" href="#shared_with"
-                                                    aria-expanded="true">Compartir con </a>
-                                            </div>
-                                            <div id="shared_with" class="collapse show">
-                                                <div class="card-body">
-                                                    <ul class="hk-list">
-                                                        <li>
-                                                            <div
-                                                                class="avatar avatar-sm avatar-primary position-relative avatar-rounded">
-                                                                <img src="assets/jampack/dist/img/avatar9.jpg"
-                                                                    alt="user" class="avatar-img">
-                                                                <div
-                                                                    class="badge-icon badge-circle text-blue badge-icon-xxs position-bottom-end-overflow-1">
-                                                                    <div class="badge-icon-wrap">
-                                                                        <i class="ri-upload-2-fill"></i>
-                                                                    </div>
-                                                                    <svg xmlns="http://www.w3.org/2000/svg"
-                                                                        viewBox="0 0 127 127">
-                                                                        <g data-name="Ellipse 302"
-                                                                            transform="translate(8 8)" stroke-width="3">
-                                                                            <circle cx="55.5" cy="55.5" r="55.5"
-                                                                                stroke="currentColor"></circle>
-                                                                            <circle cx="55.5" cy="55.5" r="59.5"
-                                                                                fill="currentColor"></circle>
-                                                                        </g>
-                                                                    </svg>
-                                                                </div>
-                                                            </div>
-                                                        </li>
-                                                        <li>
-                                                            <div class="avatar avatar-sm  avatar-rounded">
-                                                                <img src="assets/jampack/dist/img/avatar10.jpg"
-                                                                    alt="user" class="avatar-img">
-                                                            </div>
-                                                        </li>
-                                                        <li>
-                                                            <div class="avatar avatar-sm avatar-soft-danger avatar-rounded"
-                                                                data-bs-toggle="tooltip" data-bs-placement="top"
-                                                                title="" data-bs-original-title="Winston">
-                                                                <span class="initial-wrap">W</span>
-                                                            </div>
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                        </div> -->
-
+                                        
                                     </div>
                                 </div>
 
