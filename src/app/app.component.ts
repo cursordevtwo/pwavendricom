@@ -11,8 +11,6 @@ import { VerticalNavComponent } from './components/ui/vertical-nav/vertical-nav.
 import { UserHomeComponent } from './components/user-home/user-home.component';
 import { AdminHomeComponent } from './components/admin-home/admin-home.component';
 import { LoginComponent } from './components/login/login.component';
-import { UserPaymentsComponent } from './components/user-payments/user-payments.component';
-import { UserRequestsComponent } from './components/user-requests/user-requests.component';
 import { SettingsComponent } from './components/settings/settings.component';
 import { RegisterComponent } from './components/register/register.component';
 import { FileManagerComponent } from './components/file-manager/file-manager.component';
@@ -48,9 +46,7 @@ import { CapacitacionesComponent } from './components/capacitaciones/capacitacio
     FooterComponent,
     UserHomeComponent,
     AdminHomeComponent,
-    UserPaymentsComponent,
     LoginComponent,
-    UserRequestsComponent,
     SettingsComponent,
     RegisterComponent,
     FileManagerComponent,
@@ -102,21 +98,13 @@ export class AppComponent {
         // console.log('Todos los scripts se cargaron correctamente');
       })
       .catch(error => console.log(error));
-      this.global.getConfig();
+      
       this.epicFunction();
       this.global.isLogin();
 
     }
     ngOnInit(): void {
-      this.global.getConfig().subscribe(
-        (data) => {
-          this.global.configs = data;
-       
-        },
-        (error) => {
-          console.error(error); // Manejo de errores si la solicitud falla
-        }
-      );
+     
       this.global.getClientes().subscribe(
         (data) => {
           this.global.clientes = data.items; // Asigna los registros obtenidos a la variable 'registros'
