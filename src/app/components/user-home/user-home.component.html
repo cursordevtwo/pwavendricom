@@ -1,7 +1,6 @@
 <div class="hk-pg-wrapper pb-0">
     <div class="hk-pg-body py-0">
         <div class="fmapp-wrap fmapp-sidebar-toggle" #infoDiv id="info">
-            
             <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel" data-bs-interval="2000" data-bs-pause="hover">
                 <ol class="carousel-indicators">
                     <li *ngFor="let publicidad of global.filteredPublicidad; let i = index" 
@@ -132,29 +131,29 @@
                             <div class="collapse-simple mt-4" [hidden]="!showDocuments">
                                 <div class="card">
                                     <div id="fm_collapse_1" class="collapse show">
-                                        <div
-                                            class="row row-cols-xxl-3 row-cols-xl-3 row-cols-lg-3 row-cols-md-2 row-cols-1 mt-4">
+                                        <div class="row row-cols-xxl-3 row-cols-xl-3 row-cols-lg-3 row-cols-md-2 row-cols-1 mt-4">
                                             <div class="col-3" *ngFor="let document of global.filteredDocuments">
-                                                <div class="card card-border fmapp-info-toggle"
-                                                (click)="setPreview(document)">
-                                                <div class="card  card-border fmapp-info-toggle"
-                                                    style="border-radius: 10px; background: #582e6d;">
-                                                    <div class="card-body ">
-                                                        <div class="d-flex justify-content-between align-items-start">
-                                                            <div>
-                                                                <div class="file-name"
-                                                                    style="font-size: 20px; font-weight: bold; color: #d8d8d8;">
-                                                                    Asunto: {{ document.subject | slice:0:15 }}{{
-                                                                    document.subject.length > 15 ? '...' : '' }}
+                                                <div class="card card-border fmapp-info-toggle" (click)="setPreview(document)">
+                                                    <div class="card  card-border fmapp-info-toggle"
+                                                        style="border-radius: 10px; background: #582e6d;">
+                                                        <div class="card-body ">
+                                                            <div class="d-flex justify-content-between align-items-start">
+                                                                <div>
+                                                                    <div class="file-name"
+                                                                        style="font-size: 20px; font-weight: bold; color: #d8d8d8;">
+                                                                        Asunto: {{ document.subject | slice:0:15 }}{{
+                                                                        document.subject.length > 15 ? '...' : '' }}
+                                                                    </div>
+                                                                    <div class="text-truncate fs-8 mb-2">
+                                                                        Receptor: {{document.receiver | slice:0:20 }}{{
+                                                                        document.receiver.length > 20 ? '...' : '' }}</div>
+                                                                    <div class="text-truncate fs-8 mb-2">
+                                                                        Entidad: {{document.entity }}</div>
+                                                                    <p class="text-truncate p-xs">F.E:
+                                                                        {{document.issue}}</p>
                                                                 </div>
-                                                                <div class="text-truncate fs-8 mb-2">
-                                                                    Receptor: {{document.receiver | slice:0:20 }}{{
-                                                                    document.receiver.length > 20 ? '...' : '' }}</div>
-                                                                <div class="text-truncate fs-8 mb-2">
-                                                                    Entidad: {{document.entity }}</div>
-                                                                <p class="text-truncate p-xs">F.E:
-                                                                    {{document.issue}}</p>
                                                             </div>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -162,7 +161,6 @@
                                     </div>
                                 </div>
                             </div>
-
                         </div>
                     </div>
                     <div class="file-info">
@@ -251,12 +249,14 @@
                             </div>
                         </div>
                     </div>
-
                 </div>
             </div>
         </div>
     </div>
+   
     <!-- /Page Body -->
     <!-- Chat Popup -->
+   
     
 </div>
+

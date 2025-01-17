@@ -18,8 +18,9 @@
   <app-publicity [hidden]="virtualRouter.routerActive!=='publicity'"></app-publicity>
   <app-faq [hidden]="virtualRouter.routerActive!=='faq'"></app-faq>
   <app-contacts [hidden]="virtualRouter.routerActive!=='contacts'"></app-contacts>
-
-
+  <app-estudios [hidden]="virtualRouter.routerActive!=='estudios'"></app-estudios>
+  <app-capacitaciones [hidden]="virtualRouter.routerActive!=='capacitaciones'"></app-capacitaciones>
+  <app-modal [hidden]="virtualRouter.routerActive!=='modal'"></app-modal>
 </div>
 <div class="hk-wrapper hk-pg-auth" data-footer="simple" [hidden]="virtualRouter.routerActive!=='login'&& virtualRouter.routerActive!=='register' ">
   <app-login [hidden]="virtualRouter.routerActive!=='login'"></app-login>

@@ -29,6 +29,7 @@ import {
   NgMultiSelectDropDownModule,
 } from 'ng-multiselect-dropdown';
 import { DataApiService } from '@app/services/data-api-service';
+import { ModalComponent } from '../modal/modal.component';
 
 
 interface DocumentInterface {
@@ -43,6 +44,7 @@ interface DocumentInterface {
   subject: string;
   entity: string;
   status: string;
+
 }
 
 @Component({
@@ -53,7 +55,8 @@ interface DocumentInterface {
     FormsModule ,
     CommonModule,
     ReactiveFormsModule,
-    NgxSpinnerModule
+    NgxSpinnerModule,
+    ModalComponent
   ],
   templateUrl: './user-home.component.html',
   styleUrl: './user-home.component.css'
@@ -115,6 +118,8 @@ export class UserHomeComponent implements AfterViewInit {
   public isError = false;
   adapter = new  DemoFilePickerAdapter(this.http,this._butler,this.global);
   showDocuments: boolean = false;
+  modalVisible: boolean = false;
+  modalType: string = '';
   constructor(
     private formBuilder: FormBuilder, 
     public AuthRESTService: AuthRESTService,
@@ -286,6 +291,16 @@ ngAfterViewInit() {
     // Opcionalmente, puedes volver a cargar la lista de repositorios o hacer otras acciones aquí
 }
 
+openModal(modalType: string): void {
+    this.modalType = modalType;
+    this.modalVisible = true;
+    console.log('Modal abierta:', modalType);
+  }
+
+  closeModal() {
+    this.modalVisible = false;
+    console.log('Modal cerrada');
+  }
   
 
 }

@@ -20,3 +20,7 @@
 .text-blue-w {
     color: #fff;
 }
+.nav-link.active {
+    background-color: #864ba8; 
+    color: white; 
+}

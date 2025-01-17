@@ -122,4 +122,22 @@
             </div>
         </div>
     </div>
+    <div class="hk-footer" style="padding-top: 20px;">
+        <footer class="container-xxl footer" >
+            <div class="row">
+                <div class="col-xl-8">
+                    <p class="footer-text">
+                      <span class="copy-text">VENDRICOM © 2024-2025 Todos los derechos reservados.</span>
+                      <a (click)="openModal('terminos')" style="cursor: pointer;">Términos y Condiciones</a>
+                      <app-modal *ngIf="modalVisible" [modalType]="modalType" (close)="closeModal()"></app-modal>
+                      <span class="footer-link-sep">| </span>Desarrollado por <a href="https://www.buckapi.com" target="_blank">Buckapi</a>
+                    </p>
+                  </div>
+                  
+                <div class="col-xl-4">
+                    <a href="index.html#" class="footer-extr-link link-default"><span class="feather-icon"><i data-feather="external-link"></i></span><u>Chat de soporte</u></a>
+                </div>
+            </div>
+        </footer>
+    </div>
 </div>

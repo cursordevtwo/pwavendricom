@@ -1,22 +1,21 @@
 <div class="modal" [ngClass]="{'show': isVisible}" tabindex="-1" role="dialog" style="display: block;">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title">{{ modalType === 'terminos' ? 'Términos de Uso' : 'Política de Privacidad' }}</h5>
-          <button type="button" class="close" (click)="close()">
-            <span>&times;</span>
-          </button>
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">{{ modalType === 'terminos' ? 'Términos de Uso' : 'Política de Privacidad' }}</h5>
+        <button type="button" class="close" (click)="closeModal()">
+          <span>&times;</span>
+        </button>
         </div>
         <div class="modal-body">
           <div class="container my-5">
             <div class="row">
               <div class="col-12 mb-5">
-                <h2 class="text-center mb-4">Términos y Condiciones de Uso</h2>
+                <h2 class="text-center mb-4" style="color: #000;">Términos y Condiciones de Uso</h2>
                 <div class="container my-5">
                     <div class="row">
                       <!-- Términos y Condiciones de Uso -->
                       <div class="col-12 mb-5">
-                        <h3 class="text-center mb-4" style="color: #000;">Términos y Condiciones de Uso</h3>
                   
                         <div class="section">
                           <h4>1. Introducción</h4>
@@ -66,7 +65,7 @@
                   
                       <!-- Políticas de Privacidad -->
                       <div class="col-12">
-                        <h2 class="text-center mb-4">Políticas de Privacidad</h2>
+                        <h2 class="text-center mb-4" style="color: #000;">Políticas de Privacidad</h2>
                   
                         <div class="section">
                           <h4>1. Introducción</h4>
@@ -125,7 +124,11 @@
                   
                         <div class="section">
                           <h4>9. Contacto</h4>
-                          <p>Si tienes alguna duda o inquietud sobre nuestras políticas de privacidad, puedes contactarnos en: soportevendricom.com.</p>
+                          <p>Si tienes alguna duda o inquietud sobre nuestras políticas de privacidad, puedes contactarnos escribiendonos a:
+                             </p>
+                             <a href="mailto:soporte&#64;vendricom.com" target="_blank"><i class="fa fa-envelope"></i> soporte&#64;vendricom.com</a> 
+                             <span class="mx-2">|</span>                            
+                             <a href="telephone:50672964128" target="_blank"><i class="fa fa-phone"></i> 506 72964128</a>
                         </div>
                       </div>
                     </div>
@@ -137,7 +140,7 @@
           </div>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" (click)="close()">Cerrar</button>
+          <button type="button" class="btn btn-secondary" (click)="closeModal()">Cerrar</button>
         </div>
       </div>
     </div>

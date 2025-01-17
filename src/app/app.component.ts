@@ -31,6 +31,9 @@ import { Pipe, PipeTransform } from '@angular/core';
 import { OrderByPipe } from './order-by.pipe';
 import { ModalComponent } from './components/modal/modal.component';
 import { AuthRESTService } from './services/auth-rest.service';
+import { FooterComponent } from './components/ui/footer/footer.component';
+import { EstudiosComponent } from './components/estudios/estudios.component';
+import { CapacitacionesComponent } from './components/capacitaciones/capacitaciones.component';
 
 @Component({
   selector: 'app-root',
@@ -42,6 +45,7 @@ import { AuthRESTService } from './services/auth-rest.service';
     RouterOutlet,
     TopNavbarComponent,
     VerticalNavComponent,
+    FooterComponent,
     UserHomeComponent,
     AdminHomeComponent,
     UserPaymentsComponent,
@@ -60,9 +64,11 @@ import { AuthRESTService } from './services/auth-rest.service';
     PublicityComponent,
     FaqComponent,
     ContactsComponent,
-    ModalComponent,
-    OrderByPipe
-  ],
+    ModalComponent, 
+    EstudiosComponent,
+    CapacitacionesComponent,
+    OrderByPipe,
+      ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })

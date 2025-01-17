@@ -5,6 +5,7 @@ import { ImageUploadService } from '@app/services/image-upload.service';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { virtualRouter } from '@app/services/virtualRouter.service';
+import { ModalComponent } from '../modal/modal.component';
 
 interface ClienteOperador {
   NombreOperador: string;
@@ -25,7 +26,7 @@ interface Cliente {
   templateUrl: './admin-home.component.html',
   styleUrls: ['./admin-home.component.scss'],
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, FormsModule]
+  imports: [CommonModule, ReactiveFormsModule, FormsModule, ModalComponent],
 })
 export class AdminHomeComponent implements OnInit {
   loading = false;
@@ -43,6 +44,8 @@ export class AdminHomeComponent implements OnInit {
   dateRange: string = '';
   documentos: any[] = [];
   document: any;
+  modalVisible: boolean = false;
+  modalType: string = '';
 
   constructor(
     public globalService: GlobalService,
@@ -176,5 +179,15 @@ export class AdminHomeComponent implements OnInit {
   formatDate(date: Date): string {
     const options: Intl.DateTimeFormatOptions = { month: 'short', day: '2-digit', year: 'numeric' };
     return date.toLocaleDateString('es-US', options);
+  }
+  openModal(modalType: string): void {
+    this.modalType = modalType;
+    this.modalVisible = true;
+    console.log('Modal abierta:', modalType);
+  }
+
+  closeModal() {
+    this.modalVisible = false;
+    console.log('Modal cerrada');
   }
 }

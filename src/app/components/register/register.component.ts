@@ -26,7 +26,6 @@ export class RegisterComponent {
   errorMessage = '';
   modalVisible: boolean = false;
   modalType: string = '';
-  isVisible: boolean = false;
 
   constructor(
     private spinner: NgxSpinnerService,
@@ -102,12 +101,12 @@ export class RegisterComponent {
   openModal(modalType: string): void {
     this.modalType = modalType;
     this.modalVisible = true;
-    console.log('Modal abierto:', modalType); // Verifica que se llame
+    console.log('Modal abierta:', modalType);
   }
-  
-  close() {
+
+  closeModal() {
     this.modalVisible = false;
-    console.log('Modal cerrado'); // Verifica que se llame
+    console.log('Modal cerrada');
   }
 
 }

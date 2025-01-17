@@ -147,6 +147,30 @@ export class virtualRouter {
             console.error('Tipo de usuario no reconocido');
         }
         break;
+        case 'estudios':
+          switch (userType) {
+            case 'admin':
+              this.routerActive = 'estudios';
+              break;
+            case 'cliente':
+              this.routerActive = 'estudios';
+              break;
+            default:
+              console.error('Tipo de usuario no reconocido');
+          }
+          break;
+          case 'capacitaciones':
+            switch (userType) {
+              case 'admin':
+                this.routerActive = 'capacitaciones';
+                break;
+              case 'cliente':
+                this.routerActive = 'capacitaciones';
+                break;
+              default:
+                console.error('Tipo de usuario no reconocido');
+            }
+            break;
       case 'settings':
         this.routerActive = 'settings';
         break;
@@ -171,6 +195,9 @@ export class virtualRouter {
       default:
         console.error('Ruta no reconocida');
     }
+  }
+  getCurrentRoute(): string {
+    return this.routerActive; // Return the current active route
   }
 
 }
