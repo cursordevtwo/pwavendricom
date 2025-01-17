@@ -380,14 +380,25 @@ export class DataApiService {
 	deleteJurisprudencia(id: string) {
 		const url_api = `https://db.buckapi.com:8090/api/collections/vendricomJurisprudencias/records/${id}`;
 		return this.http.delete<ClientInterface>(url_api).pipe(map((data) => data));
-		}
-		  
+	}
+	deleteTema(id: string) {
+		const url_api = `https://db.buckapi.com:8090/api/collections/vendricomTemas/records/${id}`;
+		return this.http.delete<ClientInterface>(url_api).pipe(map((data) => data));
+	}
+	deleteCategory(id: string) {
+		const url_api = `https://db.buckapi.com:8090/api/collections/vendricomCategories/records/${id}`;
+		return this.http.delete<ClientInterface>(url_api).pipe(map((data) => data));
+	}
+	deleteRepositorio(id: string) {
+		const url_api = `https://db.buckapi.com:8090/api/collections/vendricomRepositorios/records/${id}`;
+		return this.http.delete<ClientInterface>(url_api).pipe(map((data) => data));
+	}
 	deleteNormativa(id: string) {
-	const url_api = `${this.yeoman.origin.restUrl}/api/collections/vendricomNormativas/records/${id}`;
+		const url_api = `${this.yeoman.origin.restUrl}/api/collections/vendricomNormativas/records/${id}`;
 		return this.http.delete<DocumentInterface>(url_api).pipe(map((data) => data));
-		}
+	}
 	deleteBoletin(id: string) {
-	const url_api = `${this.yeoman.origin.restUrl}/api/collections/vendricomBoletines/records/${id}`;
+		const url_api = `${this.yeoman.origin.restUrl}/api/collections/vendricomBoletines/records/${id}`;
 		return this.http.delete<DocumentInterface>(url_api).pipe(map((data) => data));
 		}
 	deleteOrder(orderId: string): Observable<void> {
@@ -421,6 +432,24 @@ export class DataApiService {
 
 	  updateDocument(data: any, id: string): Observable<any> {
 		const url = `https://db.buckapi.com:8090/api/collections/vendricomDocuments/records/${id}`;
+		return this.http.patch(url, data).pipe(
+		  map(response => response)
+		);
+	  }
+	  updateTema(data: any, id: string): Observable<any> {
+		const url = `https://db.buckapi.com:8090/api/collections/vendricomTemas/records/${id}`;
+		return this.http.patch(url, data).pipe(
+		  map(response => response)
+		);
+	  }
+	  updateCategory(data: any, id: string): Observable<any> {
+		const url = `https://db.buckapi.com:8090/api/collections/vendricomCategories/records/${id}`;
+		return this.http.patch(url, data).pipe(
+		  map(response => response)
+		);
+	  }
+	  updateRepositorio(data: any, id: string): Observable<any> {	
+		const url = `https://db.buckapi.com:8090/api/collections/vendricomRepositorios/records/${id}`;
 		return this.http.patch(url, data).pipe(
 		  map(response => response)
 		);

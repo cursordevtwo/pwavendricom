@@ -7,15 +7,7 @@
 					<div class="mb-lg-0 mb-2 me-8">
 						<h1 class="pg-title">Ajustes</h1>
 						<p>Configura tu cuenta</p>
-					</div>
-					<div class="pg-header-action-wrap">
-						<div class="input-group w-300p">
-							<span class="input-affix-wrapper">
-								<span class="input-prefix"><span class="feather-icon"><i data-feather="calendar"></i></span></span>
-								<input class="form-control form-wth-icon" name="datetimes" [(ngModel)]="dateRange">
-							</span>
-						</div>
-					</div>					
+					</div>			
 				</div>
 			</div>
 		</div>
@@ -34,42 +26,181 @@
 									<div id="column_chart_2"></div>
 									 <div class="flex-grow-1 ms-lg-3">
 										<div class="row g-0 gap-3">
-											<div class="col-xxl-6 col-lg-6 col-sm-6 mb-xxl-0 mb-4 items">
-												<div class="d-flex align-items-center" style="cursor: pointer;">
-													<img src="assets/jampack/dist/img/contacts.png" alt="Documentos" class="boton"> 
-													<span class="d-block fw-medium fs-7">Repositorios</span>
-												</div>
-												<div class="d-flex align-items-center" *ngFor="let repo of global.repositorios">
-													<span class="d-block fs-4 fw-medium text-dark mb-0">Nombre: </span>
-													<span class="badge badge-sm badge-soft-success ms-1"><i class="fa fa-phone"></i> {{ repo.name }}</span>
-												</div>
-											</div>
-											<div class="col-xxl-6 col-lg-6 col-sm-6 mb-xxl-0 mb-4 items">
-												<span class="d-flex align-items-center fw-medium fs-7"  style="cursor: pointer;">
-													<img src="assets/jampack/dist/img/doc.png" alt="Documentos" class="boton"> 
-													Temas
-												</span>
-												<div class="d-flex align-items-center" *ngFor="let tema of global.temas">
-                                                    <span class="d-block fs-4 fw-medium text-dark mb-0">Nombre: </span>
+											<div class="col-xxl-3 col-lg-3 col-sm-6 mb-xxl-0 mb-4 items row">
+                                                <div class="d-flex justify-content-between align-items-center w-100">
+                                                    <span class="d-flex align-items-center fw-medium fs-7" style="cursor: pointer;">
+                                                        <img src="assets/jampack/dist/img/doc.png" alt="Documentos" class="boton"> 
+                                                        Repositorios
+                                                    </span>
+                                                    <div class="dropdown">
+                                                        <a class="menu-btn-gradient btn btn-xs btn-icon btn-rounded flex-shrink-0 dropdown-toggle"
+                                                            data-bs-toggle="dropdown" role="button"
+                                                            aria-haspopup="true" aria-expanded="false"
+                                                            (click)="$event.stopPropagation()">
+                                                            <span class="icon">
+                                                                <span class="feather-icon"><i class="fa fa-ellipsis-v"></i></span>
+                                                            </span>
+                                                        </a>
+                                                        <div class="dropdown-menu">
+                                                            <a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#viewRepositorio"> <!-- Pass the repo object -->
+                                                                <span class="feather-icon dropdown-icon">
+                                                                    <i class="fa fa-eye"></i></span>
+                                                                Ver
+                                                            </a>
+                                                            <a class="dropdown-item" (click)="updateTema()">
+                                                                <span class="feather-icon dropdown-icon">
+                                                                    <i class="fa fa-edit"></i></span>
+                                                                Editar
+                                                            </a>
+                                                            <a class="dropdown-item" (click)="deleteTema(deleteTema)"> <!-- Pass the repo object -->
+                                                                <span class="feather-icon dropdown-icon">
+                                                                    <i class="fa fa-trash"></i></span>
+                                                                Borrar
+                                                            </a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="d-flex align-items-center">
+                                                    <span class="d-block fs-4 fw-medium text-dark mb-0">Total: </span>
                                                     <span class="badge badge-sm badge-soft-success ms-1">
-                                                        <i class="fa fa-file"></i> {{ tema.name }}
+                                                        <i class="fa fa-file"></i> {{ totalRepositorios }}
                                                     </span>
                                                 </div>
-												</div>                                                   
-											<div class="col-xxl-6 col-lg-6 col-sm-6 mb-xxl-0 mb-4 items">
-												<div class="d-flex align-items-center" style="cursor: pointer;" >
-													<img src="assets/jampack/dist/img/doc1.png" alt="Documentos" class="boton"> 
-													<span class="d-block fw-medium fs-7">Categorias</span>
-												</div>
-												<div class="d-flex align-items-center" *ngFor="let categoria of global.categories">
-													<span class="d-block fs-4 fw-medium text-dark mb-0">Nombre: </span>
-													<span class="badge badge-sm badge-soft-success ms-1">
-													<i class="fa fa-file"></i> {{ categoria.name }}
-													</span>
-												</div>
-											</div>
-											
-											</div>
+                                            </div>
+											<div class="col-xxl-3 col-lg-3 col-sm-6 mb-xxl-0 mb-4 items row">
+                                                <div class="d-flex justify-content-between align-items-center w-100">
+                                                    <span class="d-flex align-items-center fw-medium fs-7" style="cursor: pointer;">
+                                                        <img src="assets/jampack/dist/img/doc.png" alt="Documentos" class="boton"> 
+                                                        Temas
+                                                    </span>
+                                                    <div class="dropdown">
+                                                        <a class="menu-btn-gradient btn btn-xs btn-icon btn-rounded flex-shrink-0 dropdown-toggle"
+                                                            data-bs-toggle="dropdown" role="button"
+                                                            aria-haspopup="true" aria-expanded="false"
+                                                            (click)="$event.stopPropagation()">
+                                                            <span class="icon">
+                                                                <span class="feather-icon"><i class="fa fa-ellipsis-v"></i></span>
+                                                            </span>
+                                                        </a>
+                                                        <div class="dropdown-menu dropdown-menu-end">
+                                                            <a class="dropdown-item" (click)="updateTema()">
+                                                                <span class="feather-icon dropdown-icon">
+                                                                    <i class="fa fa-eye"></i></span>
+                                                                Ver
+                                                            </a>
+                                                            <a class="dropdown-item" (click)="updateTema()">
+                                                                <span class="feather-icon dropdown-icon">
+                                                                    <i class="fa fa-edit"></i></span>
+                                                                Editar
+                                                            </a>
+                                                            <a class="dropdown-item" (click)="deleteTema(deleteTema)">
+                                                                <span class="feather-icon dropdown-icon">
+                                                                    <i class="fa fa-trash"></i></span>
+                                                                Borrar
+                                                            </a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="d-flex align-items-center">
+                                                    <span class="d-block fs-4 fw-medium text-dark mb-0">Total: </span>
+                                                    <span class="badge badge-sm badge-soft-success ms-1">
+                                                        <i class="fa fa-file"></i> {{ totalTemas }}
+                                                    </span>
+                                                </div>
+                                            </div>
+											<div class="col-xxl-3 col-lg-3 col-sm-6 mb-xxl-0 mb-4 items row">
+                                                <div class="d-flex justify-content-between align-items-center w-100">
+                                                    <span class="d-flex align-items-center fw-medium fs-7" style="cursor: pointer;">
+                                                        <img src="assets/jampack/dist/img/doc.png" alt="Documentos" class="boton"> 
+                                                        Categorias
+                                                    </span>
+                                                    <div class="dropdown">
+                                                        <a class="menu-btn-gradient btn btn-xs btn-icon btn-rounded flex-shrink-0 dropdown-toggle"
+                                                            data-bs-toggle="dropdown" role="button"
+                                                            aria-haspopup="true" aria-expanded="false"
+                                                            (click)="$event.stopPropagation()">
+                                                            <span class="icon">
+                                                                <span class="feather-icon"><i class="fa fa-ellipsis-v"></i></span>
+                                                            </span>
+                                                        </a>
+                                                        <div class="dropdown-menu dropdown-menu-end">
+                                                            <a class="dropdown-item" (click)="updateTema()">
+                                                                <span class="feather-icon dropdown-icon">
+                                                                    <i class="fa fa-eye"></i></span>
+                                                                Ver
+                                                            </a>
+                                                            <a class="dropdown-item" (click)="updateTema()">
+                                                                <span class="feather-icon dropdown-icon">
+                                                                    <i class="fa fa-edit"></i></span>
+                                                                Editar
+                                                            </a>
+                                                            <a class="dropdown-item" (click)="deleteTema(deleteTema)">
+                                                                <span class="feather-icon dropdown-icon">
+                                                                    <i class="fa fa-trash"></i></span>
+                                                                Borrar
+                                                            </a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="d-flex align-items-center">
+                                                    <span class="d-block fs-4 fw-medium text-dark mb-0">Total: </span>
+                                                    <span class="badge badge-sm badge-soft-success ms-1">
+                                                        <i class="fa fa-file"></i> {{ totalCategories }}
+                                                    </span>
+                                                </div>
+                                            </div>
+                                            <!-- <div id="viewRepositorio" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+                                                <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h5 class="modal-title">Repositorios</h5>
+                                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            <ul class="list-group">
+                                                                <li class="list-group-item" *ngFor="let repo of global.repositorios">
+                                                                    {{ repo.name }} 
+                                                                </li>
+                                                            </ul>
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div> -->
+                                            <div id="viewRepositorio" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+                                                <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h5 class="modal-title">Repositorios</h5>
+                                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            <ul class="list-group">
+                                                                <li class="list-group-item" *ngFor="let repo of global.repositorios">
+                                                                    {{ repo.name }} <!-- Display the name of the repository -->
+                                                                    <button class="btn btn-warning btn-sm float-end" (click)="editRepo(repo)">Editar</button>
+                                                                </li>
+                                                            </ul>
+                                                            <form *ngIf="isEditMode" (ngSubmit)="updateRepo()">
+                                                                <div class="mb-3">
+                                                                    <label for="repoName" class="form-label">Nombre del Repositorio</label>
+                                                                    <input type="text" class="form-control" id="repoName" [(ngModel)]="formData.name" name="repoName" required>
+                                                                </div>
+                                                                <div class="mb-3">
+                                                                    <label for="repoDescription" class="form-label">Descripción</label>
+                                                                    <input type="text" class="form-control" id="repoDescription" [(ngModel)]="formData.description" name="repoDescription">
+                                                                </div>
+                                                                <button type="submit" class="btn btn-primary">Actualizar</button>
+                                                            </form>
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
 										</div>	
 									</div> 
 								</div>
