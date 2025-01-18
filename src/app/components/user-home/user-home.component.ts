@@ -135,7 +135,7 @@ export class UserHomeComponent implements AfterViewInit {
       email: ['', [Validators.required]],
       password: ['', [Validators.required]]
     });
-    this.pb = new PocketBase('https://db.buckapi.com:8090'); // Inicializar la instancia de PocketBase
+    this.pb = new PocketBase('https://db.vendricom.com:8091'); // Inicializar la instancia de PocketBase
     this.status = this.getStatusFromLocalStorage();
     this.check();
     this.dropdownSettings = {

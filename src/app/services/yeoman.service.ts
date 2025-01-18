@@ -29,7 +29,6 @@ export class Yeoman {
   goMessage="";
   idClient:any;
   idDist:any;
-  imagesUrl="https://www.click2order.app/img-API/server/local-storage/tixsImages/"
   indexPreviewCli:number=0;
   indexPreviewDist:number=0;
   myOrders:any;
@@ -39,7 +38,7 @@ export class Yeoman {
   ordersFinished:any[]=[];
   ordersNew:any[]=[];
   ordersProcessing:any[]=[];
-  origin: { name: string; restUrl: string; GQLUrl: string; } = { name: "default", restUrl: "https://db.buckapi.com:8090", GQLUrl: "<origin GQL url>" };
+  origin: { name: string; restUrl: string; GQLUrl: string; } = { name: "default", restUrl: "https://db.vendricom.com:8091", GQLUrl: "<origin GQL url>" };
   pop:Boolean=false;
   preview:any={};
   previewArticulo:any={"arnombre":""};
@@ -81,7 +80,6 @@ export class Yeoman {
     this.goMessage = "";
     this.idClient = null;
     this.idDist = null;
-    this.imagesUrl = "https://www.click2order.app/img-API/server/local-storage/tixsImages/";
     this.indexPreviewCli = 0;
     this.indexPreviewDist = 0;
     this.myOrders = null;
@@ -91,7 +89,7 @@ export class Yeoman {
     this.ordersFinished = [];
     this.ordersNew = [];
     this.ordersProcessing = [];
-    this.origin = {      name: "default",      restUrl: "https://db.buckapi.com:8090",      GQLUrl: "<origin GQL url>",    };
+    this.origin = {      name: "default",      restUrl: "https://db.vendricom.com:8091",      GQLUrl: "<origin GQL url>",    };
     this.pop = false;
     this.preview = {};
     this.previewArticulo = { "arnombre": "" };

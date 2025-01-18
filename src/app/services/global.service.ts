@@ -92,10 +92,10 @@ export interface ClienteOperador {
 })
 export class GlobalService {
 
-  private apiUrl = 'http://localhost:8090/api/collections/images/records';
-
+/*   private apiUrl = 'http://localhost:8090/api/collections/images/records';
+ */
   isInfoActive = false;
-  private apirestUrl = 'https://db.buckapi.com:8090/api/';
+  private apirestUrl = 'https://db.vendricom.com:8091/api/';
   private apirestUrlClientes = 'https://db.vendricom.com:8091/api/';
   clientes: any[] = [];
   documents: any[] = [];
@@ -483,28 +483,7 @@ export class GlobalService {
     }
     return null;
   }
-  getClientDetail(url: any, cliCodigo: any) {
-    this.dataApiService.getCliente(url, cliCodigo).subscribe((res: any) => {
-      this.clientDetail = res[0];
-      localStorage.setItem('clientFicha', JSON.stringify(res));
-      this.obtenerFichaCliente();
-    });
-  }
-  obtenerFichaCliente() {
-    let clientFichaString = localStorage.getItem('clientFicha');
-    if (clientFichaString !== null) {
-      let clienteFicha = JSON.parse(clientFichaString);
-      this.yeoman.clientFicha = clienteFicha;
-    }
-  }
-  setClient(i: any) {
-    this.yeoman.origin.restUrl = this.clients[i].RestUrl;
-    this.dataApiService.getAllProducts().subscribe((response) => {
-      this.yeoman.products = response;
-      this.yeoman.products.reverse();
-      this.yeoman.config.clientSelected = i;
-    });
-  }
+ 
   /* applyFilters() {
     this.filteredDocuments = this.documents.filter((doc: Document) => {
         // Verificar si selectedTema no está vacío y si es así, comprobar que coincide con algún tema del documento

@@ -1,25 +1,12 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders }  from '@angular/common/http';
-// import { Observable } from 'rxjs/internal/Observable';
 import { forkJoin, Observable,of } from 'rxjs';
 import { map,mergeMap } from 'rxjs/operators';
-// import { Butler } from "@services/butler.service";
 import { Yeoman } from './yeoman.service';
 import { AuthRESTService } from "./auth-rest.service";
 
-export interface CardInterface {
-	id?: number;
-	name: string;
-	identity:string;
-	bornDate: string;
-	active: boolean;
-	imageUrl: string;
-	urlImage: string;
-  }
 
-export interface PostInterface{
-	id?:number;
-}export interface DocumentInterface{
+export interface DocumentInterface{
 	categories: any[];
 	temas: any[];
 	files: string[];
@@ -90,14 +77,7 @@ export interface PublicidadesInterface{
 	subject: string;
 	status: string;
 }
- export interface PayInterface{
-	id?:number;
- }
-
- export interface RequestInterface{
-	id?:number;
- }
-
+ 
 export interface UserInterface {
 	id?:number;
 }
@@ -106,24 +86,11 @@ export interface MessageInterface{
 	id?:number;
 }
 
-export interface OrderInterface {
-}
-export interface PartInterface {
-}
 export interface ClientInterface {
 }
 export interface MessageInterface {
 }
 export interface ChatInterface {
-}
-export interface DistInterface {
-}
-export interface ProductInterface {
-}
-
-export interface BranchInterface {
-}
-export interface CarInterface {
 }
 export interface MemberInterface {
 
@@ -136,15 +103,6 @@ export interface TemaInterface {
 }
 export interface RepositorioInterface {
 
-}
-
-
-
-
-export interface TicketInterface {
-}
-export interface SerialInterface {
-	serialT:string,
 }
 @Injectable({
   providedIn: 'root'
@@ -176,39 +134,40 @@ export class DataApiService {
   	headers : HttpHeaders = new HttpHeaders({  		
 		  "Content-Type":"application/json"	
 	});
+		/* <!--	CREAR	--> */
 
 	saveDocument( document: DocumentInterface) {
-		const url_api =  'https://db.buckapi.com:8090/api/collections/vendricomDocuments/records';
+		const url_api =  'https://db.vendricom.com:8091/api/collections/vendricomDocuments/records';
 		return this.http.post<DocumentInterface>(url_api, document).pipe(
 		  map(data => data)
 		);
 	  }
 	  saveNormativa( normativa: NormativaInterface) {
-		const url_api =  'https://db.buckapi.com:8090/api/collections/vendricomNormativas/records';
+		const url_api =  'https://db.vendricom.com:8091/api/collections/vendricomNormativas/records';
 		return this.http.post<NormativaInterface>(url_api, normativa).pipe(
 		  map(data => data)
 		);
 	  }
 	  saveBoletin( boletin: BoletinInterface) {
-		const url_api =  'https://db.buckapi.com:8090/api/collections/vendricomBoletines/records';
+		const url_api =  'https://db.vendricom.com:8091/api/collections/vendricomBoletines/records';
 		return this.http.post<BoletinInterface>(url_api, boletin).pipe(
 		  map(data => data)
 		);
 	  }
 	  saveJurisprudencia( jurisprudencia: JurisprudenciaInterface) {
-		const url_api =  'https://db.buckapi.com:8090/api/collections/vendricomJurisprudencias/records';
+		const url_api =  'https://db.vendricom.com:8091/api/collections/vendricomJurisprudencias/records';
 		return this.http.post<JurisprudenciaInterface>(url_api, jurisprudencia).pipe(
 		  map(data => data)
 		);
 	  }
 	  saveModelos( modelo: ModelosInterface) {
-		const url_api =  'https://db.buckapi.com:8090/api/collections/vendricomModelos/records';
+		const url_api =  'https://db.vendricom.com:8091/api/collections/vendricomModelos/records';
 		return this.http.post<ModelosInterface>(url_api, modelo).pipe(
 		  map(data => data)
 		);
 	  }
 	  savePublicidades( publicidades: PublicidadesInterface) {
-		const url_api =  'https://db.buckapi.com:8090/api/collections/vendricomPublicidad/records';
+		const url_api =  'https://db.vendricom.com:8091/api/collections/vendricomPublicidad/records';
 		return this.http.post<PublicidadesInterface>(url_api, publicidades).pipe(
 		  map(data => data)
 		);
@@ -220,19 +179,19 @@ export class DataApiService {
 	  }
 
 	  saveCategory( category: CategoryInterface) {
-		const url_api = 'https://db.buckapi.com:8090/api/collections/vendricomCategories/records';
+		const url_api = 'https://db.vendricom.com:8091/api/collections/vendricomCategories/records';
 		return this.http.post<CategoryInterface>(url_api, category).pipe(
 		  map(data => data)
 		);
 	  }
 	  saveTema( category: TemaInterface) {
-		const url_api = 'https://db.buckapi.com:8090/api/collections/vendricomTemas/records';
+		const url_api = 'https://db.vendricom.com:8091/api/collections/vendricomTemas/records';
 		return this.http.post<TemaInterface>(url_api, category).pipe(
 		  map(data => data)
 		);
 	  }
 	  saveRepositorio( repositorio: RepositorioInterface) {
-		const url_api = 'https://db.buckapi.com:8090/api/collections/vendricomRepositorios/records';
+		const url_api = 'https://db.vendricom.com:8091/api/collections/vendricomRepositorios/records';
 		return this.http.post<RepositorioInterface>(url_api, repositorio).pipe(
 		  map(data => data)
 		);
@@ -243,37 +202,70 @@ export class DataApiService {
 		  map(data => data)
 		);
 	  }
-	deletePart(id: string){
-		const token = this.AuthRESTService.getToken();
-		const url_api=	this.yeoman.origin.restUrl+`/api/products/${id}/?access_token$={token}`;
+	  saveMessage(message:MessageInterface){
+		const url_api=	this.yeoman.origin.restUrl+'/api/messages';
 		return this.http
-		.delete<PartInterface>(url_api, {headers: this.headers})
-		.pipe(map(data => data));
-	}
-	userUpdate(id: string, userUpdate: UserInterface) {
-		const token = this.AuthRESTService.getToken();
-		// const url_api = `${this.yeoman.origin.restUrl}/api/Users/${id}/?access_token=${token}`;
-		const url_api = `${this.yeoman.origin.restUrl}/api/Users/${id}?access_token=${token}`;
-
-		return this.http
-		  .put<UserInterface>(url_api, userUpdate, { headers: this.headers })
-		  .pipe(map(data => data));
-	  }
-	deleteProduct(id: string){
-		const token = this.AuthRESTService.getToken();
-		const url_api=	this.yeoman.origin.restUrl+`/api/products/${id}/?access_token$={token}`;
-		return this.http
-		.delete<PartInterface>(url_api, {headers: this.headers})
+		.post<MessageInterface>(url_api, message)
 		.pipe(map(data => data));
 	}
 	
-	deleteCar(id: string){
-		const token = this.AuthRESTService.getToken();
-		const url_api=	this.yeoman.origin.restUrl+`/api/cars/${id}/?access_token$={token}`;
-		return this.http
-		.delete<CarInterface>(url_api, {headers: this.headers})
-		.pipe(map(data => data));
+	/* <!--	LEER	--> */
+	
+	getAllChats(){
+		const url_api = this.yeoman.origin.restUrl+'/api/chats';
+		return this.http.get(url_api);
 	}
+	getMessagesBy(idChat: string){
+		const url_api = this.yeoman.origin.restUrl+`/api/messages?filter[idUserwhere][idChat]=${idChat}`;
+		this.messages = this.http.get(url_api);
+		return ( this.http.get(url_api));		
+	}
+	getAllCards(){
+		const url_api = this.yeoman.origin.restUrl+'/api/cards';
+		return this.http.get(url_api);
+	}
+
+	getClientBy(idUser: string){
+		const url_api = this.yeoman.origin.restUrl+`/api/clients?filter[where][idUser]=c${idUser}`;
+		this.clients = this.http.get(url_api);
+		return ( this.http.get(url_api));		
+	}
+	
+	/* <!--	BORRAR	--> */
+
+
+	deleteDocuments(id: string) {
+		const url_api = `${this.yeoman.origin.restUrl}/api/collections/vendricomDocuments/records/${id}`;
+			return this.http.delete<DocumentInterface>(url_api).pipe(map((data) => data));
+		  }
+	deleteClientOperator(id: string) {
+	const url_api = `https://db.vendricom.com:8091/api/collections/clientes/records/${id}`;
+	return this.http.delete<ClientInterface>(url_api).pipe(map((data) => data));
+	}
+	deleteJurisprudencia(id: string) {
+		const url_api = `https://db.vendricom.com:8091/api/collections/vendricomJurisprudencias/records/${id}`;
+		return this.http.delete<ClientInterface>(url_api).pipe(map((data) => data));
+	}
+	deleteTema(id: string) {
+		const url_api = `https://db.vendricom.com:8091/api/collections/vendricomTemas/records/${id}`;
+		return this.http.delete<ClientInterface>(url_api).pipe(map((data) => data));
+	}
+	deleteCategory(id: string) {
+		const url_api = `https://db.vendricom.com:8091/api/collections/vendricomCategories/records/${id}`;
+		return this.http.delete<ClientInterface>(url_api).pipe(map((data) => data));
+	}
+	deleteRepositorio(id: string) {
+		const url_api = `https://db.vendricom.com:8091/api/collections/vendricomRepositorios/records/${id}`;
+		return this.http.delete<ClientInterface>(url_api).pipe(map((data) => data));
+	}
+	deleteNormativa(id: string) {
+		const url_api = `${this.yeoman.origin.restUrl}/api/collections/vendricomNormativas/records/${id}`;
+		return this.http.delete<DocumentInterface>(url_api).pipe(map((data) => data));
+	}
+	deleteBoletin(id: string) {
+		const url_api = `${this.yeoman.origin.restUrl}/api/collections/vendricomBoletines/records/${id}`;
+		return this.http.delete<DocumentInterface>(url_api).pipe(map((data) => data));
+		}
 	deleteChat(id: string){
 		const token = this.AuthRESTService.getToken();
 		const url_api=	this.yeoman.origin.restUrl+`/api/chats/${id}/?access_token$={token}`;
@@ -295,368 +287,63 @@ export class DataApiService {
 		.delete<MemberInterface>(url_api, {headers: this.headers})
 		.pipe(map(data => data));
 	}
-	getTransationByBranch(branch: string){
-		const url_api = this.yeoman.origin.restUrl+`/api/transactions?filter[where][idBranch]=${branch}`;
-		this.transactions = this.http.get(url_api);
-		return ( this.http.get(url_api));		
-	}
-
-
-	getOrdersByDist(idDist: string){
-		const url_api = this.yeoman.origin.restUrl+`/api/orders?filter[where][idDist]=${idDist}`;
-		this.orders = this.http.get(url_api);
-		return ( this.http.get(url_api));		
-	}
-
-	getAllProducts(){
-		const url_api = this.yeoman.origin.restUrl+'/api/products';
-		return this.http.get(url_api);
-	}
-
 	
-	getAllCars(){
-		const url_api = this.yeoman.origin.restUrl+'/api/cars';
-		return this.http.get(url_api);
+	/* <!--	ACTUALIZAR	--> */
+	updateDocument(data: any, id: string): Observable<any> {
+	const url = `https://db.vendricom.com:8091/api/collections/vendricomDocuments/records/${id}`;
+	return this.http.patch(url, data).pipe(
+		map(response => response)
+	);
 	}
-
-	getAllChats(){
-		const url_api = this.yeoman.origin.restUrl+'/api/chats';
-		return this.http.get(url_api);
+	updateTema(data: any, id: string): Observable<any> {
+	const url = `https://db.vendricom.com:8091/api/collections/vendricomTemas/records/${id}`;
+	return this.http.patch(url, data).pipe(
+		map(response => response)
+	);
 	}
-	getMessagesBy(idChat: string){
-		const url_api = this.yeoman.origin.restUrl+`/api/messages?filter[idUserwhere][idChat]=${idChat}`;
-		this.messages = this.http.get(url_api);
-		return ( this.http.get(url_api));		
+	updateCategory(data: any, id: string): Observable<any> {
+	const url = `https://db.vendricom.com:8091/api/collections/vendricomCategories/records/${id}`;
+	return this.http.patch(url, data).pipe(
+		map(response => response)
+	);
 	}
-	getAllCards(){
-		const url_api = this.yeoman.origin.restUrl+'/api/cards';
-		return this.http.get(url_api);
+	updateRepositorio(data: any, id: string): Observable<any> {	
+	const url = `https://db.vendricom.com:8091/api/collections/vendricomRepositorios/records/${id}`;
+	return this.http.patch(url, data).pipe(
+		map(response => response)
+	);
 	}
-
-	getClientBy(idUser: string){
-		const url_api = this.yeoman.origin.restUrl+`/api/clients?filter[where][idUser]=c${idUser}`;
-		this.clients = this.http.get(url_api);
-		return ( this.http.get(url_api));		
+	updateJurisprudencia(data: any, id: string): Observable<any> {
+	const url = `https://db.vendricom.com:8091/api/collections/vendricomJurisprudencias/records/${id}`;
+	return this.http.patch(url, data).pipe(
+		map(response => response)
+	);
 	}
-
-
-	getAllDists() {
-		const url_api = this.yeoman.origin.restUrl + '/api/dists';
-		return this.http.get(url_api);
-	}
-	getClients() {
-		const url_api = this.yeoman.origin.restUrl + '/api/clients';
-		return this.http.get(url_api);
-	}
-
-	getAllOrders() {
-		const url_api = this.yeoman.origin.restUrl + '/api/orders';
-		return this.http.get(url_api);
-	}
-
-	getDistByIdDist(ref: string) {
-		const url_api = this.yeoman.origin.restUrl + `/api/dists?filter[where][ref]=${ref}`;
-		this.dists = this.http.get(url_api);
-		return (this.http.get(url_api));
-	}
-	getDistBy(idUser: string) {
-		const url_api = this.yeoman.origin.restUrl + `/api/dists?filter[where][idUser]=${idUser}`;
-		this.dists = this.http.get(url_api);
-		return (this.http.get(url_api));
-	}
-	getOrdersByClient(idClient: string) {
-		const url_api = this.yeoman.origin.restUrl + `/api/orders?filter[where][idClient]=${idClient}`;
-		this.orders = this.http.get(url_api);
-		return (this.http.get(url_api));
-	}
-	deleteDocuments(id: string) {
-		const url_api = `${this.yeoman.origin.restUrl}/api/collections/vendricomDocuments/records/${id}`;
-			return this.http.delete<DocumentInterface>(url_api).pipe(map((data) => data));
-		  }
-	deleteClientOperator(id: string) {
-	const url_api = `https://db.vendricom.com:8091/api/collections/clientes/records/${id}`;
-	return this.http.delete<ClientInterface>(url_api).pipe(map((data) => data));
-	}
-	deleteJurisprudencia(id: string) {
-		const url_api = `https://db.buckapi.com:8090/api/collections/vendricomJurisprudencias/records/${id}`;
-		return this.http.delete<ClientInterface>(url_api).pipe(map((data) => data));
-	}
-	deleteTema(id: string) {
-		const url_api = `https://db.buckapi.com:8090/api/collections/vendricomTemas/records/${id}`;
-		return this.http.delete<ClientInterface>(url_api).pipe(map((data) => data));
-	}
-	deleteCategory(id: string) {
-		const url_api = `https://db.buckapi.com:8090/api/collections/vendricomCategories/records/${id}`;
-		return this.http.delete<ClientInterface>(url_api).pipe(map((data) => data));
-	}
-	deleteRepositorio(id: string) {
-		const url_api = `https://db.buckapi.com:8090/api/collections/vendricomRepositorios/records/${id}`;
-		return this.http.delete<ClientInterface>(url_api).pipe(map((data) => data));
-	}
-	deleteNormativa(id: string) {
-		const url_api = `${this.yeoman.origin.restUrl}/api/collections/vendricomNormativas/records/${id}`;
-		return this.http.delete<DocumentInterface>(url_api).pipe(map((data) => data));
-	}
-	deleteBoletin(id: string) {
-		const url_api = `${this.yeoman.origin.restUrl}/api/collections/vendricomBoletines/records/${id}`;
-		return this.http.delete<DocumentInterface>(url_api).pipe(map((data) => data));
-		}
-	deleteOrder(orderId: string): Observable<void> {
-		const token = this.AuthRESTService.getToken();
-		const url_api = `${this.yeoman.origin.restUrl}/api/orders/${orderId}/?access_token=${token}`;
-
-		return this.http.delete<void>(url_api, { headers: this.headers });
-	}
-	deleteClient(clientId: string): Observable<void> {
-		const token = this.AuthRESTService.getToken();
-		const url_api = `${this.yeoman.origin.restUrl}/api/clients/${clientId}/?access_token=${token}`;
-		return this.http.delete<void>(url_api, { headers: this.headers });
-	}
-	deleteDist(distId: string): Observable<void> {
-		const token = this.AuthRESTService.getToken();
-		const url_api = `${this.yeoman.origin.restUrl}/api/dists/${distId}/?access_token=${token}`;
-		return this.http.delete<void>(url_api, { headers: this.headers });
-	}
-	getProduct(id: string){
-		const url_api = this.yeoman.origin.restUrl+`/api/products/${id}`;
-		return this.http.get(url_api);
-	}
-
+	updateContact(data: any, id: string): Observable<any> {
+	const url = `https://db.vendricom.com:8091/api/collections/clientes/records/${id}`;
 	
-
-	getCierresByBranch(branch: string){
-		const url_api = this.yeoman.origin.restUrl+`/api/infos?filter[where][idBranch]=${branch}`;
-		this.cierre = this.http.get(url_api);
-		return ( this.http.get(url_api));		
+	// Verificar los datos antes de enviarlos
+	console.log('Datos enviados a la API:', data); 
+	
+	return this.http.patch(url, data).pipe(
+		map(response => {
+		// Verificar la respuesta recibida de la API
+		console.log('Respuesta de la API:', response);  
+		return response;
+		})
+	);
 	}
+	userUpdate(id: string, userUpdate: UserInterface) {
+	const token = this.AuthRESTService.getToken();
+	// const url_api = `${this.yeoman.origin.restUrl}/api/Users/${id}/?access_token=${token}`;
+	const url_api = `${this.yeoman.origin.restUrl}/api/Users/${id}?access_token=${token}`;
 
-	  updateDocument(data: any, id: string): Observable<any> {
-		const url = `https://db.buckapi.com:8090/api/collections/vendricomDocuments/records/${id}`;
-		return this.http.patch(url, data).pipe(
-		  map(response => response)
-		);
-	  }
-	  updateTema(data: any, id: string): Observable<any> {
-		const url = `https://db.buckapi.com:8090/api/collections/vendricomTemas/records/${id}`;
-		return this.http.patch(url, data).pipe(
-		  map(response => response)
-		);
-	  }
-	  updateCategory(data: any, id: string): Observable<any> {
-		const url = `https://db.buckapi.com:8090/api/collections/vendricomCategories/records/${id}`;
-		return this.http.patch(url, data).pipe(
-		  map(response => response)
-		);
-	  }
-	  updateRepositorio(data: any, id: string): Observable<any> {	
-		const url = `https://db.buckapi.com:8090/api/collections/vendricomRepositorios/records/${id}`;
-		return this.http.patch(url, data).pipe(
-		  map(response => response)
-		);
-	  }
-	  updateJurisprudencia(data: any, id: string): Observable<any> {
-		const url = `https://db.buckapi.com:8090/api/collections/vendricomJurisprudencias/records/${id}`;
-		return this.http.patch(url, data).pipe(
-		  map(response => response)
-		);
-	  }
-		updateContact(data: any, id: string): Observable<any> {
-			const url = `https://db.vendricom.com:8091/api/collections/clientes/records/${id}`;
-			
-			// Verificar los datos antes de enviarlos
-			console.log('Datos enviados a la API:', data); 
-		  
-			return this.http.patch(url, data).pipe(
-			  map(response => {
-				// Verificar la respuesta recibida de la API
-				console.log('Respuesta de la API:', response);  
-				return response;
-			  })
-			);
-		  }
+	return this.http
+		.put<UserInterface>(url_api, userUpdate, { headers: this.headers })
+		.pipe(map(data => data));
+	}
 		  
 	
-	  
-	  orderUpdate(order : OrderInterface , id: string){
-		// let token = this.authService.getToken();
-		const url_api=	this.yeoman.origin.restUrl+`/api/orders/${id}`;
-		return this.http
-		.put<CarInterface>(url_api, order)
-		.pipe(map(data => data));
-	}
-	carUpdate(car :CarInterface, id: string){
-		// let token = this.authService.getToken();
-		const url_api=	this.yeoman.origin.restUrl+`/api/cars/${id}`;
-		return this.http
-		.put<CarInterface>(url_api, car)
-		.pipe(map(data => data));
-	}
-	partUpdate(part :PartInterface, id: string){
-		// let token = this.authService.getToken();
-		const url_api=	this.yeoman.origin.restUrl+`/api/products/${id}`;
-		return this.http
-		.put<PartInterface>(url_api, part)
-		.pipe(map(data => data));
-	}
-	cardUpdate(card :CardInterface, id: string){
-		// let token = this.authService.getToken();
-		const url_api=	this.yeoman.origin.restUrl+`/api/cards/${id}`;
-		return this.http
-		.put<CardInterface>(url_api, card)
-		.pipe(map(data => data));
-	}
-	clientUpdate(client :ClientInterface, id: string){
-		// let token = this.authService.getToken();
-		const url_api=	this.yeoman.origin.restUrl+`/api/clients/${id}`;
-		return this.http
-		.put<CardInterface>(url_api, client)
-		.pipe(map(data => data));
-	}
-
-	memberUpdate(member :MemberInterface, id: string){
-		// let token = this.authService.getToken();
-		const url_api=	this.yeoman.origin.restUrl+`/api/cards/${id}`;
-		return this.http
-		.put<MemberInterface>(url_api, member)
-		.pipe(map(data => data));
-	}
-	getPartsById(userId: string){
-		const url_api = this.yeoman.origin.restUrl+`/api/products?filter[where][userId]=${userId}`;
-		this.parts = this.http.get(url_api);
-		return ( this.http.get(url_api));		
-	}
-	getCarsById(userId: string){
-		const url_api = this.yeoman.origin.restUrl+`/api/cars?filter[where][userId]=${userId}`;
-		this.cars = this.http.get(url_api);
-		return ( this.http.get(url_api));		
-	}
-	getCardByUserId(userId: string){
-		const url_api = this.yeoman.origin.restUrl+`/api/cards?filter[where][userd]=${userId}`;
-		this.cards = this.http.get(url_api);
-		return ( this.http.get(url_api));		
-	}
-	getSerialT(branch: string){
-		const url_api = this.yeoman.origin.restUrl+`/api/branchs/${branch}`;
-		this.branch = this.http.get(url_api);
-		// this.butler.serialT=this.branch.serialT;
-		return ( this.branch);		
-	}
 	
-	// setSerialT(branch: string){
-	// 	const url_api = this.yeoman.origin.restUrl+`/api/branchs/${branch}`;
-	// 	this.branch = this.http.get(url_api);
-	// 	this.butler.serialT=this.branch.serialT;
-	// 	return ( this.branch);		
-	// }
-	setSerialT(serial:SerialInterface, branch: string){
-		// let token = this.authService.getToken();
-		const url_api = this.yeoman.origin.restUrl+`/api/branchs/${branch}`;
-		return this.http
-		.put<SerialInterface>(url_api, serial)
-		.pipe(map(data => data));
-	}
-
-	getArticulos(url: any): Observable<any[]> {
-		return this.http.get<any[]>(url + 'webapi/articulos/getlista');
-	  }
-	
-	  getCategories(url: any): Observable<any[]> {
-		return this.http.get<any[]>(url + 'webapi/familia/all');
-	  }
-	
-	  getClientes(url: any): Observable<any[]> {
-		return this.http.get<any[]>(url + 'webapi/clientes/getall');
-	  }
-
-
-	  getCliente(url: string, clcodigo: any): Observable<any[]> {
-		// Concatena el valor de clcodigo en la URL
-		const apiUrl = url + 'webapi/clientes/getcliente?clcodigo=' + clcodigo;
-		
-		return this.http.get<any[]>(apiUrl);
-	  }
-
-
-	  getDescuento(url: any , cllistaprecio:any): Observable<any[]> {
-		const apiUrl = url + 'webapi/descuentos/getpromocionales?prolistaprecio=' + cllistaprecio;
-		return this.http.get<any[]>(url );
-	  }
-
-	  getCatalogo(url: any): Observable<any[]> {
-		return this.http.get<any[]>(url );
-	  }
-	
-	  
-	  getAllData(url: any): Observable<any[]> {
-		return forkJoin([
-		  this.getArticulos(url),
-		  this.getCategories(url),
-		  this.getClientes(url)
-		]);
-	  }
-	  
-
-
-	saveCard(card :CardInterface){
-		const url_api=	this.yeoman.origin.restUrl+'/api/cards';
-		return this.http
-		.post<CardInterface>(url_api, card)
-		.pipe(map(data => data));
-	}
-	saveOrder(order :OrderInterface){
-		const url_api=	this.yeoman.origin.restUrl+'/api/orders';
-		return this.http
-		.post<CardInterface>(url_api, order)
-		.pipe(map(data => data));
-	}
-	saveMessage(message:MessageInterface){
-		const url_api=	this.yeoman.origin.restUrl+'/api/messages';
-		return this.http
-		.post<MessageInterface>(url_api, message)
-		.pipe(map(data => data));
-	}
-	saveProduct(product :ProductInterface){
-		const url_api=	this.yeoman.origin.restUrl+'/api/products';
-		return this.http
-		.post<ProductInterface>(url_api, product)
-		.pipe(map(data => data));
-	}
-
-	saveClient(client :ClientInterface){
-		const url_api=	this.yeoman.origin.restUrl+'/api/clients';
-		return this.http
-		.post<ClientInterface>(url_api, client)
-		.pipe(map(data => data));
-	}
-	saveBranch(branch :BranchInterface){
-		const url_api=	this.yeoman.origin.restUrl+'/api/branchs';
-		return this.http
-		.post<BranchInterface>(url_api, branch)
-		.pipe(map(data => data));
-	}
-	saveDist(dist :DistInterface){
-		const url_api=	this.yeoman.origin.restUrl+'/api/dists';
-		return this.http
-		.post<DistInterface>(url_api, dist)
-		.pipe(map(data => data));
-	}
-	saveCar(car :CarInterface){
-		const url_api=	this.yeoman.origin.restUrl+'/api/cars';
-		return this.http
-		.post<CarInterface>(url_api, car)
-		.pipe(map(data => data));
-	}
-	savePart(part :PartInterface){
-		const url_api=	this.yeoman.origin.restUrl+'/api/products';
-		return this.http
-		.post<PartInterface>(url_api, part)
-		.pipe(map(data => data));
-	}
-	saveTicket(ticket :TicketInterface){
-		const url_api=	this.yeoman.origin.restUrl+'/api/transactions';
-		return this.http
-		.post<TicketInterface>(url_api, ticket)
-		.pipe(map(data => data));
-	}
 	
 }

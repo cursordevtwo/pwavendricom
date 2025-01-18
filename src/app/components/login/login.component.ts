@@ -130,7 +130,7 @@ change(){
 
   fetchClientData(userId: string): void {
     // Crear una instancia de PocketBase
-    const pb = new PocketBase('https://db.buckapi.com:8090');
+    const pb = new PocketBase('https://db.vendricom.com:8091');
     
     // Hacer la solicitud para obtener los datos del cliente
     pb.collection('vendricomClients').getList(1, 1, {
