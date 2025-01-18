@@ -227,6 +227,6 @@
 }
 
 .rounded-button[href*="tiktok.com"] {
-    background-color: #69C9D0; /* TikTok color */
+    background-color: #000; /* TikTok color */
     color: white; /* Text color */
 }

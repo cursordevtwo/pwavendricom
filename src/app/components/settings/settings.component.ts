@@ -78,7 +78,105 @@ export class SettingsComponent {
 }
 
 // Actualizar tema
+submitNewCategoria(): void {
+  if (this.isEditMode) {
+      // Update existing tema
+      this.dataApi.saveCategory(this.formData).subscribe(
+          (response) => {
+              const index = this.global.categories.findIndex(categoria => categoria.id === this.formData.id);
+              if (index !== -1) {
+                  this.global.categories[index] = response; // Update the tema in the list
+              }
+              Swal.fire('Éxito', 'La categoria ha sido actualizado con éxito.', 'success');
+              this.resetForm(); // Reset the form after submission
+          },
+          (error) => {
+              Swal.fire('Error', 'Ocurrido un error al actualizar el tema.', 'error');
+              console.error('Error updating tema:', error);
+          }
+      );
+  }
+}
+updateCategoria(): void {
+  // Call your service to update the tema
+  this.dataApi.updateCategory(this.formData, this.formData.id).subscribe(
+      (response) => {
+          // Update the local temas list with the updated data
+          const index = this.global.categories.findIndex(categoria => categoria.id === this.formData.id);
+          if (index !== -1) {
+              this.global.categories[index] = response; // Update the tema in the list
+          }
+          // Reset the form and exit edit mode
+          this.resetForm();
+          Swal.fire('Éxito', 'La categoria ha sido actualizado con éxito.', 'success');
+      },
+      (error) => {
+          Swal.fire('Error', 'Ocurrido un error al actualizar el tema.', 'error');
+      }
+  );
+}
+deleteCategoria(categoria: any) {
+  const categoriaId = categoria.id;
 
+  if (!categoriaId) {
+    console.error('No se puede eliminar la categoria: ID no definido');
+    return;
+  }
+
+  Swal.fire({
+    title: '¿Estás seguro?',
+    text: '¡Estaacción no se podrá revertir!',
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonText: 'Sí, borrar!',
+    cancelButtonText: 'No, cancelar'
+  }).then((result) => {
+    if (result.isConfirmed) {
+      this.dataApi.deleteCategory(categoriaId).subscribe(
+        response => {
+          console.log(' eliminado:', response);
+          
+          // Eliminar la categoria de la lista local
+          this.global.categories = this.global.categories.filter(categoria => categoria.id !== categoriaId);
+          this.global.filteredCategories = this.global.filteredCategories.filter(categoria => categoria.id !== categoriaId);
+          
+          Swal.fire(
+            'Borrado!',
+            'La categoria ha sido eliminado.',
+            'success'
+          );
+        },
+        error => {
+          Swal.fire(
+            'Error',
+            'Ocurrido un error al eliminar la categoria. Inténtelo de nuevo más tarde.',
+            'error'
+          );
+          console.error('Error al borrar la categoria:', error);
+        }
+      );
+    }
+  });
+}
+submitNewTema(): void {
+  if (this.isEditMode) {
+      // Update existing tema
+      this.dataApi.saveTema(this.formData).subscribe(
+          (response) => {
+              const index = this.global.temas.findIndex(tema => tema.id === this.formData.id);
+              if (index !== -1) {
+                  this.global.temas[index] = response; // Update the tema in the list
+              }
+              Swal.fire('Éxito', 'El  ha sido actualizado con éxito.', 'success');
+              this.resetForm(); // Reset the form after submission
+          },
+          (error) => {
+              Swal.fire('Error', 'Ocurrido un error al actualizar el .', 'error');
+              console.error('Error updating tema:', error);
+          }
+      );
+  }
+}
   updateTema(): void {
     if (!this.editingTema) return;
   
@@ -144,7 +242,7 @@ export class SettingsComponent {
   submitNewRepo(): void {
     if (this.isEditMode) {
         // Update existing repository
-        this.dataApi.updateRepositorio(this.formData, this.formData.id).subscribe(
+        this.dataApi.saveRepositorio(this.formData).subscribe(
             (response) => {
                 const index = this.global.repositorios.findIndex(repo => repo.id === this.formData.id);
                 if (index !== -1) {
@@ -173,24 +271,27 @@ export class SettingsComponent {
         );
     }
 }
-  updateRepo(): void {
-    // Call your service to update the repository
-    this.dataApi.updateRepositorio(this.formData, this.formData.id).subscribe(
-        (response) => {
-            // Update the local repositories list with the updated data
-            const index = this.global.repositorios.findIndex(repo => repo.id === this.formData.id);
-            if (index !== -1) {
-                this.global.repositorios[index] = response; // Update the repository in the list
-            }
-            // Reset the form and exit edit mode
-            this.resetForm();
-            Swal.fire('Éxito', 'El repositorio ha sido actualizado con éxito.', 'success');
-        },
-        (error) => {
-            Swal.fire('Error', 'Ocurrió un error al actualizar el repositorio.', 'error');
-        }
-    );
-  }
+updateRepo(): void {
+  console.log('Updating repository with data:', this.formData); // Log formData for debugging
+
+  // Call your service to update the repository
+  this.dataApi.updateRepositorio(this.formData, this.formData.id).subscribe(
+      (response) => {
+          // Update the local repositories list with the updated data
+          const index = this.global.repositorios.findIndex(repo => repo.id === this.formData.id);
+          if (index !== -1) {
+              this.global.repositorios[index] = response; // Update the repository in the list
+          }
+          // Reset the form and exit edit mode
+          this.resetForm();
+          Swal.fire('Éxito', 'El repositorio ha sido actualizado con éxito.', 'success');
+      },
+      (error) => {
+          console.error('Error updating repository:', error); // Log the error for debugging
+          Swal.fire('Error', 'Ocurrió un error al actualizar el repositorio.', 'error');
+      }
+  );
+}
   deleteRepositorio(repositorio: any) {
   const repositorioId = repositorio.id;
 

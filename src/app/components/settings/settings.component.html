@@ -67,7 +67,7 @@
                                             </div>
 											<div class="col-xxl-3 col-lg-3 col-sm-6 mb-xxl-0 mb-4 items row">
                                                 <div class="d-flex justify-content-between align-items-center w-100">
-                                                    <span class="d-flex align-items-center fw-medium fs-7" style="cursor: pointer;">
+                                                    <span class="d-flex align-items-center fw-medium fs-7" style="cursor: pointer;" data-bs-toggle="modal" data-bs-target="#viewTemas">
                                                         <img src="assets/jampack/dist/img/doc.png" alt="Documentos" class="boton"> 
                                                         Temas
                                                     </span>
@@ -81,20 +81,15 @@
                                                             </span>
                                                         </a>
                                                         <div class="dropdown-menu dropdown-menu-end">
-                                                            <a class="dropdown-item" (click)="updateTema()">
+                                                            <a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#viewTemas"> <!-- Pass the repo object -->
                                                                 <span class="feather-icon dropdown-icon">
                                                                     <i class="fa fa-eye"></i></span>
                                                                 Ver
                                                             </a>
-                                                            <a class="dropdown-item" (click)="updateTema()">
+                                                            <a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#viewTemas"> <!-- Pass the repo object -->
                                                                 <span class="feather-icon dropdown-icon">
-                                                                    <i class="fa fa-edit"></i></span>
-                                                                Editar
-                                                            </a>
-                                                            <a class="dropdown-item" (click)="deleteTema(deleteTema)">
-                                                                <span class="feather-icon dropdown-icon">
-                                                                    <i class="fa fa-trash"></i></span>
-                                                                Borrar
+                                                                    <i class="fa fa-add"></i></span>
+                                                                Agregar
                                                             </a>
                                                         </div>
                                                     </div>
@@ -132,11 +127,6 @@
                                                                     <i class="fa fa-edit"></i></span>
                                                                 Editar
                                                             </a>
-                                                            <a class="dropdown-item" (click)="deleteTema(deleteTema)">
-                                                                <span class="feather-icon dropdown-icon">
-                                                                    <i class="fa fa-trash"></i></span>
-                                                                Borrar
-                                                            </a>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -168,6 +158,70 @@
                                                                 <div class="mb-3">
                                                                     <label for="repoName" class="form-label" style="color: #000">Nombre del Repositorio</label>
                                                                     <input type="text" class="form-control" id="repoName" [(ngModel)]="formData.name" name="repoName" required placeholder="Ingrese el nombre del repositorio">
+                                                                </div>
+                                                                <button type="submit" class="btn btn-primary">{{ isEditMode ? 'Actualizar' : 'Agregar' }}</button>
+                                                                <button type="button" class="btn btn-secondary" (click)="resetForm()">Cancelar</button>
+                                                            </form>
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div id="viewTemas" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+                                                <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h5 class="modal-title">Temas</h5>
+                                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            <ul class="list-group">
+                                                                <li class="list-group-item" *ngFor="let tema of global.temas">
+                                                                    {{ tema.name }} 
+                                                                    <button class="btn btn-warning btn-sm float-end" (click)="editTema(tema)">Editar</button>
+                                                                    <button class="btn btn-danger btn-sm float-end me-2" (click)="deleteTema(tema)">Borrar</button>
+                                                                </li>
+                                                            </ul>
+                                                            <h6 class="text-uppercase fw-bold mb-3" style="color: #000; padding-top: 20px">{{ isEditMode ? 'Actualizar Tema' : 'Agregar Nuevo Tema' }}</h6>
+
+                                                            <form (ngSubmit)="submitNewTema()">
+                                                                <div class="mb-3">
+                                                                    <label for="repoName" class="form-label" style="color: #000">Nombre del Tema</label>
+                                                                    <input type="text" class="form-control" id="repoName" [(ngModel)]="formData.name" name="repoName" required placeholder="Ingrese el nombre del tema">
+                                                                </div>
+                                                                <button type="submit" class="btn btn-primary">{{ isEditMode ? 'Actualizar' : 'Agregar' }}</button>
+                                                                <button type="button" class="btn btn-secondary" (click)="resetForm()">Cancelar</button>
+                                                            </form>
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div id="viewCategories" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+                                                <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h5 class="modal-title">Categorias</h5>
+                                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            <ul class="list-group">
+                                                                <li class="list-group-item" *ngFor="let categoria of global.categories">
+                                                                    {{ categoria.name }} 
+                                                                    <button class="btn btn-warning btn-sm float-end" (click)="updateCategoria()">Editar</button>
+                                                                    <button class="btn btn-danger btn-sm float-end me-2" (click)="deleteCategoria(categoria)">Borrar</button>
+                                                                </li>
+                                                            </ul>
+                                                            <h6 class="text-uppercase fw-bold mb-3" style="color: #000; padding-top: 20px">{{ isEditMode ? 'Actualizar Categoria' : 'Agregar Nueva Categoria' }}</h6>
+
+                                                            <form (ngSubmit)="submitNewCategoria()">
+                                                                <div class="mb-3">
+                                                                    <label for="repoName" class="form-label" style="color: #000">Nombre de la Categoria</label>
+                                                                    <input type="text" class="form-control" id="repoName" [(ngModel)]="formData.name" name="repoName" required placeholder="Ingrese el nombre de la categoria">
                                                                 </div>
                                                                 <button type="submit" class="btn btn-primary">{{ isEditMode ? 'Actualizar' : 'Agregar' }}</button>
                                                                 <button type="button" class="btn btn-secondary" (click)="resetForm()">Cancelar</button>
