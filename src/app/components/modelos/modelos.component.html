@@ -96,16 +96,7 @@
 
                     <header class="fm-header">
                         <div class="d-flex align-items-center flex-grow-1">
-                            <a class="fmapp-title dropdown-toggle link-dark" data-bs-toggle="dropdown" href="#"
-                                role="button" aria-haspopup="true" aria-expanded="false">
-                                <h1>{{ global.selectedTema ? global.selectedTema.name : 'Todos los temas' }}</h1>
-                            </a>
-                            <div class="dropdown-menu">
-                                <a class="dropdown-item" *ngFor="let tema of global.temas" (click)="global.selectTema(tema)">
-                                    <span class="feather-icon dropdown-icon"><i data-feather="file"></i></span>
-                                    <span>{{ tema.name }}</span>
-                                </a>
-                            </div>
+                            
                             <form class="mx-3 flex-grow-1 mw-400p" role="search" (submit)="global.searchModelos($event)">
                                 <input type="text" class="form-control" placeholder="Buscar entre los documentos" [(ngModel)]="global.searchQuery" (ngModelChange)="global.applyFiltersModelos()" name="searchQuery">
 
@@ -129,7 +120,8 @@
                    
                     <div class="fm-body">
                     <div  class="row row-cols-xxl-3 row-cols-xl-3 row-cols-lg-3 row-cols-md-2 row-cols-1 mt-4">
-                        
+<!--                         <h5 class="mb-0" style="color: white;">Modelos recientes</h5>
+ -->
                         <div class="col-3" *ngFor="let modelo of global.filteredModelos" (click)="setPreview(modelo)" >
                             <div class="card  card-border fmapp-info-toggle"
                                 style="border-radius: 10px; background: #582e6d;">

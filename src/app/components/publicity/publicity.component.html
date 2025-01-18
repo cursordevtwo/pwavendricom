@@ -96,11 +96,29 @@
             </nav>
             <div class="fmapp-content">
                 <div class="fmapp-detail-wrap">
-
+                    <header class="fm-header">
+                        <div class="d-flex align-items-center flex-grow-1">
+                           
+                            <form class="mx-3 flex-grow-1 mw-400p" role="search" (submit)="global.searchBoletines($event)">
+                                <input type="text" class="form-control" placeholder="Buscar entre los boletines" [(ngModel)]="global.searchQuery" (ngModelChange)="global.applyFiltersBoletines()" name="searchQuery">
+                            </form>
+                        </div>
+                        <div class="fm-options-wrap">
+                            <a class="btn btn-icon btn-flush-dark btn-rounded flush-soft-hover hk-navbar-togglable d-lg-inline-block d-none"
+                                href="#" data-bs-toggle="tooltip" data-bs-placement="top" title=""
+                                data-bs-original-title="Collapse">
+                                <span class="icon">
+                                    <span class="feather-icon"><i data-feather="chevron-up"></i></span>
+                                    <span class="feather-icon d-none"><i data-feather="chevron-down"></i></span>
+                                </span>
+                            </a>
+                        </div>
+                        <div class="hk-sidebar-togglable"></div>
+                    </header>
                     <div class="fm-body">
                         <div class="row row-cols-xxl-3 row-cols-xl-3 row-cols-lg-3 row-cols-md-2 row-cols-1 mt-4">
-                        
                             <div class="col-3" *ngFor="let publicidad of global.filteredPublicidad" (click)="setPreview(publicidad)" >
+                                
                                 <div class="card  card-border fmapp-info-toggle"
                                     style="border-radius: 10px; background: #582e6d;">
 
