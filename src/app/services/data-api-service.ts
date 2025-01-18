@@ -65,8 +65,10 @@ export interface ModelosInterface{
 	subject: string;
 	entity: string;
 	status: string;
+	tema: string;
 }
 export interface PublicidadesInterface{
+	id: string;
 	categories: any[];
 	temas: any[];
 	files: string[];
@@ -266,6 +268,14 @@ export class DataApiService {
 		const url_api = `${this.yeoman.origin.restUrl}/api/collections/vendricomBoletines/records/${id}`;
 		return this.http.delete<DocumentInterface>(url_api).pipe(map((data) => data));
 		}
+	deleteModelo(id: string) {
+		const url_api = `${this.yeoman.origin.restUrl}/api/collections/vendricomModelos/records/${id}`;
+		return this.http.delete<DocumentInterface>(url_api).pipe(map((data) => data));
+		}
+	deletePublicidad(id: string) {
+		const url_api = `${this.yeoman.origin.restUrl}/api/collections/vendricomPublicidad/records/${id}`;
+		return this.http.delete<DocumentInterface>(url_api).pipe(map((data) => data));
+		}
 	deleteChat(id: string){
 		const token = this.AuthRESTService.getToken();
 		const url_api=	this.yeoman.origin.restUrl+`/api/chats/${id}/?access_token$={token}`;
@@ -315,6 +325,30 @@ export class DataApiService {
 	}
 	updateJurisprudencia(data: any, id: string): Observable<any> {
 	const url = `https://db.vendricom.com:8091/api/collections/vendricomJurisprudencias/records/${id}`;
+	return this.http.patch(url, data).pipe(
+		map(response => response)
+	);
+	}
+	updateNormativa(data: any, id: string): Observable<any> {
+	const url = `https://db.vendricom.com:8091/api/collections/vendricomNormativas/records/${id}`;
+	return this.http.patch(url, data).pipe(
+		map(response => response)
+	);
+	}
+	updateModelos(data: any, id: string): Observable<any> {
+	const url = `https://db.vendricom.com:8091/api/collections/vendricomModelos/records/${id}`;
+	return this.http.patch(url, data).pipe(
+		map(response => response)
+	);
+	}
+	updateBoletin(data: any, id: string): Observable<any> {
+	const url = `https://db.vendricom.com:8091/api/collections/vendricomBoletines/records/${id}`;
+	return this.http.patch(url, data).pipe(
+		map(response => response)
+	);
+	}
+	updatePublicidad(data: any, id: string): Observable<any> {
+	const url = `https://db.vendricom.com:8091/api/collections/vendricomPublicidad/records/${id}`;
 	return this.http.patch(url, data).pipe(
 		map(response => response)
 	);

@@ -17,16 +17,18 @@ import {
 } from 'ng-multiselect-dropdown';
 import { CommonModule } from '@angular/common';
 import { DataApiService } from '@app/services/data-api-service';
+import Swal from 'sweetalert2';
 interface PublicidadInterface {
+  id: string;
   categories: any[];
   temas: any[];
   files: string[];
-  issue: '',
-    image: '',
-    whatsapp: '',
-    subject: '',
-    status: '',
-    description: ''
+  issue: string;
+  image: string;
+  whatsapp: string;
+  subject: string;
+  status: string;
+  description: string
 }
 @Component({
   selector: 'app-publicity',
@@ -44,6 +46,7 @@ export class PublicityComponent {
   years: number[] = [];
 
   data = {
+    id: '',
     categories: [] as any[],
     temas: [] as any[],
     files: [] as string[],
@@ -56,6 +59,7 @@ export class PublicityComponent {
   };
   
 docummentSelected: PublicidadInterface = {
+  id: '',
   categories: [],
   temas: [],
   files: [],
@@ -84,6 +88,9 @@ docummentSelected: PublicidadInterface = {
     },
   };
   adapter = new DemoFilePickerAdapter(this.http, this._butler, this.global);
+  editMode: boolean = false;
+  editingPublicidadId: string | null = null;
+  isEditMode: boolean = false;
   constructor(
     public imageUpload: ImageUploadService,
     private formBuilder: FormBuilder,
@@ -144,6 +151,7 @@ docummentSelected: PublicidadInterface = {
         this.global.filteredPublicidad=this.global.publicidades;
         this.global.filteredPublicidad=[...this.global.filteredPublicidad];
         this.data = {
+          id: '',
           categories: [],
           temas: [],
           files: [],
@@ -157,14 +165,7 @@ docummentSelected: PublicidadInterface = {
         // this.temas = [...this.temas];
         this._butler.uploaderImages=[];
         console.log('Publicidad cargada con éxito:', response);
-        // Agregar la marca de la respuesta al array de marcas, si es necesario
-
-        // Limpiar los valores para futuros usos
-        // this.global.newBrand = '';
-        // this.yeoman.brands.push(response);
-        // this.yeoman.brands = [...this.yeoman.brands];
-        // Cerrar el modal
-        // this.activeModal.close();
+        
       },
       (error) => {
         console.error('Error al guardar publicidad:', error);
@@ -173,5 +174,104 @@ docummentSelected: PublicidadInterface = {
     // Limpia el formulario después de enviarlo.
     this.formData = {};
   }
+  editPublicidad(publicidad: PublicidadInterface): void {
+    this.isEditMode = true; // Set edit mode to true
+    this.editingPublicidadId = publicidad.id; // Store the ID of the publicidad being edited
+    this.formData = { ...publicidad }; // Populate formData with the publicidad's data
+
+    // Ensure that `repositorios` is a valid object
+    if (!this.formData.repositorios) {
+        this.formData.repositorios = { id: '', name: '' }; // Initialize if necessary
+    }
+}
+  
+updatePublicidad(formData: PublicidadInterface): void {
+  if (!this.editingPublicidadId) return;
+
+  this.dataApi.updatePublicidad(formData, this.editingPublicidadId).subscribe(
+      (response) => {
+          const index = this.global.publicidades.findIndex(publicidad => publicidad.id === this.editingPublicidadId);
+          if (index !== -1) {
+              this.global.publicidades[index] = response; // Update the publicidad in the global state
+/*               this.global.filteredPublicidades = [...this.global.publicidades]; // Refresh the filtered list
+ */          }
+
+          Swal.fire('Éxito', 'El documento ha sido actualizado con éxito.', 'success');
+          this.resetForm(); // Reset the form after successful update
+      },
+      (error) => {
+          console.error('Error updating normativa:', error); // Log the error for debugging
+          Swal.fire('Error', 'Ocurrió un error al actualizar el documento.', 'error');
+      }
+  );
+}
+  
+  
+// Reiniciar formulario
+resetForm(): void {
+  this.isEditMode = false;
+  this.editingPublicidadId = null;
+  this.formData = {
+    id: '',
+    subject: '',
+    temas: [],
+    categories: [],
+    files: [],
+    issue: '',
+    image: '',
+    serial: '',
+    receiver: '',
+    entity: '',
+    status: ''
+  };
+  
+}
+deletePublicidad(publicidad: PublicidadInterface) {
+  const documentId = publicidad.id;
+
+  if (!documentId) {
+    console.error('No se puede eliminar el documento: ID no definido');
+    return;
+  }
+  
+  Swal.fire({
+    title: '¿Estás seguro?',
+    text: '¡Esta acción no se podrá revertir!',
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonText: 'Sí, borrar!',
+    cancelButtonText: 'No, cancelar'
+  }).then((result) => {
+    if (result.isConfirmed) {
+      this.dataApi.deletePublicidad(documentId).subscribe(
+        response => {
+          console.log('Documento eliminado:', response);
+          
+          // Eliminar el documento de la lista local
+          this.global.publicidades = this.global.publicidades.filter(doc => doc.id !== documentId);
+/*           this.global.filteredPublicidades = this.global.publicidades.filter(doc => doc.id !== documentId);
+ */          
+          Swal.fire(
+            'Borrado!',
+            'El documento ha sido eliminado.',
+            'success'
+          );
+        },
+        error => {
+          Swal.fire(
+            'Error',
+            'Ocurrió un error al eliminar el documento. Inténtelo de nuevo más tarde.',
+            'error'
+          );
+          console.error('Error al borrar el documento:', error);
+        }
+      );
+    }
+  });
+}
+cancelarDelete() {
+  this.editingPublicidadId = null;
+  this.isEditMode = false;
+}
 }
   

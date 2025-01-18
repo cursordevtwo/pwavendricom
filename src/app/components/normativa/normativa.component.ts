@@ -18,7 +18,9 @@ import {
 } from 'ng-multiselect-dropdown';
 import { CommonModule } from '@angular/common';
 import { DataApiService } from '@app/services/data-api-service';
+import Swal from 'sweetalert2';
 interface NormativaInterface {
+  id: string;
   categories: any[];
   temas: any[];
   files: string[];
@@ -47,6 +49,7 @@ export class NormativaComponent {
   years: number[] = [];
 
   data = {
+    id: '',
     categories: [] as any[],
     temas: [] as any[],
     files: [] as string[],
@@ -60,6 +63,7 @@ export class NormativaComponent {
   };
   
 docummentSelected: NormativaInterface = {
+  id: '',
   categories: [],
   temas: [],
   files: [],
@@ -89,7 +93,9 @@ docummentSelected: NormativaInterface = {
     },
   };
   adapter = new DemoFilePickerAdapter(this.http, this._butler, this.global);
-
+  editMode: boolean = false;
+  editingNormativaId: string | null = null;
+  isEditMode: boolean = false;
   constructor(
     public imageUpload: ImageUploadService,
     private formBuilder: FormBuilder,
@@ -135,9 +141,7 @@ docummentSelected: NormativaInterface = {
     }
   }
   submitForm() {
-    // Aquí puedes manejar los datos del formulario, por ejemplo, enviarlos a un servicio o imprimirlos en la consola.
     console.log(this.formData);
-    // this.dataApi.saveDocument(this.formData).subscribe(){};
     this.data.entity = this.formData.entidadRegulatoria;
     this.data.subject = this.formData.asunto;
     this.data.receiver = this.formData.nombreReceptor;
@@ -151,6 +155,7 @@ docummentSelected: NormativaInterface = {
         this.global.filteredNormativas=this.global.normativas;
         this.global.filteredNormativas=[...this.global.filteredNormativas];
         this.data = {
+          id: '',
           categories: [],
           temas: [],
           files: [],
@@ -165,14 +170,7 @@ docummentSelected: NormativaInterface = {
         // this.temas = [...this.temas];
         this._butler.uploaderImages=[];
         console.log('documento cargado con éxito:', response);
-        // Agregar la marca de la respuesta al array de marcas, si es necesario
-
-        // Limpiar los valores para futuros usos
-        // this.global.newBrand = '';
-        // this.yeoman.brands.push(response);
-        // this.yeoman.brands = [...this.yeoman.brands];
-        // Cerrar el modal
-        // this.activeModal.close();
+       
       },
       (error) => {
         console.error('Error al guardar la marca:', error);
@@ -181,4 +179,103 @@ docummentSelected: NormativaInterface = {
     // Limpia el formulario después de enviarlo.
     this.formData = {};
   }
+
+  editNormativa(normativa: NormativaInterface): void {
+    this.isEditMode = true; // Set edit mode to true
+    this.editingNormativaId = normativa.id; // Store the ID of the normativa being edited
+    this.formData = { ...normativa }; // Populate formData with the normativa's data
+
+    // Ensure that `repositorios` is a valid object
+    if (!this.formData.repositorios) {
+        this.formData.repositorios = { id: '', name: '' }; // Initialize if necessary
+    }
+}
+  
+updateNormativa(formData: NormativaInterface): void {
+  if (!this.editingNormativaId) return;
+
+  this.dataApi.updateNormativa(formData, this.editingNormativaId).subscribe(
+      (response) => {
+          const index = this.global.normativas.findIndex(normativa => normativa.id === this.editingNormativaId);
+          if (index !== -1) {
+              this.global.normativas[index] = response; // Update the normativa in the global state
+              this.global.filteredNormativas = [...this.global.normativas]; // Refresh the filtered list
+          }
+
+          Swal.fire('Éxito', 'El documento ha sido actualizado con éxito.', 'success');
+          this.resetForm(); // Reset the form after successful update
+      },
+      (error) => {
+          console.error('Error updating normativa:', error); // Log the error for debugging
+          Swal.fire('Error', 'Ocurrió un error al actualizar el documento.', 'error');
+      }
+  );
+}
+  
+  
+// Reiniciar formulario
+resetForm(): void {
+  this.isEditMode = false;
+  this.editingNormativaId = null;
+  this.formData = {
+    subject: '',
+    temas: [],
+    categories: [],
+    files: [],
+    issue: '',
+    image: '',
+    serial: '',
+    receiver: '',
+    entity: '',
+    status: ''
+  };
+  
+}
+deleteNormativa(normativa: NormativaInterface) {
+  const documentId = normativa.id;
+
+  if (!documentId) {
+    console.error('No se puede eliminar el documento: ID no definido');
+    return;
+  }
+  
+  Swal.fire({
+    title: '¿Estás seguro?',
+    text: '¡Esta acción no se podrá revertir!',
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonText: 'Sí, borrar!',
+    cancelButtonText: 'No, cancelar'
+  }).then((result) => {
+    if (result.isConfirmed) {
+      this.dataApi.deleteNormativa(documentId).subscribe(
+        response => {
+          console.log('Documento eliminado:', response);
+          
+          // Eliminar el documento de la lista local
+          this.global.normativas = this.global.normativas.filter(doc => doc.id !== documentId);
+          this.global.filteredNormativas = this.global.normativas.filter(doc => doc.id !== documentId);
+          
+          Swal.fire(
+            'Borrado!',
+            'El documento ha sido eliminado.',
+            'success'
+          );
+        },
+        error => {
+          Swal.fire(
+            'Error',
+            'Ocurrió un error al eliminar el documento. Inténtelo de nuevo más tarde.',
+            'error'
+          );
+          console.error('Error al borrar el documento:', error);
+        }
+      );
+    }
+  });
+}
+cancelarDelete() {
+  this.editingNormativaId = null;
+  this.isEditMode = false;
+}
 }

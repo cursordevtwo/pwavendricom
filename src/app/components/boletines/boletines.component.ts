@@ -18,7 +18,9 @@ import {
 } from 'ng-multiselect-dropdown';
 import { CommonModule } from '@angular/common';
 import { DataApiService } from '@app/services/data-api-service';
+import Swal from 'sweetalert2';
 interface DocumentInterface {
+  id: string;
   categories: any[];
   temas: any[];
   files: string[];
@@ -62,6 +64,7 @@ export class BoletinesComponent {
   };
   
 docummentSelected: DocumentInterface = {
+  id: '',
   categories: [],
   temas: [],
   files: [],
@@ -92,7 +95,9 @@ docummentSelected: DocumentInterface = {
     },
   };
   adapter = new DemoFilePickerAdapter(this.http, this._butler, this.global);
-
+  editMode: boolean = false;
+  editingBoletinId: string | null = null;
+  isEditMode: boolean = false;
   constructor(
     public imageUpload: ImageUploadService,
     private formBuilder: FormBuilder,
@@ -154,6 +159,7 @@ docummentSelected: DocumentInterface = {
         this.global.filteredBoletines=this.global.boletines;
         this.global.filteredBoletines=[...this.global.filteredBoletines];
         this.data = {
+          
           categories: [],
           temas: [],
           files: [],
@@ -169,14 +175,6 @@ docummentSelected: DocumentInterface = {
         // this.temas = [...this.temas];
         this._butler.uploaderImages=[];
         console.log('documento cargado con éxito:', response);
-        // Agregar la marca de la respuesta al array de marcas, si es necesario
-
-        // Limpiar los valores para futuros usos
-        // this.global.newBrand = '';
-        // this.yeoman.brands.push(response);
-        // this.yeoman.brands = [...this.yeoman.brands];
-        // Cerrar el modal
-        // this.activeModal.close();
       },
       (error) => {
         console.error('Error al guardar la marca:', error);
@@ -185,4 +183,106 @@ docummentSelected: DocumentInterface = {
     // Limpia el formulario después de enviarlo.
     this.formData = {};
   }
+  editBoletin(boletin: DocumentInterface): void {
+    this.isEditMode = true; // Set edit mode to true
+    this.editingBoletinId = boletin.id; // Store the ID of the modelo being edited
+    this.formData = { ...boletin }; // Populate formData with the modelo's data
+
+    // Ensure that `repositorios` is a valid object
+    if (!this.formData.repositorios) {
+        this.formData.repositorios = { id: '', name: '' }; // Initialize if necessary
+    }
+}
+  
+updateBoletin(formData: DocumentInterface): void {
+  if (!this.editingBoletinId) return;
+
+  this.dataApi.updateBoletin(formData, this.editingBoletinId).subscribe(
+      (response) => {
+          const index = this.global.boletines.findIndex(boletin => boletin.id === this.editingBoletinId);
+          if (index !== -1) {
+              this.global.boletines[index] = response; // Update the modelo in the global state
+              this.global.filteredBoletines = [...this.global.boletines]; // Refresh the filtered list
+          }
+
+          Swal.fire('Éxito', 'El documento ha sido actualizado con éxito.', 'success');
+          this.resetForm(); // Reset the form after successful update
+      },
+      (error) => {
+          console.error('Error updating modelo:', error); // Log the error for debugging
+          Swal.fire('Error', 'Ocurrió un error al actualizar el documento.', 'error');
+      }
+  );
+}
+  
+  
+// Reiniciar formulario
+resetForm(): void {
+  this.isEditMode = false;
+  this.editingBoletinId = null;
+  this.formData = {
+    id: '',
+    subject: '',
+    temas: [],
+    categories: [],
+    files: [],
+    issue: '',
+    image: '',
+    serial: '',
+    receiver: '',
+    entity: '',
+    status: '',
+    tema: '',
+    year: '',
+    temeOpen: ''
+  };
+  
+}
+deleteBoletin(boletin: DocumentInterface) {
+  const documentId = boletin.id;
+
+  if (!documentId) {
+    console.error('No se puede eliminar el documento: ID no definido');
+    return;
+  }
+  
+  Swal.fire({
+    title: '¿Estás seguro?',
+    text: '¡Esta acción no se podrá revertir!',
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonText: 'Sí, borrar!',
+    cancelButtonText: 'No, cancelar'
+  }).then((result) => {
+    if (result.isConfirmed) {
+      this.dataApi.deleteBoletin(documentId).subscribe(
+        response => {
+          console.log('Documento eliminado:', response);
+          
+          // Eliminar el documento de la lista local
+          this.global.boletines = this.global.boletines.filter(doc => doc.id !== documentId);
+          this.global.filteredBoletines = this.global.boletines.filter(doc => doc.id !== documentId);
+          
+          Swal.fire(
+            'Borrado!',
+            'El documento ha sido eliminado.',
+            'success'
+          );
+        },
+        error => {
+          Swal.fire(
+            'Error',
+            'Ocurrió un error al eliminar el documento. Inténtelo de nuevo más tarde.',
+            'error'
+          );
+          console.error('Error al borrar el documento:', error);
+        }
+      );
+    }
+  });
+}
+cancelarDelete() {
+  this.editingBoletinId = null;
+  this.isEditMode = false;
+}
 }

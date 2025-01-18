@@ -17,7 +17,7 @@
                             </ul>
                         </div>
 
-                        <form (ngSubmit)="submitForm()">
+                        <form (ngSubmit)="submitForm()" *ngIf="!isEditMode">
                             <div class="form-group">
                                 <label for="asunto">Titulo:</label>
                                 <input type="text" class="form-control" id="asunto" name="asunto"
@@ -42,6 +42,42 @@
                                     [(ngModel)]="formData.description" required>
                             </div>
                         </form>
+                        <form (ngSubmit)="updatePublicidad(formData)" *ngIf="isEditMode"> 
+                            <h4 *ngIf="isEditMode">Editar Documento</h4>
+
+                            <div class="form-group">
+                                <label for="asunto">TITULO:</label>
+                                <input type="text" class="form-control" id="asunto" name="asunto"
+                                    [(ngModel)]="formData.subject" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="fechaEmision">FECHA DE EMISION:</label>
+                                <input type="date" class="form-control" id="fechaEmision" name="fechaEmision"
+                                    [(ngModel)]="formData.issue" required>
+                            </div><div class="form-group">
+                                <label for="whatsapp">Numero de Whatsapp:</label>
+                                <input type="text" class="form-control" id="whatsapp"
+                                    name="whatsapp" [(ngModel)]="formData.whatsapp" required>
+                            </div>
+                            <div class="d-flex align-items-center justify-content-between mb-2">
+
+                            </div>
+                            <div class="form-group">
+                                <label for="description">Breve descripción:</label>
+                                <input type="text" class="form-control" id="description" name="description"
+                                    [(ngModel)]="formData.description" required>
+                            </div>
+                            
+
+                            <button type="submit" class="btn btn-primary">
+                                {{ isEditMode ? 'Actualizar' : 'Guardar' }}
+                            </button>
+
+                            <button type="button" class="btn btn-secondary" (click)="resetForm()"
+                                *ngIf="isEditMode">Cancelar</button>
+                        </form>
+
 
                         <div class="separator separator-light"></div>
                         <div class="menu-group">
@@ -62,71 +98,54 @@
                 <div class="fmapp-detail-wrap">
 
                     <div class="fm-body">
-                        <div data-simplebar class="nicescroll-bar">
-                            <div class="file-card-view">
-                                <div class="collapse-simple mt-4">
-                                    <div class="card">
-                                        <div class="card-header">
-                                            <a role="button" data-bs-toggle="collapse" href="#fm_collapse_1"
-                                                aria-expanded="true">
-                                                <h5 class="mb-0" style="color: white;">Publicidad recientes</h5>
-                                            </a>
-                                        </div>
-                                        <div id="fm_collapse_1" class="collapse show">
-                                            <div class="row gx-3 row-cols-xxl-4 row-cols-xl-4 row-cols-lg-4 row-cols-md-2 row-cols-1 mt-3">
-                                                <div class="col" *ngFor="let publicidad of global.filteredPublicidad"
-                                                    (click)="setPreview(publicidad)">
-                                                    <div class="card file-card card-border">
-                                                        <div class="card-body fmapp-info-trigger">
-                                                            <!-- <i class="svg-icon"></i> -->
-                                                            <!-- <i class="ri-file-excel-2-fill text-blue" style="font-size: 120px;"></i> -->
-                                                        </div>
-                                                        <div class="card-footer">
-                                                            <div
-                                                                class="d-flex justify-content-between align-items-start">
-                                                                <div>
-                                                                    <div class="file-name">{{publicidad.subject}}</div>
-                                                                    <div class="text-truncate fs-8 mb-2">
-                                                                        {{publicidad.receiver}}</div>
-                                                                </div>
-                                                                <div class="d-flex">
+                        <div class="row row-cols-xxl-3 row-cols-xl-3 row-cols-lg-3 row-cols-md-2 row-cols-1 mt-4">
+                        
+                            <div class="col-3" *ngFor="let publicidad of global.filteredPublicidad" (click)="setPreview(publicidad)" >
+                                <div class="card  card-border fmapp-info-toggle"
+                                    style="border-radius: 10px; background: #582e6d;">
 
-                                                                    <a class="btn btn-xs btn-icon btn-flush-dark btn-rounded flush-soft-hover flex-shrink-0"
-                                                                        href="#" data-bs-toggle="dropdown" role="button"
-                                                                        aria-haspopup="true" aria-expanded="false"><span
-                                                                            class="icon"><span class="feather-icon"><i
-                                                                                    data-feather="more-horizontal"></i></span></span></a>
-                                                                    <div class="dropdown-menu">
-
-                                                                        <a class="dropdown-item" href="#"><span
-                                                                                class="feather-icon dropdown-icon"><i
-                                                                                    data-feather="link-2"></i></span><span>Compartir
-                                                                                Link</span></a>
-                                                                        <div class="dropdown-divider"></div>
-                                                                        <a class="dropdown-item" href="#"><span
-                                                                                class="feather-icon dropdown-icon"><i
-                                                                                    data-feather="info"></i></span><span>Ver
-                                                                            </span></a>
-                                                                        <a class="dropdown-item" href="#"><span
-                                                                                class="feather-icon dropdown-icon"><i
-                                                                                    data-feather="download"></i></span><span>Download</span></a>
-                                                                        <a class="dropdown-item" href="#"><span
-                                                                                class="feather-icon dropdown-icon"><i
-                                                                                    data-feather="trash-2"></i></span><span>Borrar</span></a>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <p class="text-truncate p-xs">Fecha de expedición:
-                                                                {{publicidad.issue}}</p>
-                                                        </div>
-                                                    </div>
+                                    <div class="card-body ">
+                                        <div class="d-flex justify-content-between align-items-start">
+                                            <div>
+                                                <div class="file-name"
+                                                    style="font-size: 20px; font-weight: bold; color: #d8d8d8;">
+                                                    <strong>Titulo:</strong> {{ publicidad.subject | slice:0:15 }}{{
+                                                    publicidad.subject.length > 15 ? '...' : '' }}
                                                 </div>
-
+                                                <div class="text-truncate fs-8 mb-2">
+                                                    <strong> N° de Ley:</strong> {{publicidad.serial }}</div>
+                                                <div class="text-truncate fs-8 mb-2">
+                                                        <strong> F.E:</strong> {{publicidad.issue }}</div>
                                             </div>
+                                            <div class="d-flex">
+                                                <a class="menu-btn-gradient btn btn-xs btn-icon btn-rounded flex-shrink-0"
+                                                    data-bs-toggle="dropdown" role="button"
+                                                    aria-haspopup="true" aria-expanded="false"
+                                                    (click)="$event.stopPropagation()">
+                                                    <span class="icon">
+                                                        <span class="feather-icon"><i class="fa fa-ellipsis-v"></i></span>
+                                                    </span>
+                                                </a>
+
+                                                <div class="dropdown-menu" (click)="$event.stopPropagation()">
+                                                    <a class="dropdown-item" (click)="editPublicidad(publicidad)"> <!-- Call editNormativa instead -->
+                                                        <span class="feather-icon dropdown-icon">
+                                                            <i class="fa fa-edit"></i>
+                                                        </span>
+                                                        Editar
+                                                    </a>
+                                                    <a class="dropdown-item" (click)="deletePublicidad(publicidad)">
+                                                        <span class="feather-icon dropdown-icon">
+                                                            <i class="fa fa-trash"></i>
+                                                        </span>
+                                                        Borrar
+                                                    </a>
+                                                </div>
+                                            </div>
+
                                         </div>
                                     </div>
                                 </div>
-
                             </div>
                         </div>
                     </div>
@@ -141,11 +160,8 @@
                                 </span></a>
                             <div class="file-name">{{docummentSelected.subject}}</div>
                             <span></span>
-                            <!-- <img src="assets/jampack/dist/img/gallery/mock2.jpg" alt="user"
-                                class="d-block img-fluid my-4 w-250p"> -->
                             <div class="card-body fmapp-info-trigger">
                                 <i class="svg-icon"></i>
-                                <!-- <i class="ri-file-excel-2-fill text-blue" style="font-size: 200px;"></i> -->
                             </div>
                             <ul class="nav nav-justified nav-light nav-tabs nav-segmented-tabs active-theme mt-5">
                                 <li class="nav-item">
@@ -176,54 +192,6 @@
                                                         <li>
                                                             <span>Fecha de expedicion</span>
                                                             <span>{{docummentSelected.issue}}</span>
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="card">
-                                            <div class="card-header">
-                                                <a role="button" data-bs-toggle="collapse" href="#shared_with"
-                                                    aria-expanded="true">Compartir con </a>
-                                            </div>
-                                            <div id="shared_with" class="collapse show">
-                                                <div class="card-body">
-                                                    <ul class="hk-list">
-                                                        <li>
-                                                            <div
-                                                                class="avatar avatar-sm avatar-primary position-relative avatar-rounded">
-                                                                <img src="assets/jampack/dist/img/avatar9.jpg"
-                                                                    alt="user" class="avatar-img">
-                                                                <div
-                                                                    class="badge-icon badge-circle text-blue badge-icon-xxs position-bottom-end-overflow-1">
-                                                                    <div class="badge-icon-wrap">
-                                                                        <i class="ri-upload-2-fill"></i>
-                                                                    </div>
-                                                                    <svg xmlns="http://www.w3.org/2000/svg"
-                                                                        viewBox="0 0 127 127">
-                                                                        <g data-name="Ellipse 302"
-                                                                            transform="translate(8 8)" stroke-width="3">
-                                                                            <circle cx="55.5" cy="55.5" r="55.5"
-                                                                                stroke="currentColor"></circle>
-                                                                            <circle cx="55.5" cy="55.5" r="59.5"
-                                                                                fill="currentColor"></circle>
-                                                                        </g>
-                                                                    </svg>
-                                                                </div>
-                                                            </div>
-                                                        </li>
-                                                        <li>
-                                                            <div class="avatar avatar-sm  avatar-rounded">
-                                                                <img src="assets/jampack/dist/img/avatar10.jpg"
-                                                                    alt="user" class="avatar-img">
-                                                            </div>
-                                                        </li>
-                                                        <li>
-                                                            <div class="avatar avatar-sm avatar-soft-danger avatar-rounded"
-                                                                data-bs-toggle="tooltip" data-bs-placement="top"
-                                                                title="" data-bs-original-title="Winston">
-                                                                <span class="initial-wrap">W</span>
-                                                            </div>
                                                         </li>
                                                     </ul>
                                                 </div>

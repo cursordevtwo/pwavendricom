@@ -184,20 +184,7 @@ docummentSelected: JurisprudenciaInterface = {
     // Limpia el formulario después de enviarlo.
     this.formData = {};
   }
-    
-      /* submitForm() {
-        if (this.isEditMode) {
-            this.updateJurisprudencia(this.formData); // Llama al método de actualización
-        } else {
-            this.dataApi.saveJurisprudencia(this.formData).subscribe(response => {
-                console.log('Jurisprudencia guardada:', response);
-                this.loadJurisprudencias(); // Carga las jurisprudencias actualizadas
-                this.resetForm(); // Reinicia el formulario
-            }, error => {
-                console.error('Error al guardar el jurisprudencia:', error);
-            });
-        }
-    } */
+   
     editJurisprudencia(jurisprudencia: jurisprudencia): void {
     this.editingJurisprudenciaId = jurisprudencia.id; // Establece el ID del documento que se va a editar
     this.formData = { ...jurisprudencia }; // Carga los datos del documento en el formulario
@@ -206,25 +193,7 @@ docummentSelected: JurisprudenciaInterface = {
  
 // Actualizar documento
 
-/* updateJurisprudencia(jurisprudencia: jurisprudencia): void {
-  this.editingJurisprudenciaId = jurisprudencia.id;
-  this.formData = { ...jurisprudencia };
 
-  // Aquí va la lógica para actualizar la jurisprudencia
-  this.dataApi.updateJurisprudencia(this.formData, this.editingJurisprudenciaId).subscribe(
-      (response) => {
-          const index = this.global.jurisprudencias.findIndex(doc => doc.id === this.editingJurisprudenciaId);
-          if (index !== -1) {
-              this.global.jurisprudencias[index] = response;
-              this.global.filteredJurisprudencias = [...this.global.jurisprudencias];
-          }
-          Swal.fire('Éxito', 'El documento ha sido actualizado con éxito.', 'success');
-      },
-      (error) => {
-          Swal.fire('Error', 'Ocurrió un error al actualizar el documento.', 'error');
-      }
-  );
-} */
   updateJurisprudencia(jurisprudencia: jurisprudencia): void {
     if (!this.editingJurisprudenciaId) return; // Asegúrate de que estás en modo de edición
 
@@ -253,83 +222,51 @@ resetForm(): void {
     repositorios: { id: '', name: '' }
   };
 }
+deleteJurisprudencia(jurisprudencia: jurisprudencia) {
+  const documentId = jurisprudencia.id;
 
-/* deleteJurisprudencia(document: any) {
-  const jurisprudenciaId = document.id;
-
-  if (!jurisprudenciaId) {
-      console.error('No se puede eliminar el documento: ID no definido');
-      return;
+  if (!documentId) {
+    console.error('No se puede eliminar el documento: ID no definido');
+    return;
   }
-
+  
   Swal.fire({
-      title: '¿Estás seguro?',
-      text: '¡Esta acción no se podrá revertir!',
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonText: 'Sí, borrar!',
-      cancelButtonText: 'No, cancelar'
+    title: '¿Estás seguro?',
+    text: '¡Esta acción no se podrá revertir!',
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonText: 'Sí, borrar!',
+    cancelButtonText: 'No, cancelar'
   }).then((result) => {
-      if (result.isConfirmed) {
-          this.dataApi.deleteJurisprudencia(jurisprudenciaId).subscribe(
-              response => {
-                  console.log('Documento eliminado:', response);
-                  this.global.jurisprudencias = this.global.filteredJurisprudencias.filter((jurisprudencia: jurisprudencia) => jurisprudencia.id !== jurisprudenciaId);
-                  Swal.fire('Borrado!', 'El documento ha sido eliminado.', 'success');
-                  
-                  // Llama al método para cargar jurisprudencias actualizadas
-                  this.loadJurisprudencias(); // Carga las jurisprudencias actualizadas
-                },
-              error => {
-                  Swal.fire('Error', 'Ocurrió un error al eliminar el documento. Inténtelo de nuevo más tarde.', 'error');
-                  console.error('Error al borrar el documento:', error);
-              }
-          );
-      }
-  });
-} */
-  /* deleteJurisprudencia(id: string): void {
-    this.dataApi.deleteJurisprudencia(id).subscribe(
+    if (result.isConfirmed) {
+      this.dataApi.deleteJurisprudencia(documentId).subscribe(
         response => {
-            // Eliminar el documento de la lista local
-            this.global.jurisprudencias = this.global.jurisprudencias.filter(doc => doc.id !== id);
-            this.global.filteredJurisprudencias = [...this.global.jurisprudencias]; // Actualiza la lista filtrada
-            Swal.fire('Borrado!', 'El documento ha sido eliminado.', 'success');
+          console.log('Documento eliminado:', response);
+          
+          // Eliminar el documento de la lista local
+          this.global.jurisprudencias = this.global.jurisprudencias.filter(doc => doc.id !== documentId);
+          this.global.filteredJurisprudencias = this.global.jurisprudencias.filter(doc => doc.id !== documentId);
+          
+          Swal.fire(
+            'Borrado!',
+            'El documento ha sido eliminado.',
+            'success'
+          );
         },
         error => {
-            Swal.fire('Error', 'Ocurrió un error al eliminar el documento. Inténtelo de nuevo más tarde.', 'error');
-            console.error('Error al borrar el documento:', error);
+          Swal.fire(
+            'Error',
+            'Ocurrió un error al eliminar el documento. Inténtelo de nuevo más tarde.',
+            'error'
+          );
+          console.error('Error al borrar el documento:', error);
         }
-    );
-    
-} */
-    deleteJurisprudencia(id: string): void {
-      // Primero, muestra el cuadro de confirmación
-      Swal.fire({
-          title: '¿Estás seguro?',
-          text: '¡Esta acción no se podrá revertir!',
-          icon: 'warning',
-          showCancelButton: true,
-          confirmButtonText: 'Sí, borrar!',
-          cancelButtonText: 'No, cancelar'
-      }).then((result) => {
-          if (result.isConfirmed) {
-              // Si el usuario confirma, procede a eliminar
-              this.dataApi.deleteJurisprudencia(id).subscribe(
-                  response => {
-                      // Eliminar el documento de la lista local
-                      this.global.jurisprudencias = this.global.jurisprudencias.filter(doc => doc.id !== id);
-                      this.global.filteredJurisprudencias = [...this.global.jurisprudencias]; // Actualiza la lista filtrada
-                      Swal.fire('Borrado!', 'El documento ha sido eliminado.', 'success');
-                  },
-                  error => {
-                      Swal.fire('Error', 'Ocurrió un error al eliminar el documento. Inténtelo de nuevo más tarde.', 'error');
-                      console.error('Error al borrar el documento:', error);
-                  }
-              );
-          }
-      });
-  }
-cancelDelete(){}
+      );
+    }
+  });
+}
+cancelarDelete() {
+  this.isEditMode = false;
+}
 }
 

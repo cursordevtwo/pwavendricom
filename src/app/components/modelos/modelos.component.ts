@@ -18,7 +18,10 @@ import {
 } from 'ng-multiselect-dropdown';
 import { CommonModule } from '@angular/common';
 import { DataApiService, ModelosInterface } from '@app/services/data-api-service';
+import Swal from 'sweetalert2';
+
 interface modelos {
+  id: string;
   categories: any[];
   temas: any[];
   files: string[];
@@ -29,7 +32,7 @@ interface modelos {
   subject: string;
   entity: string;
   status: string;
-  temeOpen: string;
+  tema: string;
 
 }
 
@@ -51,6 +54,7 @@ export class ModelosComponent {
   years: number[] = [];
 
   data = {
+    id: '',
     categories: [] as any[],
     temas: [] as any[],
     files: [] as string[],
@@ -61,7 +65,9 @@ export class ModelosComponent {
     subject: '',
     entity: '',
     status: '',
-    temeOpen: ''
+    tema: '',
+    year: ''
+    
   };
   
 docummentSelected: ModelosInterface = {
@@ -75,6 +81,7 @@ docummentSelected: ModelosInterface = {
   subject: '',
   entity: '',
   status: '',
+  tema: '',
   
 };
   dropdownSettings: IDropdownSettings = {};
@@ -95,7 +102,9 @@ docummentSelected: ModelosInterface = {
     },
   };
   adapter = new DemoFilePickerAdapter(this.http, this._butler, this.global);
-
+  editMode: boolean = false;
+  editingModeloId: string | null = null;
+  isEditMode: boolean = false;
   constructor(
     public imageUpload: ImageUploadService,
     private formBuilder: FormBuilder,
@@ -157,6 +166,7 @@ docummentSelected: ModelosInterface = {
         this.global.filteredModelos=this.global.modelos;
         this.global.filteredModelos=[...this.global.filteredModelos];
         this.data = {
+          id: '',
           categories: [],
           temas: [],
           files: [],
@@ -167,19 +177,13 @@ docummentSelected: ModelosInterface = {
           subject: '',
           entity: '',
           status: '',
-          temeOpen: ''
+          tema: '',
+          year: ''
         };  
         // this.temas = [...this.temas];
         this._butler.uploaderImages=[];
         console.log('Modelo cargado con éxito:', response);
-        // Agregar la marca de la respuesta al array de marcas, si es necesario
-
-        // Limpiar los valores para futuros usos
-        // this.global.newBrand = '';
-        // this.yeoman.brands.push(response);
-        // this.yeoman.brands = [...this.yeoman.brands];
-        // Cerrar el modal
-        // this.activeModal.close();
+        // Agregar la marca de la respuesta al array de marcas
       },
       (error) => {
         console.error('Error al guardar la marca:', error);
@@ -188,4 +192,105 @@ docummentSelected: ModelosInterface = {
     // Limpia el formulario después de enviarlo.
     this.formData = {};
   }
+  editModelo(modelo: modelos): void {
+    this.isEditMode = true; // Set edit mode to true
+    this.editingModeloId = modelo.id; // Store the ID of the modelo being edited
+    this.formData = { ...modelo }; // Populate formData with the modelo's data
+
+    // Ensure that `repositorios` is a valid object
+    if (!this.formData.repositorios) {
+        this.formData.repositorios = { id: '', name: '' }; // Initialize if necessary
+    }
+}
+  
+updateModelo(formData: modelos): void {
+  if (!this.editingModeloId) return;
+
+  this.dataApi.updateModelos(formData, this.editingModeloId).subscribe(
+      (response) => {
+          const index = this.global.modelos.findIndex(modelo => modelo.id === this.editingModeloId);
+          if (index !== -1) {
+              this.global.modelos[index] = response; // Update the modelo in the global state
+              this.global.filteredModelos = [...this.global.modelos]; // Refresh the filtered list
+          }
+
+          Swal.fire('Éxito', 'El documento ha sido actualizado con éxito.', 'success');
+          this.resetForm(); // Reset the form after successful update
+      },
+      (error) => {
+          console.error('Error updating modelo:', error); // Log the error for debugging
+          Swal.fire('Error', 'Ocurrió un error al actualizar el documento.', 'error');
+      }
+  );
+}
+  
+  
+// Reiniciar formulario
+resetForm(): void {
+  this.isEditMode = false;
+  this.editingModeloId = null;
+  this.formData = {
+    id: '',
+    subject: '',
+    temas: [],
+    categories: [],
+    files: [],
+    issue: '',
+    image: '',
+    serial: '',
+    receiver: '',
+    entity: '',
+    status: '',
+    tema: '',
+    year: ''
+  };
+  
+}
+deleteModelo(modelo: modelos) {  
+  const documentId = modelo.id;
+
+  if (!documentId) {
+    console.error('No se puede eliminar el documento: ID no definido');
+    return;
+  }
+  
+  Swal.fire({
+    title: '¿Estás seguro?',
+    text: '¡Esta acción no se podrá revertir!',
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonText: 'Sí, borrar!',
+    cancelButtonText: 'No, cancelar'
+  }).then((result) => {
+    if (result.isConfirmed) {
+      this.dataApi.deleteModelo(documentId).subscribe(
+        response => {
+          console.log('Documento eliminado:', response);
+          
+          // Eliminar el documento de la lista local
+          this.global.modelos = this.global.modelos.filter(doc => doc.id !== documentId);
+          this.global.filteredModelos = this.global.modelos.filter(doc => doc.id !== documentId);
+          
+          Swal.fire(
+            'Borrado!',
+            'El documento ha sido eliminado.',
+            'success'
+          );
+        },
+        error => {
+          Swal.fire(
+            'Error',
+            'Ocurrió un error al eliminar el documento. Inténtelo de nuevo más tarde.',
+            'error'
+          );
+          console.error('Error al borrar el documento:', error);
+        }
+      );
+    }
+  });
+}
+cancelarDelete() {
+  this.editingModeloId = null;
+  this.isEditMode = false;
+}
 }
