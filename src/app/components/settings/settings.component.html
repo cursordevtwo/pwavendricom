@@ -26,6 +26,42 @@
 									<div id="column_chart_2"></div>
 									 <div class="flex-grow-1 ms-lg-3">
 										<div class="row g-0 gap-3">
+                                            <div class="col-xxl-3 col-lg-3 col-sm-6 mb-xxl-0 mb-4 items row">
+                                                <div class="d-flex justify-content-between align-items-center w-100">
+                                                    <span class="d-flex align-items-center fw-medium fs-7" style="cursor: pointer;" data-bs-toggle="modal" data-bs-target="#viewCategories">
+                                                        <img src="assets/jampack/dist/img/doc.png" alt="Documentos" class="boton"> 
+                                                        Categorias
+                                                    </span>
+                                                    <div class="dropdown">
+                                                        <a class="menu-btn-gradient btn btn-xs btn-icon btn-rounded flex-shrink-0 dropdown-toggle"
+                                                            data-bs-toggle="dropdown" role="button"
+                                                            aria-haspopup="true" aria-expanded="false"
+                                                            (click)="$event.stopPropagation()">
+                                                            <span class="icon">
+                                                                <span class="feather-icon"><i class="fa fa-ellipsis-v"></i></span>
+                                                            </span>
+                                                        </a>
+                                                        <div class="dropdown-menu dropdown-menu-end">
+                                                            <a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#viewCategories">
+                                                                <span class="feather-icon dropdown-icon">
+                                                                    <i class="fa fa-eye"></i></span>
+                                                                Ver
+                                                            </a>
+                                                            <a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#viewCategories">
+                                                                <span class="feather-icon dropdown-icon">
+                                                                    <i class="fa fa-edit"></i></span>
+                                                                Editar
+                                                            </a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="d-flex align-items-center">
+                                                    <span class="d-block fs-4 fw-medium text-dark mb-0">Total: </span>
+                                                    <span class="badge badge-sm badge-soft-success ms-1">
+                                                        <i class="fa fa-file"></i> {{ totalCategories }}
+                                                    </span>
+                                                </div>
+                                            </div>
 											<div class="col-xxl-3 col-lg-3 col-sm-6 mb-xxl-0 mb-4 items row">
                                                 <div class="d-flex justify-content-between align-items-center w-100">
                                                     <span class="d-flex align-items-center fw-medium fs-7" style="cursor: pointer;" data-bs-toggle="modal" data-bs-target="#viewRepositorio">
@@ -101,40 +137,36 @@
                                                     </span>
                                                 </div>
                                             </div>
-											<div class="col-xxl-3 col-lg-3 col-sm-6 mb-xxl-0 mb-4 items row">
-                                                <div class="d-flex justify-content-between align-items-center w-100">
-                                                    <span class="d-flex align-items-center fw-medium fs-7" style="cursor: pointer;">
-                                                        <img src="assets/jampack/dist/img/doc.png" alt="Documentos" class="boton"> 
-                                                        Categorias
-                                                    </span>
-                                                    <div class="dropdown">
-                                                        <a class="menu-btn-gradient btn btn-xs btn-icon btn-rounded flex-shrink-0 dropdown-toggle"
-                                                            data-bs-toggle="dropdown" role="button"
-                                                            aria-haspopup="true" aria-expanded="false"
-                                                            (click)="$event.stopPropagation()">
-                                                            <span class="icon">
-                                                                <span class="feather-icon"><i class="fa fa-ellipsis-v"></i></span>
-                                                            </span>
-                                                        </a>
-                                                        <div class="dropdown-menu dropdown-menu-end">
-                                                            <a class="dropdown-item" (click)="updateTema()">
-                                                                <span class="feather-icon dropdown-icon">
-                                                                    <i class="fa fa-eye"></i></span>
-                                                                Ver
-                                                            </a>
-                                                            <a class="dropdown-item" (click)="updateTema()">
-                                                                <span class="feather-icon dropdown-icon">
-                                                                    <i class="fa fa-edit"></i></span>
-                                                                Editar
-                                                            </a>
+                                            <div id="viewCategories" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+                                                <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h5 class="modal-title">Categorias</h5>
+                                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            <ul class="list-group">
+                                                                <li class="list-group-item" *ngFor="let categoria of global.categories">
+                                                                    {{ categoria.name }} 
+                                                                    <button class="btn btn-warning btn-sm float-end" (click)="updateCategoria(categoria)">Editar</button>
+                                                                    <button class="btn btn-danger btn-sm float-end me-2" (click)="deleteCategoria(categoria)">Borrar</button>
+                                                                </li>
+                                                            </ul>
+                                                            <h6 class="text-uppercase fw-bold mb-3" style="color: #000; padding-top: 20px">{{ isEditMode ? 'Actualizar Categoria' : 'Agregar Nueva Categoria' }}</h6>
+                                            
+                                                            <form (ngSubmit)="submitNewCategoria()">
+                                                                <div class="mb-3">
+                                                                    <label for="repoName" class="form-label" style="color: #000">Nombre de la Categoria</label>
+                                                                    <input type="text" class="form-control" id="repoName" [(ngModel)]="formData.name" name="repoName" required placeholder="Ingrese el nombre de la categoria">
+                                                                </div>
+                                                                <button type="submit" class="btn btn-primary">{{ isEditMode ? 'Actualizar' : 'Agregar' }}</button>
+                                                                <button type="button" class="btn btn-secondary" (click)="resetForm()">Cancelar</button>
+                                                            </form>
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
                                                         </div>
                                                     </div>
-                                                </div>
-                                                <div class="d-flex align-items-center">
-                                                    <span class="d-block fs-4 fw-medium text-dark mb-0">Total: </span>
-                                                    <span class="badge badge-sm badge-soft-success ms-1">
-                                                        <i class="fa fa-file"></i> {{ totalCategories }}
-                                                    </span>
                                                 </div>
                                             </div>
                                             <div id="viewRepositorio" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
@@ -148,7 +180,7 @@
                                                             <ul class="list-group">
                                                                 <li class="list-group-item" *ngFor="let repo of global.repositorios">
                                                                     {{ repo.name }} 
-                                                                    <button class="btn btn-warning btn-sm float-end" (click)="editRepo(repo)">Editar</button>
+                                                                    <button class="btn btn-warning btn-sm float-end" (click)="updateRepositorio(repo)">Editar</button>
                                                                     <button class="btn btn-danger btn-sm float-end me-2" (click)="deleteRepositorio(repo)">Borrar</button>
                                                                 </li>
                                                             </ul>
@@ -201,38 +233,7 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div id="viewCategories" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
-                                                <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
-                                                    <div class="modal-content">
-                                                        <div class="modal-header">
-                                                            <h5 class="modal-title">Categorias</h5>
-                                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                                        </div>
-                                                        <div class="modal-body">
-                                                            <ul class="list-group">
-                                                                <li class="list-group-item" *ngFor="let categoria of global.categories">
-                                                                    {{ categoria.name }} 
-                                                                    <button class="btn btn-warning btn-sm float-end" (click)="updateCategoria()">Editar</button>
-                                                                    <button class="btn btn-danger btn-sm float-end me-2" (click)="deleteCategoria(categoria)">Borrar</button>
-                                                                </li>
-                                                            </ul>
-                                                            <h6 class="text-uppercase fw-bold mb-3" style="color: #000; padding-top: 20px">{{ isEditMode ? 'Actualizar Categoria' : 'Agregar Nueva Categoria' }}</h6>
-
-                                                            <form (ngSubmit)="submitNewCategoria()">
-                                                                <div class="mb-3">
-                                                                    <label for="repoName" class="form-label" style="color: #000">Nombre de la Categoria</label>
-                                                                    <input type="text" class="form-control" id="repoName" [(ngModel)]="formData.name" name="repoName" required placeholder="Ingrese el nombre de la categoria">
-                                                                </div>
-                                                                <button type="submit" class="btn btn-primary">{{ isEditMode ? 'Actualizar' : 'Agregar' }}</button>
-                                                                <button type="button" class="btn btn-secondary" (click)="resetForm()">Cancelar</button>
-                                                            </form>
-                                                        </div>
-                                                        <div class="modal-footer">
-                                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
+                                           
 										</div>	
 									</div> 
 								</div>

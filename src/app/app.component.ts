@@ -92,7 +92,8 @@ export class AppComponent {
       'moment',
       'daterangepicker',
       'daterangepicker-data',      
-      'init'
+      'init',
+      
     )
       .then(() => {
         // console.log('Todos los scripts se cargaron correctamente');
