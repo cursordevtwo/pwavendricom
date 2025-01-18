@@ -132,8 +132,10 @@ docummentSelected: DocumentInterface = {
   selectedRepositorio: any = null; // Para guardar el repositorio seleccionado
   documentTitle: string = 'Documentos';
   currentPage: number = 1;
-itemsPerPage: number = 10; // Ajusta según lo necesario
-totalItems: number = 0; // Total de documentos filtrados
+  itemsPerPage: number = 10; // Ajusta según lo necesario
+  totalItems: number = 0; // Total de documentos filtrados
+  totalDocuments: Map<string, number> = new Map(); // Initialize the Map to hold document counts
+
   constructor(
     public imageUpload: ImageUploadService,
     private formBuilder: FormBuilder,
@@ -157,6 +159,7 @@ totalItems: number = 0; // Total de documentos filtrados
       itemsShowLimit: 3,
       allowSearchFilter: true
     };
+
   }
 
 
@@ -198,35 +201,38 @@ totalItems: number = 0; // Total de documentos filtrados
    
       // Ordenar los temas alfabéticamente
       this.global.temas.sort((a, b) => a.name.localeCompare(b.name));
+      this.calculateTotalDocuments();
      
   }
+  calculateTotalDocuments(): void {
+    // Reset the totalDocuments map
+    this.totalDocuments.clear();
+
+    // Check if a repository is selected
+    if (this.global.selectedRepositorio) {
+        // Iterate through the filtered documents and count them for the selected repository
+        this.global.filteredDocuments.forEach(document => {
+            // Check if the document belongs to the selected repository
+            if (document.repositorios.some((repo: { id: string }) => repo.id === this.global.selectedRepositorio.id)) {
+                // Increment the count for the selected repository
+                const repoName = this.global.selectedRepositorio.name; // Assuming selectedRepositorio has a 'name'
+                const currentCount = this.totalDocuments.get(repoName) || 0; // Get the current count or default to 0
+                this.totalDocuments.set(repoName, currentCount + 1); // Increment the count
+            }
+        });
+    }
+
+    // Calculate the total number of documents
+    this.totalItems = Array.from(this.totalDocuments.values()).reduce((a, b) => a + b, 0);
+    console.log('Total Items:', this.totalItems); // Log the total count
+}
   verTodos(){
    /*  this.showDocuments = false; */
     this.global.filteredDocuments = this.global.documents;
   }
   
-  /* viewRepositorio(repositorio: any) {
-    this.showDocuments = true;
-    if (repositorio && repositorio.id) {
-      // Filter documents that belong to the selected repository
-      this.global.filteredDocuments = this.global.documents.filter(doc => 
-        doc.repositorios.some((repo: any) => repo.id === repositorio.id)
-      );
-      
-      if (this.global.filteredDocuments.length === 0) {
-        Swal.fire({
-          title: 'Info',
-          text: 'No se encontraron documentos en este repositorio',
-          icon: 'info',
-          confirmButtonText: 'OK'
-        });
-      }
-    } else {
-      // If no repository is selected, show all documents
-      this.global.filteredDocuments = this.global.documents;
-    }
-  } */
-    viewRepositorio(repositorio: any) {
+  
+  viewRepositorio(repositorio: any) {
       this.showDocuments = true;
       if (repositorio && repositorio.id) {
         // Asignar el repositorio seleccionado
